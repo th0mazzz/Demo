@@ -14,8 +14,8 @@ public class Assignment{
     public String getName(){return name;}
     public String getDate(){return date;}
 
-    private void setGrade(double updatedGrade){grade = updatedGrade;}
-    private void setName(String updatedName){name = updatedName;}
-    private void setDate(String updatedDate){date = updatedDate;}
+    public void setGrade(double updatedGrade){grade = updatedGrade;}
+    public void setName(String updatedName){name = updatedName;}
+    public void setDate(String updatedDate){date = updatedDate;}
     
 }
