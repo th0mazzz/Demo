@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class Minimal_Gui extends JFrame{ //needs to implement ActionListener
+public class UserInterface extends JFrame{ //needs to implement ActionListener
     private Container pane;
 
     /*
@@ -13,7 +13,7 @@ public class Minimal_Gui extends JFrame{ //needs to implement ActionListener
       e.getActionCommand()
     */
     
-    public Minimal_Gui(){
+    public UserInterface(){
 	this.setTitle("Saturn Grades");
 	this.setSize(1024, 768);
 	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -21,7 +21,7 @@ public class Minimal_Gui extends JFrame{ //needs to implement ActionListener
     }
     
     public static void main(String[] args){
-	Minimal_Gui window = new Minimal_Gui();
+	UserInterface window = new UserInterface();
 	window.setVisible(true);
     }
 }
