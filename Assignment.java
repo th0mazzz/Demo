@@ -17,5 +17,8 @@ public class Assignment{
     public void setGrade(double updatedGrade){grade = updatedGrade;}
     public void setName(String updatedName){name = updatedName;}
     public void setDate(String updatedDate){date = updatedDate;}
-    
+
+    public String toString(){
+	return date + " " + name + " " + grade;
+    }
 }

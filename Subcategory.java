@@ -19,8 +19,13 @@ public class Subcategory{
     public double getAverage(){return average;}
     public double getWeight(){return weight;}
     public String getName(){return name;}
+
+    public void addAssignment(double grade, String name, String date){
+	Assignment newAssignment = new Assignment(grade, name, date);
+	collection.add(newAssignment);
+    }
     
-    //private ArrayList<Assignment> collection = new ArrayList<>();
+    
     public String toString(){
 	String returnString = "";
 	for(int index = 0; index < collection.size(); index++){
@@ -36,6 +41,9 @@ public class Subcategory{
 	testOne.setName("changed name");
 	testOne.setWeight(60.0);
 	System.out.println(testOne.getAverage()+ ", " + testOne.getWeight() + ", " + testOne.getName());
+	System.out.println(testOne);
+        testOne.addAssignment(99.0, "Exam 1", "01/01/2018");
+	testOne.addAssignment(88.0, "Exam 2", "01/02/2018");
 	System.out.println(testOne);
 	System.out.println("end");
        
