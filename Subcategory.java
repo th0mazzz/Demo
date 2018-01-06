@@ -42,7 +42,6 @@ public class Subcategory{
 	return sumOfGrades / collection.size();
     }
 	    
-    
     public String toString(){
 	String returnString = "[";
 	for(int index = 0; index < collection.size() - 1; index++){
