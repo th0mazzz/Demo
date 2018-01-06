@@ -24,14 +24,25 @@ public class Subcategory{
 	Assignment newAssignment = new Assignment(grade, name, date);
 	collection.add(newAssignment);
     }
-    
+
+    public void deleteAssignment(double grade, String name, String date){
+	for(int index = 0; index < collection.size(); index++){
+	    if(collection.get(index).getName() == name){
+		collection.remove(index);
+	    }
+	}
+    }
     
     public String toString(){
-	String returnString = "";
-	for(int index = 0; index < collection.size(); index++){
+	String returnString = "[";
+	for(int index = 0; index < collection.size() - 1; index++){
 	    returnString = returnString + collection.get(index) + ", ";
 	}
-	return returnString;
+	if(collection.size() > 0){
+	    returnString = returnString + collection.get(collection.size() - 1);
+	    return returnString + "]";
+	}
+	return returnString + "]";
     }
     
     public static void main(String[] args){
@@ -44,6 +55,8 @@ public class Subcategory{
 	System.out.println(testOne);
         testOne.addAssignment(99.0, "Exam 1", "01/01/2018");
 	testOne.addAssignment(88.0, "Exam 2", "01/02/2018");
+	System.out.println(testOne);
+	testOne.deleteAssignment(99.0, "Exam 1", "01/01/2018");
 	System.out.println(testOne);
 	System.out.println("end");
        
