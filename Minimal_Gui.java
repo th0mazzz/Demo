@@ -7,6 +7,8 @@ public class Minimal_Gui extends JFrame{ //needs to implement ActionListener
 
     /*
       Important things:
+      JPanels are crucial for this to work!
+
       actionPerformed()
       ActionEvent e
       .addActionListener(this)
