@@ -51,12 +51,14 @@ public class Subcategory{
 	    returnString = returnString + collection.get(collection.size() - 1);
 	    return returnString + "]";
 	}
-	return returnString + "]";
+	return "Subcat name: "+name+returnString + "]";
     }
     
     public static void main(String[] args){
 	Subcategory testOne = new Subcategory("this is the name", 50.0);
 
+	System.out.println(testOne);
+	/*
 	System.out.println(testOne.getAverage() + ", " + testOne.getWeight()+ ", " + testOne.getName());
 	testOne.setName("changed name");
 	testOne.setWeight(60.0);
@@ -73,6 +75,6 @@ public class Subcategory{
 	System.out.println(testOne);
 	System.out.println(testOne.calcAverage());
 	System.out.println("end");
-       
+	*/
     }
 }

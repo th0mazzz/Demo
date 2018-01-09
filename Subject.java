@@ -22,19 +22,23 @@ public class Subject{
     public boolean checkSubcategorySum(){ //TEST
 	double sumOfSub = 0.0;
 	for(int index = 0; index < collection.size(); index++){
-	    sumOfSub = sumOfSub + (collection.get(index)).getWeight;
+	    sumOfSub = sumOfSub + (collection.get(index)).getWeight();
 	}
-	return sumOfSub == 100.00;
+	return sumOfSub == 100.0;
     }
     
     public String toString(){
-	String returnString = "";
-	for(int index = 0; index < collection.size(); index++){
-	    returnString = returnString + collection.get(index) + " ";
-	}
-	return name+returnString;
+	return "Subject name: "+displaySubcats();
     }
 
+    public String displaySubcats(){
+	String returnString = "";
+	for(int index = 0; index < collection.size(); index++){
+	    returnString += collection.get(index) + ", ";
+	}
+	return returnString;
+    }
+    
     public void addSubCat(Subcategory a){
 	collection.add(a);
     }
@@ -49,7 +53,14 @@ public class Subject{
 	n.setName("APCS");
 	System.out.println(n.getName());
 	Subcategory abcd = new Subcategory("Participation", 20.0);
+	Subcategory tests = new Subcategory("Tests", 60.0);
+	Subcategory quizzes = new Subcategory("Quizzes", 0.0);
+	Subcategory projects = new Subcategory("Projects", 0.0);
 	n.addSubCat(abcd);
-	System.out.println(n);
+	n.addSubCat(tests);
+	n.addSubCat(quizzes);
+	n.addSubCat(projects);
+	//System.out.println(n.collection.size());
+	System.out.println(n.checkSubcategorySum());
     }			    
 }

@@ -6,7 +6,7 @@ public class UserDriver{
         Subject a = new Subject("Precalc");
 	foo.addSubject(a);
 	System.out.println(foo.displayClasses());
-
+	
 	/*	
 	try{
 	    System.out.println("Inputted keyword: " + args[0]);
