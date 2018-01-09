@@ -25,6 +25,13 @@ public class Subject{
 	return average;
     }
 
+    public boolean checkSubcategorySum(){ //TEST
+	double sumOfSub = 0.0;
+	for(int index = 0; index < collection.size(); index++){
+	    sumOfSub = sumOfSub + (collection.get(index)).getWeight;
+	}
+	return sumOfSub == 100.00;
+    }
     
     public String toString(){
 	String returnString = "";
