@@ -1,12 +1,5 @@
 import java.util.ArrayList;
 public class User{
-    public static void main(String[] args){
-	User foo = new User("Bob");
-	System.out.println(foo);
-	Subject a = new Subject("Precalc");
-	foo.addSubject(a);
-	System.out.println(foo);
-    }
     
     private String name;
     private ArrayList<Subject> classes = new ArrayList<>();
@@ -23,11 +16,20 @@ public class User{
     public String toString(){
 	String c = "";
 	for(int i=0;i<classes.size();i++){
-	    c+=classes.get(i);
+	    c+=classes.get(i).getName();
 	}
 	return "Name: "+name+
 	    "\nClasses: "+c;
     }
+
+    public int size(){
+	return classes.size();
+    }
+
+    public Subject get(int index){
+	return classes.get(index);
+    }
+    
     public String getName(){
 	return name;
     }
@@ -41,4 +43,60 @@ public class User{
     public void rmSubject(Subject n){
 	classes.remove(n);
     }
+
+    public static void main(String[] args){
+	System.out.println("------------------------------------");
+	User foo = new User("Bob");
+	//System.out.println(foo);
+        Subject a = new Subject("Precalc");
+	foo.addSubject(a);
+	System.out.println(foo.size());
+	System.out.println(foo.classes.get(0));
+	System.out.println(foo.classes);
+	
+
+	try{
+	    System.out.println("Inputted keyword: " + args[0]);
+	    int levelCounter = 0;
+	    System.out.println("levelCounter :" + levelCounter);
+	    String keyword = args[0];
+	    
+	    if(levelCounter == 0 && keyword.equals("back")){
+		System.out.println("You cannot go back anymore!");
+		levelCounter++;
+	    }
+	    // Should also be an upperbounds on levelCounter
+	
+	    if(keyword.equals("back")){
+		levelCounter--;
+	    }
+	    else{
+		levelCounter++;
+	    }
+	    if(levelCounter == 0){
+		System.out.println("Please type in a class from the following list");
+		System.out.println(foo);
+	    }
+	    if(levelCounter == 1){
+		for(int index = 0; index < foo.size(); index++){
+		    if(keyword == foo.get(index).getName()){
+			System.out.println(foo.get(index));
+		    }
+		}
+		System.out.println("Please type a subcategory from the following list");
+		    
+	    }
+	}catch(ArrayIndexOutOfBoundsException e){
+	    System.out.println("You must include a key word after 'java User'");
+	}
+    }
 }
+
+/*Issues at hand
+
+- levelCounter won't increase
+- elements are added to classes... but won't display themselves... however getName() works
+
+! I changed Meredith's toString() for Subject because it would be necessary to implement
+the showing of inner arrays later on. That has seemed to cause the latter issue, however. !
+*/
