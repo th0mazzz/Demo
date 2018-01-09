@@ -55,7 +55,7 @@ public class User{
 	System.out.println("Foo 0th element: " + foo.classes.get(0));
 	System.out.println("Foo subject array: " + foo.classes);
 	
-	/*
+	
 	try{
 	    System.out.println("Inputted keyword: " + args[0]);
 	    int levelCounter = 0;
@@ -89,8 +89,8 @@ public class User{
 	    }
 	}catch(ArrayIndexOutOfBoundsException e){
 	    System.out.println("You must include a key word after 'java User'");
-	}
-	*/
+	}	
+
 
 	
     }
