@@ -8,11 +8,11 @@ public class Subject{
 	name=n;
     }
 
-    /*
+    ///*
     public String toString(){
 	return name;
     }
-    */
+    //*/
     
     public void setName(String n){
 	name=n;
@@ -25,7 +25,7 @@ public class Subject{
 	return average;
     }
 
-    
+    /*
     public String toString(){
 	String returnString = "";
 	for(int index = 0; index < collection.size(); index++){
@@ -33,7 +33,7 @@ public class Subject{
 	}
 	return returnString;
     }
-    
+    */
 
     public static void main(String[] args){
 	Subject n = new Subject("foo");

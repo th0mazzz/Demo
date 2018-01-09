@@ -16,7 +16,8 @@ public class User{
     public String toString(){
 	String c = "";
 	for(int i=0;i<classes.size();i++){
-	    c+=classes.get(i).getName();
+	    c = c + classes.get(i).getName();
+	    System.out.println("Subject :" + classes.get(i));
 	}
 	return "Name: "+name+
 	    "\nClasses: "+c;
@@ -50,11 +51,11 @@ public class User{
 	//System.out.println(foo);
         Subject a = new Subject("Precalc");
 	foo.addSubject(a);
-	System.out.println(foo.size());
-	System.out.println(foo.classes.get(0));
-	System.out.println(foo.classes);
+	System.out.println("Foo size: " + foo.size());
+	System.out.println("Foo 0th element: " + foo.classes.get(0));
+	System.out.println("Foo subject array: " + foo.classes);
 	
-
+	/*
 	try{
 	    System.out.println("Inputted keyword: " + args[0]);
 	    int levelCounter = 0;
@@ -89,6 +90,9 @@ public class User{
 	}catch(ArrayIndexOutOfBoundsException e){
 	    System.out.println("You must include a key word after 'java User'");
 	}
+	*/
+
+	
     }
 }
 
