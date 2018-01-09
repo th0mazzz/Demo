@@ -7,12 +7,6 @@ public class Subject{
     public Subject(String n){
 	name=n;
     }
-
-    /*
-    public String toString(){
-	return name;
-    }
-    */
     
     public void setName(String n){
 	name=n;
@@ -38,7 +32,14 @@ public class Subject{
 	for(int index = 0; index < collection.size(); index++){
 	    returnString = returnString + collection.get(index) + " ";
 	}
-	return returnString;
+	return name+returnString;
+    }
+
+    public void addSubCat(Subcategory a){
+	collection.add(a);
+    }
+    public void rmSubCat(Subcategory b){
+	collection.remove(b);
     }
     
 
@@ -47,5 +48,8 @@ public class Subject{
 	System.out.println(n);
 	n.setName("APCS");
 	System.out.println(n.getName());
+	Subcategory abcd = new Subcategory("Participation", 20.0);
+	n.addSubCat(abcd);
+	System.out.println(n);
     }			    
 }
