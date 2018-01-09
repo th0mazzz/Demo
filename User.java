@@ -14,15 +14,17 @@ public class User{
     }
 
     public String toString(){
-	String c = "";
-	for(int i=0;i<classes.size();i++){
-	    c = c + classes.get(i).getName();
-	    System.out.println("Subject :" + classes.get(i));
-	}
-	return "Name: "+name+
-	    "\nClasses: "+c;
+	return "Name: "+name;
     }
 
+    public String displayClasses(){
+	String result ="";
+	for(int i=0;i<classes.size();i++){
+	    result+="Class"+i+": "+classes.get(i)+", ";
+	}
+	return result;
+    }
+    
     public int size(){
 	return classes.size();
     }
@@ -65,11 +67,13 @@ public class User{
 	    if(levelCounter == 0 && keyword.equals("back")){
 		System.out.println("You cannot go back anymore!");
 		levelCounter++;
+		System.out.println(levelCounter);
 	    }
 	    // Should also be an upperbounds on levelCounter
 	
 	    if(keyword.equals("back")){
 		levelCounter--;
+		System.out.println(levelCounter);
 	    }
 	    else{
 		levelCounter++;
