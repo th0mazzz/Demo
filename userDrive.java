@@ -1,4 +1,4 @@
-public class UserDriver{
+public class userDrive{
     public static void main(String[] args){
 	System.out.println("------------------------------------");
 	User foo = new User("Bob");

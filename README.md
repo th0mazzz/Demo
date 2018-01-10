@@ -19,7 +19,7 @@ SaturnGrades repository of our project
 
 01/09/2018
 (done together)
--wrote new toStrings for all classes- toString should display all information pertaining to an object
--also wrote some new accessor methods
--tested the subcategory function
--fixed a merge conflict/rebase error
+- wrote new toStrings for all classes- toString should display all information pertaining to an object
+- also wrote some new accessor methods
+- tested the subcategory function
+- fixed a merge conflict/rebase error
