@@ -48,13 +48,17 @@ public class User{
     public void rmSubject(Subject n){
 	classes.remove(n);
     }
+
+    public static void main(String[] args){
+	
+	User semester = new User("Jesus");
+	
+	System.out.println(semester.classes);
+	
+
+
+
+	
+    }
 }
 
-/*Issues at hand
-
-- levelCounter won't increase
-- elements are added to classes... but won't display themselves... however getName() works
-
-! I changed Meredith's toString() for Subject because it would be necessary to implement
-the showing of inner arrays later on. That has seemed to cause the latter issue, however. !
-*/
