@@ -19,6 +19,7 @@ public class subcategoryDrive{
 	testOne.addAssignment(99.0, "Exam 5", "01/02/2018");
 	System.out.println(testOne);
 	System.out.println(testOne.calcAverage());
+	System.out.println(testOne.displayAssignments());
 	System.out.println("end");
 	
     }

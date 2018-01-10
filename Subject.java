@@ -28,7 +28,7 @@ public class Subject{
     }
     
     public String toString(){
-	return "Subject name: "+displaySubcats();
+	return name;
     }
 
     public String displaySubcats(){

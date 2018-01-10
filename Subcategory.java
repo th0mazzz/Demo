@@ -42,7 +42,7 @@ public class Subcategory{
 	return sumOfGrades / collection.size();
     }
 	    
-    public String toString(){
+    public String displayAssignments(){
 	String returnString = "[";
 	for(int index = 0; index < collection.size() - 1; index++){
 	    returnString = returnString + collection.get(index) + ", ";
@@ -54,5 +54,7 @@ public class Subcategory{
 	return "Subcat name: "+name+returnString + "]";
     }
     
-   
+    public String toString(){
+	return name;
+    }
 }

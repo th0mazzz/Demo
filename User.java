@@ -15,7 +15,7 @@ public class User{
 
     public String toString(){
 	//use for debugging
-	return "Name: "+name+
+	return "Name: "+name+"\n "+
 	    displayClasses();
     }
 

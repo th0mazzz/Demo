@@ -14,5 +14,6 @@ public class subjectDrive{
 	n.addSubCat(projects);
 	//System.out.println(n.collection.size());
 	System.out.println(n.checkSubcategorySum());
+	System.out.println(n.displaySubcats());
     }
 }
