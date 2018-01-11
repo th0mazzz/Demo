@@ -23,6 +23,10 @@ public class Subcategory{
     public Assignment getElement(int index){
 	return collection.get(index);
     }
+
+    public int size(){
+	return collection.size();
+    }
     
     public void addAssignment(String name, double grade, String date){
 	Assignment newAssignment = new Assignment(name, grade, date);
