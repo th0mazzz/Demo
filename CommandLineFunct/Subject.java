@@ -55,7 +55,6 @@ public class Subject{
 	     for(int index = 0; index < collection.size(); index++){
 		 sumOfSubcategories = sumOfSubcategories + (collection.get(index).getAverage()) *
 		     ((collection.get(index).getWeight()) / 100);
-		 System.out.println("After: " + sumOfSubcategories);
 	     }
 	     double calculatedAverage = sumOfSubcategories;
 	     average = calculatedAverage;

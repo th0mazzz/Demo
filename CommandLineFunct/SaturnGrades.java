@@ -1,15 +1,18 @@
 import java.util.ArrayList;
 public class SaturnGrades{
 
-    private double average;
-    private ArrayList<Subject> collection;
-
+    private double average = 100.0;
+    private ArrayList<Subject> collection; //INITIALIZE
+    
+    public int size(){
+	return collection.size();
+    }
+    
     public void addSubject(String name){
 	Subject newSubject = new Subject(name);
 	collection.add(newSubject);
     }
 
-    //Working on this right now
     public void removeSubject(String name){
 	for(int index = 0; index < collection.size(); index++){
 	    if((collection.get(index).getName()).equals(name)){
@@ -18,7 +21,28 @@ public class SaturnGrades{
 	}
     }
 
+    public double calcAverage(){
+	double sumOfSubjects = 0.0;
+	for(int index = 0; index < collection.size(); index++){
+	    sumOfSubjects = sumOfSubjects + (collection.get(index)).getAverage();
+	}
+	return sumOfSubjects / size();
+    }
 
+    public String toString(){
+	String returnString = "";
+	int index = 0;
+	if(collection.size() != 0){
+	    for(; index < collection.size() - 1; index++){
+		returnString = returnString + collection.get(index).getName() + ", ";
+	    }
+	    return returnString + collection.get(index).getName();
+	}
+	else{
+	    return "This program has no subjects!";
+	}
+    }
+    
     public static void main(String[] args){
 	
 
