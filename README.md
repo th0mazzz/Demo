@@ -1,6 +1,11 @@
 # Saturn Grades
 SaturnGrades repository of our project
 
+01/10/2018
+- Created a new folder and revamped am currently revamping each individual class for command line functionality
+- Revamping means changing old functions, making new ones, to make coding the command line code easier
+- Meredith's trying to get GUI to work
+
 01/09/2018
 - Tried making some very basic GUI code late at night; there are some obstacles that need figuring out
 - Created separate drivers for each .java file (mostly)
