@@ -23,9 +23,9 @@ public class subjectDriver{
 	System.out.println(math.getElement(0).getElement(1));
 	System.out.println(math.getElement(0).getAverage());
 
-	System.out.println(math.getAverage()); // should not be 100
-
-	System.out.println(90.0 * .2);
+	System.out.println("******");
+	System.out.println(math.calcAverage());
+	System.out.println("getAverage(): " + math.getAverage()); // should not be 100
 
 	/* need to fix Subject's calcAverage */
 
