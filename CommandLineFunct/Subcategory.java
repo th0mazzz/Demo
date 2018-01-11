@@ -36,7 +36,7 @@ public class Subcategory{
 
     public void removeAssignment(String name){
 	for(int index = 0; index < collection.size(); index++){
-	    if(collection.get(index).getName() == name){
+	    if((collection.get(index).getName()).equals(name)){
 		collection.remove(index);
 	    }
 	}

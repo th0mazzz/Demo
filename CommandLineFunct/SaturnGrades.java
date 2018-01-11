@@ -1,6 +1,22 @@
 import java.util.ArrayList;
 public class SaturnGrades{
 
+    private double average;
+    private ArrayList<Subject> collection;
+
+    public void addSubject(String name){
+	Subject newSubject = new Subject(name);
+	collection.add(newSubject);
+    }
+
+    //Working on this right now
+    public void removeSubject(String name){
+	for(int index = 0; index < collection.size(); index++){
+	    if((collection.get(index).getName()).equals(name)){
+		collection.remove(index);
+	    }
+	}
+    }
 
 
     public static void main(String[] args){

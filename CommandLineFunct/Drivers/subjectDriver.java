@@ -27,7 +27,12 @@ public class subjectDriver{
 	System.out.println(math.calcAverage());
 	System.out.println("getAverage(): " + math.getAverage()); // should not be 100
 
-	/* need to fix Subject's calcAverage */
+	System.out.println("******");
+	System.out.println(math);
+	System.out.println(math.size());
+	math.removeSubcategory("Quizzes");
+	System.out.println(math);
+	System.out.println(math.size());
 
 
 	
