@@ -49,7 +49,7 @@ public class Subject{
 	}
     }
 
-     public double calcAverage(){
+    public double calcAverage(){ //this one updates average
 	 if(checkSubcategorySum()){
 	     double sumOfSubcategories = 0.0;
 	     for(int index = 0; index < collection.size(); index++){
