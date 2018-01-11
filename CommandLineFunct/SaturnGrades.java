@@ -2,7 +2,7 @@ import java.util.ArrayList;
 public class SaturnGrades{
 
     private double average = 100.0;
-    private ArrayList<Subject> collection; //INITIALIZE
+    private ArrayList<Subject> collection = new ArrayList<>(); //INITIALIZE
     
     public int size(){
 	return collection.size();
