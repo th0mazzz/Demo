@@ -75,7 +75,7 @@ public class Subject{
 	return returnString + collection.get(index).getName();
 	}
 	else{
-	    return "This subject has no assignments!";
+	    return "This subject has no subcategories!";
 	}
     }
 }
