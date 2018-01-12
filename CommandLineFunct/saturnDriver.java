@@ -1,10 +1,7 @@
 public class saturnDriver{
     public static void main(String[] args){
-
 	SaturnGrades user = new SaturnGrades();
 	user.addSubject("Precalculus");
-	//System.out.println(user);
-	//System.out.println(user.getElement(0));
 	user.getElement(0).addSubcategory("Homework", 20.0);
 	user.getElement(0).getElement(0).addAssignment("HW1", 100.0, "01/01/18");
 	user.getElement(0).addSubcategory("Exams", 70.0);
@@ -26,10 +23,23 @@ public class saturnDriver{
 	user.getElement(1).getElement(2).addAssignment("Spoke", 0.0, "01/03/18");
 	user.getElement(1).addSubcategory("Check-ins", 10.0);
 	user.getElement(1).getElement(3).addAssignment("Check-in1", 100.0, "03/03/18");
-	user.displayBasic();
-	//user.displayInformed();
 
-
+	try{
+	    if(args[0].equals("basic")){
+		user.displayBasic();
+		System.exit(1);
+	    }
+	    if(args[0].equals("informed")){    
+		user.displayInformed();
+		System.exit(1);
+	    }
+	    else{
+		System.out.println("Enter args[0] with basic or informed");
+		System.exit(1);
+	    }
+	}catch(ArrayIndexOutOfBoundsException e){
+	    System.out.println("Enter args[0] with basic or informed");
+	}
 
     }
 }
