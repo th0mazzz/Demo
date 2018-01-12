@@ -1,0 +1,44 @@
+//for file stuff:
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+public class Demo2{
+  public static void main(String[]args){
+    String fileName = "file.txt";
+    try{
+      File f = new File(fileName);//can combine
+      Scanner in = new Scanner(f);//into one line
+      
+        //NOW read the file here...
+      
+    }catch(FileNotFoundException e){
+      System.out.println("File not found: " + fileName);
+      //e.printStackTrace();
+      System.exit(1);
+    }
+
+    //How can we use the file here? Where should you put it?
+  }
+}
+
+
+
+
+Reading the file line by line:
+
+while(in.hasNext()){
+        String line = in.nextLine();
+        //do something with line
+        System.out.println(line);
+}
+
+Reading the file word by word:
+
+while(in.hasNext()){
+        String word = in.next();
+        //do something with word
+        System.out.println(word);
+}
+
+The java Scanner is super useful! It is an easy way to parse through files.
