@@ -1,9 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 //import javax.swing.event;
 
-public class UserInterface extends JFrame{ //needs to implement ActionListener
+public class UserInterface extends JFrame implements ActionListener{
     private JPanel homePane;
     private JPanel subjectPane;
     private User user;
@@ -30,10 +31,20 @@ public class UserInterface extends JFrame{ //needs to implement ActionListener
 	this.setUpHomePane();
 	this.setContentPane(homePane);
 	this.setLocationRelativeTo(null);
-	this.setDefaultLookAndFeelDecorated(true);
-	this.setIconImage(new ImageIcon("https://d30y9cdsu7xlg0.cloudfront.net/png/129365-200.png").getImage());
+	//this.setDefaultLookAndFeelDecorated(true);
+	Image a = getImageIcon();
+	this.setIconImage(getImageIcon()); //get icon from some URL
     }
 
+    public static Image getImageIcon(){
+	java.net.URL imgURL = UserInterface.class.getResource("https://d30y9cdsu7xlg0.cloudfront.net/png/129365-200.png");
+	if(imgURL != null){
+	    return new ImageIcon(imgURL).getImage();
+	} else{
+	    return null;
+	}
+    }
+    
     public void setUpHomePane(){
 	homePane = new JPanel(new BorderLayout());
 
@@ -44,17 +55,34 @@ public class UserInterface extends JFrame{ //needs to implement ActionListener
 	homePane.add(background, BorderLayout.CENTER);
 	*/
 
+	JPanel left  = new JPanel(new BorderLayout());
 	JLabel SaturnGrades = new JLabel("Saturn Grades");
 	SaturnGrades.setOpaque(true);
 	SaturnGrades.setBackground(new Color(124, 132,142));
 	SaturnGrades.setPreferredSize(new Dimension(200, 200));
-	homePane.add(SaturnGrades, BorderLayout.CENTER);
+	left.add(SaturnGrades, BorderLayout.CENTER);
 
+	JPanel right = new JPanel(new BorderLayout());
 	JLabel UserName = new JLabel("Name: "+user.getName());
 	UserName.setOpaque(true);
 	UserName.setBackground(new Color(124,135,124));
 	UserName.setPreferredSize(new Dimension(200, 200));
-	homePane.add(UserName, BorderLayout.PAGE_END);	
+	right.add(UserName, BorderLayout.CENTER);
+
+	homePane.add(left, BorderLayout.WEST);
+	homePane.add(right, BorderLayout.EAST);
+	homePane.add(setUpMidPane(), BorderLayout.CENTER);
+    }
+
+    public JPanel setUpMidPane(){
+	JButton viewsubs = new JButton("View Subjects");
+	viewsubs.setActionCommand(this.setContentPane(homePane));
+	viewsubs.addActionListener(this);
+
+	JPanel centerPane = new JPanel(new BorderLayout());
+	centerPane.add(viewsubs, BorderLayout.CENTER);
+
+	return centerPane;
     }
 
     public static void main(String[] args){
