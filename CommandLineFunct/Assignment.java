@@ -19,6 +19,6 @@ public class Assignment{
     public void setDate(String updatedDate){date = updatedDate;}
 
     public String toString(){
-	return name + " " + grade + " " + date;
+	return name + " " + grade + "% " + date;
     }
 }
