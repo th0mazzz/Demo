@@ -48,7 +48,20 @@ public class SaturnGrades{
 	}
     }
 
-    
+    public void displayInformed(){
+	for(int subjectIndex = 0; subjectIndex < collection.size(); subjectIndex++){
+	    System.out.println("*----------" + this.getElement(subjectIndex).getName() + this.getElement(subjectIndex).getAverage() + "----------*");
+	    System.out.println("Subcategories: " + this.getElement(subjectIndex));
+	    for(int subcategoryIndex = 0; subcategoryIndex < this.getElement(subjectIndex).size(); subcategoryIndex++){
+		System.out.println("Subcategory: " + this.getElement(subjectIndex).getElement(subcategoryIndex).getName());
+		System.out.println("Assignments: " + this.getElement(subjectIndex).getElement(subcategoryIndex));
+		for(int assignmentIndex = 0; assignmentIndex < this.getElement(subjectIndex).getElement(subcategoryIndex).size(); assignmentIndex++){
+		    System.out.println(this.getElement(subjectIndex).getElement(subcategoryIndex).getElement(assignmentIndex));
+		}
+		System.out.println("\n");
+	    }
+	}
+    }
     
     public String toString(){
 	String returnString = "";

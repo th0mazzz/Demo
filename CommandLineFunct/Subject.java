@@ -12,12 +12,9 @@ public class Subject{
 
     public String getName(){return name;} 
     public double getAverage(){
-	if(checkSubcategorySum()){
-	    return average;
-	}
-	else{
-	    throw new RuntimeException("Error fetching accurate average: subcategory weights do not total to 100.0");
-	}
+	average = calcAverage();
+	average = (Math.round(average * 10.0)) / 10.0;
+	return average;
     }
 
     public Subcategory getElement(int index){

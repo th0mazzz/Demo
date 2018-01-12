@@ -26,8 +26,8 @@ public class saturnDriver{
 	user.getElement(1).getElement(2).addAssignment("Spoke", 0.0, "01/03/18");
 	user.getElement(1).addSubcategory("Check-ins", 10.0);
 	user.getElement(1).getElement(3).addAssignment("Check-in1", 100.0, "03/03/18");
-	user.displayBasic();
-
+	//user.displayBasic();
+	user.displayInformed();
 
 
 
