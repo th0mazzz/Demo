@@ -1,6 +1,14 @@
 # Saturn Grades
 SaturnGrades repository of our project
 
+01/11/2018
+- Created calcAverage() for SaturnGrades.java
+- Wrote a toString() for SaturnGrades.java
+- Made a relatively large driver for SaturnGrades.java and tested it for two new functions that were created and made functional today: displayBasic() and displayInformed()
+- Self note: mostly done with the classes themselves, need to implement reading/writing first, then command line functionality, then (if Meredith gets it, otherwise not) GUI
+- May need to add a few functions to support the reading/writing of files
+- Minor tweaks here and there (forgot what minor tweaks though... heh...)
+
 01/10/2018
 - Created a new folder and revamped am currently revamping each individual class for command line functionality
 - Revamping means changing old functions, making new ones, to make coding the command line code easier
