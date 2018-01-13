@@ -16,21 +16,21 @@ Create a grade calculator that can calculate an estimated GPA based on given cla
 hopefully, we'll have programmed directions into the command line version AND the GUI version, but, in case I drown in coffee and die this weekend or defenestrate myself from the excessive Java exposure, I'll put the directions here
 ### Critical Features
 Subjects
-*can have an infinite amount of categories, as long as the total weight of all the categories together is exactly 100%.
-*When a subject has 0 categories, it does not compute an average. Same for if the weight of all its categories does not add up to 100.
-*Subjects will always show their current averages
-*Subjects will automatically update the average if a subcategory or assignment is changed, added, or deleted
+* can have an infinite amount of categories, as long as the total weight of all the categories together is exactly 100%.
+* When a subject has 0 categories, it does not compute an average. Same for if the weight of all its categories does not add up to 100.
+* Subjects will always show their current averages
+* Subjects will automatically update the average if a subcategory or assignment is changed, added, or deleted
 Subcategories
-*can have an infinite amount of assignments, as long as the assignments have positive point worths.
-*can be deleted
-*can be edited (name and weight)
-*Subcategories also always show their current averages (if you have a 95 test average or a 65 test average, youd want to know!!)
-*Subcategories also automatically update the entire subcategory average if an assignment is changed, added, or deleted. So after getting back a test, you can input it and know how it directly affects your test average.
-*If a subcategory has no assignments contained in it, its grade defaults to 100%
+* can have an infinite amount of assignments, as long as the assignments have positive point worths.
+* can be deleted
+* can be edited (name and weight)
+* Subcategories also always show their current averages (if you have a 95 test average or a 65 test average, youd want to know!!)
+* Subcategories also automatically update the entire subcategory average if an assignment is changed, added, or deleted. So after getting back a test, you can input it and know how it directly affects your test average.
+* If a subcategory has no assignments contained in it, its grade defaults to 100%
 Assignments
-*can be deleted
-*Assignments can be assigned in advance- meaning the user does not input a points earned value, but does input a points worth value. The application uses these in advance assignments to predict averages, a to be added later feature.
-*can be edited (name, points, etc.)
+* can be deleted
+* Assignments can be assigned in advance- meaning the user does not input a points earned value, but does input a points worth value. The application uses these in advance assignments to predict averages, a to be added later feature.
+* can be edited (name, points, etc.)
 
 ## Goals/What's Currently Done
 ### GUI Goals
