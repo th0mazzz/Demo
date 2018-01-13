@@ -35,37 +35,37 @@ Assignments
 ## Goals/What's Currently Done
 ### GUI Goals
 making sure it works:
- - [x]Make a basic homepage
- - [x]Make a basic subjects page
- - [x]be able to switch between the pages
- - [x]Write a class for subject pages
- - [x]be able to go to any subject page and back
- - [ ]write a class for assignment pages
- - [ ]be able to view assignment pages and go back
+ - [x] Make a basic homepage
+ - [x] Make a basic subjects page
+ - [x] be able to switch between the pages
+ - [x] Write a class for subject pages
+ - [x] be able to go to any subject page and back
+ - [ ] write a class for assignment pages
+ - [ ] be able to view assignment pages and go back
 
 user input:
- - [ ]be able to add and delete subjects
- - [ ]be able to add and delete subcategories in a subject, and have the program yell at you if the cats are invalid
- - [ ]be able to add and delete assignments
- - [ ]have the averages show up for every subcategory and update every time a new assignment is added
- - [ ]averages show, automatic update for every subject
- - [ ]GPA show on homepage and be automatically updated
+ - [ ] be able to add and delete subjects
+ - [ ] be able to add and delete subcategories in a subject, and have the program yell at you if the cats are invalid
+ - [ ] be able to add and delete assignments
+ - [ ] have the averages show up for every subcategory and update every time a new assignment is added
+ - [ ] averages show, automatic update for every subject
+ - [ ] GPA show on homepage and be automatically updated
 
 reaches:
- - [ ]write a quick summary view page
+ - [ ] write a quick summary view page
 
 ### Code Goals
 basics:
- - [x]write subject, subcategory, and assignment classes
- - [x]write a wrapper class to run the program (like a user or SaturnGrades thing)
- - [x]write functions to check if subcats are valid in a subject
- - [x]write calcAverage functions
+ - [x] write subject, subcategory, and assignment classes
+ - [x] write a wrapper class to run the program (like a user or SaturnGrades thing)
+ - [x] write functions to check if subcats are valid in a subject
+ - [x] write calcAverage functions
 command line functionality
- - [x]get terminal functionality for summary keywords
- - [ ]be able to handle user input of subject names and grades and things like that
+ - [x] get terminal functionality for summary keywords
+ - [ ] be able to handle user input of subject names and grades and things like that
 reaches:
- - [ ]write a predictive average calculator based on future assignments and how much they would impact the grade
- - [ ]write a function that roasts users
+ - [ ] write a predictive average calculator based on future assignments and how much they would impact the grade
+ - [ ] write a function that roasts users
 
 ## devlog
 ### 01/13/18 (Mer)
