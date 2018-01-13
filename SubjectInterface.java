@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class SubjectInterface extends JPanel{
+public class SubjectInterface extends JPanel implements ActionListener{
     private JLabel title;
     private UserInterface topLevel;
     private Subject subject;
@@ -12,6 +12,7 @@ public class SubjectInterface extends JPanel{
 	subject = sub;
 	title=new JLabel(frame.getTitle()+"-"+subject.getName());
 	this.add(title);
+	addBackButton();
     }
     
     public JLabel getTitle(){
@@ -34,6 +35,20 @@ public class SubjectInterface extends JPanel{
 	subject = topic;
     }
     
+    public void addBackButton(){
+	JButton back = new JButton("Go Back");
+	back.setActionCommand("go_back");
+	back.addActionListener(this);
+	this.add(back);
+    }
+
+    public void actionPerformed(ActionEvent e){
+	String command = e.getActionCommand();
+	if("go_back".equals(command)){
+	    topLevel.setContentPane(topLevel.getSubjectPane());
+	}
+    }
+
     public static void main(String[] args){
 	User Meredith = new User("Meredith");
 	UserInterface window = new UserInterface(Meredith);
