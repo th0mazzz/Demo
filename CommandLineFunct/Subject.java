@@ -30,6 +30,9 @@ public class Subject{
 	for(int index = 0; index < collection.size(); index++){
 	    sumOfSub = sumOfSub + (collection.get(index)).getWeight();
 	}
+	if(sumOfSub == 0.0){
+	    throw new RuntimeException("This subject has no subcategories! Please add at least one in this subject before continuing");
+	}
 	return sumOfSub == 100.0;
     }
     
@@ -46,7 +49,7 @@ public class Subject{
 	}
     }
 
-    public double calcAverage(){ //this one updates average
+    public double calcAverage(){
 	 if(checkSubcategorySum()){
 	     double sumOfSubcategories = 0.0;
 	     for(int index = 0; index < collection.size(); index++){
@@ -54,7 +57,6 @@ public class Subject{
 		     ((collection.get(index).getWeight()) / 100);
 	     }
 	     double calculatedAverage = sumOfSubcategories;
-	     average = calculatedAverage;
 	     return calculatedAverage;
 	 }
 	 else{

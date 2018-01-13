@@ -38,7 +38,7 @@ public class SaturnGrades{
     public double calcAverage(){
 	double sumOfSubjects = 0.0;
 	for(int index = 0; index < collection.size(); index++){
-	    sumOfSubjects = sumOfSubjects + (collection.get(index)).getAverage();
+	    sumOfSubjects = sumOfSubjects + (collection.get(index)).getAverage(); //this getAverage() is printing some weird stuff
 	}
 	return sumOfSubjects / size();
     }
@@ -90,36 +90,109 @@ public class SaturnGrades{
 	try{
 	    File storageFile = new File(fileName);
 	    Scanner in = new Scanner(storageFile);
+	    
+	    /*
+	      Key:
+	      * GPA
+	      
+	      ! Subject name
+	      
+	      ~ Subcategory weight
+	      ? Subcategory name
+	      
+	      , Assignment grade
+	      ' Assignment date
+	      . Assignment name
+
+	    */
+
+	    int subjectIndex = -1;
+	    int subcategoryIndex = -1;
+	    
+	    double subcategoryWeight = 0.0;
+
+	    double assignmentGrade = 0.0;
+	    String assignmentDate = "";
 
 	    while(in.hasNext()){
+		
 		String word = in.next();
-		//do something
-		System.out.println(word);
+		if(word.equals("!")){
+		    this.addSubject(in.next());
+		    subcategoryIndex = -1;
+		    subjectIndex++;
+		}else{
+		    if(word.equals("~")){
+			subcategoryWeight = Double.parseDouble(in.next());
+		    }else{
+			if(word.equals("?")){
+			    this.getElement(subjectIndex).addSubcategory(in.next(), subcategoryWeight);
+			    subcategoryIndex++;
+			}else{
+			    if(word.equals(",")){
+				assignmentGrade = Double.parseDouble(in.next());
+			    }else{
+				if(word.equals("'")){
+				    assignmentDate = in.next();
+				}else{
+				    if(word.equals(".")){
+					this.getElement(subjectIndex).getElement(subcategoryIndex).addAssignment(in.next(), assignmentGrade, assignmentDate);
+				    }
+				}
+			    }
+			}
+		    }
+		}
 	    }
 	}catch(FileNotFoundException e){
 	    System.out.println("The file is missing from the program's directory: storage.txt");
 	}		     
     }
-
+    
     public void writeFile(){
 	String fileName = "storage.txt";
 	try{
 	    FileWriter writer = new FileWriter(fileName);
 	    BufferedWriter efficientWriter = new BufferedWriter(writer);
-
-	    efficientWriter.write("Mwahahahah");
-
+	    
+	    efficientWriter.write(this.toWrite());
+	    
 	    efficientWriter.close();
-
+	    
 	}catch(IOException e){
 	    System.out.println("The file is missing from the program's directory: storage.txt");
 	}
     }
-
-    public String write(){
+    
+    /*
+      Key:
+      
+      ! Subject name
+      | Subject average
+      
+      ? Subcategory name
+      ~ Subcategory weight
+      & Subcategory average
+      
+      . Assignment name
+      , Assignment grade
+      ' Assignment date
+      
+    */
+    
+    public String toWrite(){
 	String returnString = "";
-	for(int userIndex = 0; userIndex < collection.size(); userIndex++){
-	    returnString = returnString + "! " + this.getElement(userIndex).getName();
+	for(int subjectIndex = 0; subjectIndex < collection.size(); subjectIndex++){
+	    returnString = returnString + " ! " + this.getElement(subjectIndex).getName();
+	    for(int subcategoryIndex = 0; subcategoryIndex < this.getElement(subjectIndex).size(); subcategoryIndex++){
+		returnString = returnString + " ~ " + this.getElement(subjectIndex).getElement(subcategoryIndex).getWeight();
+		returnString = returnString + " ? " + this.getElement(subjectIndex).getElement(subcategoryIndex).getName();
+		for(int assignmentIndex = 0; assignmentIndex < this.getElement(subjectIndex).getElement(subcategoryIndex).size(); assignmentIndex++){
+		    returnString = returnString + " , " + this.getElement(subjectIndex).getElement(subcategoryIndex).getElement(assignmentIndex).getGrade();
+		    returnString = returnString + " ' " + this.getElement(subjectIndex).getElement(subcategoryIndex).getElement(assignmentIndex).getDate();
+		    returnString = returnString + " . " + this.getElement(subjectIndex).getElement(subcategoryIndex).getElement(assignmentIndex).getName();
+		}
+	    }
 	}
 	return returnString;
     }

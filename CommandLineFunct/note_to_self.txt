@@ -1,3 +1,3 @@
-Oh yeah, Saturn Grades needs to have an overall GPA
+Need to have a check for names (make sure they're one worded)
 
-need to implement that into displayInformed()
+and neither can date for assignments be either
