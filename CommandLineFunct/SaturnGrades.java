@@ -12,6 +12,12 @@ public class SaturnGrades{
 	return collection.size();
     }
 
+    public double getAverage(){
+	average = calcAverage();
+	average = (Math.round(average * 10.0)) / 10.0;
+	return average;
+    }
+
     public Subject getElement(int index){
 	return collection.get(index);
     }
@@ -50,6 +56,7 @@ public class SaturnGrades{
     }
 
     public void displayInformed(){
+	System.out.println("GPA: " + this.getAverage() + "%" + "\n");
 	for(int subjectIndex = 0; subjectIndex < collection.size(); subjectIndex++){
 	    System.out.println("*----------" + this.getElement(subjectIndex).getName() + " (" + this.getElement(subjectIndex).getAverage() + "%)----------*");
 	    System.out.println("Subcategories: " + this.getElement(subjectIndex) + "\n");
@@ -107,6 +114,14 @@ public class SaturnGrades{
 	}catch(IOException e){
 	    System.out.println("The file is missing from the program's directory: storage.txt");
 	}
+    }
+
+    public String write(){
+	String returnString = "";
+	for(int userIndex = 0; userIndex < collection.size(); userIndex++){
+	    returnString = returnString + "! " + this.getElement(userIndex).getName();
+	}
+	return returnString;
     }
     
     public static void main(String[] args){

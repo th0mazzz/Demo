@@ -16,7 +16,11 @@ public class Subcategory{
     public void setName(String updatedName){name = updatedName;}
     public void setWeight(double updatedWeight){weight = updatedWeight;}
 
-    public double getAverage(){return average;}
+    public double getAverage(){
+	average = (Math.round(average * 10.0)) / 10.0;
+	return average;
+    }
+    
     public double getWeight(){return weight;}
     public String getName(){return name;}
 
