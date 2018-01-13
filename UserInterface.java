@@ -4,10 +4,10 @@ import java.awt.event.*;
 //import javax.swing.event;
 import java.awt.image.BufferedImage;
 
-public class UserInterface extends JFrame implements ActionListener{
+public class SaturnGradesGUI extends JFrame implements ActionListener{
     private JPanel homePane;
     private JPanel subjectPane;
-    private User user;
+    private SaturnGrades program;
     private String title;
 
     public JPanel getHomePane(){
@@ -16,8 +16,8 @@ public class UserInterface extends JFrame implements ActionListener{
     public JPanel getSubjectPane(){
 	return subjectPane;
     }
-    public User getUser(){
-	return user;
+    public SaturnGrades getProgram(){
+	return program;
     }
     public String getTitle(){
 	return title;
@@ -29,20 +29,20 @@ public class UserInterface extends JFrame implements ActionListener{
     public void setSubjectPane(JPanel pane){
 	subjectPane = pane;
     }
-    public void setUser(User person){
-	user = person;
+    public void setProgram(SaturnGrades sg){
+	program = sg;
     }
     public void setTheTitle(String smth){
 	title=smth;
 	this.setTitle(title);
     }
     
-    public UserInterface(User person){
-	user=person;
+    public SaturnGradesGUI(SaturnGrades user){
+	program=user;
 	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	
 	//set the title
-	this.setTheTitle(user.getName()+"'s Saturn Grades");
+	this.setTheTitle("Saturn Grades");
 
 	this.setUpHomePane();
 
@@ -65,11 +65,11 @@ public class UserInterface extends JFrame implements ActionListener{
 	homePane.add(left, BorderLayout.WEST);
 
 	JPanel right = new JPanel();
-	JLabel UserName = new JLabel("Name: "+user.getName());
-	UserName.setOpaque(true);
-	UserName.setBackground(new Color(124,135,124));
-	UserName.setPreferredSize(new Dimension(200, 200));
-	right.add(UserName);
+	JLabel GPA = new JLabel(""+program.getAverage());
+	GPA.setOpaque(true);
+	GPA.setBackground(new Color(124,135,124));
+	GPA.setPreferredSize(new Dimension(200, 200));
+	right.add(GPA);
 	homePane.add(right, BorderLayout.EAST);
 
 	//homePane.setBorder(BorderFactory.createEmptyBorder(100,100,100,100));
@@ -104,9 +104,9 @@ public class UserInterface extends JFrame implements ActionListener{
 	subjectPane.add(viewhome);
 
 	//make array of subjects
-	Subject[] arr = new Subject[user.size()];
-	for(int i=0;i<user.size();i++){
-	    arr[i]=user.get(i);
+	Subject[] arr = new Subject[program.size()];
+	for(int i=0;i<program.size();i++){
+	    arr[i]=program.getElement(i);
 	}
 
 	//creating new button for each subject
@@ -147,15 +147,14 @@ public class UserInterface extends JFrame implements ActionListener{
     }
 
     public static void main(String[] args){
-	User Meredith = new User("Meredith");
+	SaturnGrades Meredith = new SaturnGrades();
 	Subject Precalc = new Subject("Precalc");
 	Subject APUSH = new Subject("APUSH");
 
 	Meredith.addSubject(Precalc);
 	Meredith.addSubject(APUSH);
-	System.out.println(Meredith.displayClasses());
 
-	UserInterface test = new UserInterface(Meredith);
+	SaturnGradesGUI test = new SaturnGradesGUI(Meredith);
 	test.pack();
 	test.setVisible(true);
     }

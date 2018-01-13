@@ -5,6 +5,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 public class SaturnGrades{
 
+    private String name = "Unnamed";
     private double average = 100.0;
     private ArrayList<Subject> collection = new ArrayList<>(); //INITIALIZE
     
@@ -12,6 +13,9 @@ public class SaturnGrades{
 	return collection.size();
     }
 
+    public String getName(){return name;}
+    public void setName(String name){this.name = name;}
+    
     public double getAverage(){
 	average = calcAverage();
 	average = (Math.round(average * 10.0)) / 10.0;
@@ -44,6 +48,7 @@ public class SaturnGrades{
     }
 
     public void displayBasic(){
+	System.out.println(this.getName());
 	for(int subjectIndex = 0; subjectIndex < collection.size(); subjectIndex++){
 	    System.out.println("*----------" + this.getElement(subjectIndex).getName() + "----------*");
 	    System.out.println("Subcategories: " + this.getElement(subjectIndex) + "\n");
@@ -56,6 +61,7 @@ public class SaturnGrades{
     }
 
     public void displayInformed(){
+	System.out.println(this.getName());
 	System.out.println("GPA: " + this.getAverage() + "%" + "\n");
 	for(int subjectIndex = 0; subjectIndex < collection.size(); subjectIndex++){
 	    System.out.println("*----------" + this.getElement(subjectIndex).getName() + " (" + this.getElement(subjectIndex).getAverage() + "%)----------*");
@@ -93,7 +99,7 @@ public class SaturnGrades{
 	    
 	    /*
 	      Key:
-	      * GPA
+	      * Name
 	      
 	      ! Subject name
 	      
@@ -117,26 +123,30 @@ public class SaturnGrades{
 	    while(in.hasNext()){
 		
 		String word = in.next();
-		if(word.equals("!")){
-		    this.addSubject(in.next());
-		    subcategoryIndex = -1;
-		    subjectIndex++;
+		if(word.equals("*")){
+		    this.setName(in.next());
 		}else{
-		    if(word.equals("~")){
-			subcategoryWeight = Double.parseDouble(in.next());
+		    if(word.equals("!")){
+			this.addSubject(in.next());
+			subcategoryIndex = -1;
+			subjectIndex++;
 		    }else{
-			if(word.equals("?")){
-			    this.getElement(subjectIndex).addSubcategory(in.next(), subcategoryWeight);
-			    subcategoryIndex++;
+			if(word.equals("~")){
+			    subcategoryWeight = Double.parseDouble(in.next());
 			}else{
-			    if(word.equals(",")){
-				assignmentGrade = Double.parseDouble(in.next());
+			    if(word.equals("?")){
+				this.getElement(subjectIndex).addSubcategory(in.next(), subcategoryWeight);
+				subcategoryIndex++;
 			    }else{
-				if(word.equals("'")){
-				    assignmentDate = in.next();
+				if(word.equals(",")){
+				    assignmentGrade = Double.parseDouble(in.next());
 				}else{
-				    if(word.equals(".")){
-					this.getElement(subjectIndex).getElement(subcategoryIndex).addAssignment(in.next(), assignmentGrade, assignmentDate);
+				    if(word.equals("'")){
+					assignmentDate = in.next();
+				    }else{
+					if(word.equals(".")){
+					    this.getElement(subjectIndex).getElement(subcategoryIndex).addAssignment(in.next(), assignmentGrade, assignmentDate);
+					}
 				    }
 				}
 			    }
@@ -182,6 +192,7 @@ public class SaturnGrades{
     
     public String toWrite(){
 	String returnString = "";
+	returnString = returnString + "* " + this.getName();
 	for(int subjectIndex = 0; subjectIndex < collection.size(); subjectIndex++){
 	    returnString = returnString + " ! " + this.getElement(subjectIndex).getName();
 	    for(int subcategoryIndex = 0; subcategoryIndex < this.getElement(subjectIndex).size(); subcategoryIndex++){
@@ -196,10 +207,65 @@ public class SaturnGrades{
 	}
 	return returnString;
     }
+
+    public static void clearScreen() {  
+	System.out.print("\033[H\033[2J");  //resets cursor to default location
+	System.out.flush();  //clears the terminal
+   }  
     
     public static void main(String[] args){
+	clearScreen();
+	SaturnGrades user = new SaturnGrades();
+
+	user.readFile();
 	
-		
+	if(args.length == 0){
+	    System.out.println("Welcome to Saturn Grades!\nPlease enter a keyword followed by the necessary information required.\nEnter help as the keyword for more information.\n\njava SaturnGrades <keyword>\n");
+	    System.exit(0);
+	}else{
+      	    String keyword = args[0];
+	    if(keyword.equals("help")){
+		System.out.println("This is where help information should go. Will update when everything else is done.\n");
+		System.exit(0);
+	    }
+	    if(keyword.equals("display")){
+		if(args.length != 2){
+		    System.out.println("Oops! Something went wrong!\nPlease utilize the following format:\n\njava SaturnGrades display <type>\n\nwhere <type> is either entered as 'basic' or 'informed'\ne.g.     java SaturnGrades display informed\n");
+		    System.exit(0);
+		}
+		if(args[1].equals("basic")){
+		    user.displayBasic();
+		    System.exit(0);
+		}
+		if(args[1].equals("informed")){
+		    user.displayInformed();
+		    System.exit(0);
+		}
+		System.out.println("Oops! Something went wrong!\nPlease utilize the following format:\n\njava SaturnGrades display <type>\n\nwhere <type> is either entered as 'basic' or 'informed'\ne.g.     java SaturnGrades display informed\n");
+		System.exit(0);
+	    }
+
+
+
+
+
+
+
+
+
+
+	    else{
+		System.out.println("Invalid keyword or format. Please check your input again.");
+		System.exit(0);
+	    }
+
+
+
+
+	       
+	}
+
+	user.writeFile();
 
     }
 }

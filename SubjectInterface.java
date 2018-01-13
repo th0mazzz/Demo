@@ -4,10 +4,10 @@ import java.awt.event.*;
 
 public class SubjectInterface extends JPanel implements ActionListener{
     private JLabel title;
-    private UserInterface topLevel;
+    private SaturnGradesGUI topLevel;
     private Subject subject;
 
-    public SubjectInterface(UserInterface frame, Subject sub){
+    public SubjectInterface(SaturnGradesGUI frame, Subject sub){
 	topLevel = frame;
 	subject = sub;
 	title=new JLabel(frame.getTitle()+"-"+subject.getName());
@@ -18,7 +18,7 @@ public class SubjectInterface extends JPanel implements ActionListener{
     public JLabel getTitle(){
 	return title;
     }
-    public UserInterface getUserInterface(){
+    public SaturnGradesGUI getTopLevel(){
 	return topLevel;
     }
     public Subject getSubject(){
@@ -28,7 +28,7 @@ public class SubjectInterface extends JPanel implements ActionListener{
     public void setTheTitle(JLabel words){
 	title=words;
     }
-    public void setUserInterface(UserInterface frame){
+    public void setTopLevel(SaturnGradesGUI frame){
 	topLevel = frame;
     }
     public void setSubject(Subject topic){
@@ -50,9 +50,5 @@ public class SubjectInterface extends JPanel implements ActionListener{
     }
 
     public static void main(String[] args){
-	User Meredith = new User("Meredith");
-	UserInterface window = new UserInterface(Meredith);
-	Subject Precalc = new Subject("Precalc");
-	SubjectInterface test = new SubjectInterface(window, Precalc);
     }
 }
