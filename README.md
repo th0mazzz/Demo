@@ -69,7 +69,7 @@ reaches:
 
 ## devlog
 ### 01/13/18 (Mer)
-*Just a morning update from me: we chatted a bit about the improved backend design Thomas made last night, and it's perfectly fine. I should've communicated with Thomas more because for the past few days, I've been dismissive about really seeing any part of new code he was working on because I expended all my efforts into learning GUI. While it is taking a long time to learn GUI and create the sort of wrapper I want, I hope it'll pay off in the end and increase the program's usability.
+* Just a morning update from me: we chatted a bit about the improved backend design Thomas made last night, and it's perfectly fine. I should've communicated with Thomas more because for the past few days, I've been dismissive about really seeing any part of new code he was working on because I expended all my efforts into learning GUI. While it is taking a long time to learn GUI and create the sort of wrapper I want, I hope it'll pay off in the end and increase the program's usability.
 
 ### 01/12/2018 (Thomas)
 * Was able to get reading and writing functionality (absurdly long time to do)
