@@ -1,3 +1,4 @@
+import java.io.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -76,10 +77,41 @@ public class SaturnGrades{
 	    return "This program has no subjects!";
 	}
     }
+
+    public void readFile(){
+	String fileName = "storage.txt";
+	try{
+	    File storageFile = new File(fileName);
+	    Scanner in = new Scanner(storageFile);
+
+	    while(in.hasNext()){
+		String word = in.next();
+		//do something
+		System.out.println(word);
+	    }
+	}catch(FileNotFoundException e){
+	    System.out.println("The file is missing from the program's directory: storage.txt");
+	}		     
+    }
+
+    public void writeFile(){
+	String fileName = "storage.txt";
+	try{
+	    FileWriter writer = new FileWriter(fileName);
+	    BufferedWriter efficientWriter = new BufferedWriter(writer);
+
+	    efficientWriter.write("Mwahahahah");
+
+	    efficientWriter.close();
+
+	}catch(IOException e){
+	    System.out.println("The file is missing from the program's directory: storage.txt");
+	}
+    }
     
     public static void main(String[] args){
 	
-
+		
 
     }
 }
