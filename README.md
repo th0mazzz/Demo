@@ -1,9 +1,15 @@
 # Saturn Grades
 SaturnGrades repository of our project
 
-01/12/18
--got the GUI working (ha! to people who said I couldn't)
--moved on from the minimal working version GUI and began writing second version, more updates soon to come
+01/12/2018
+- Was able to get reading and writing functionality (absurdly long time to do)
+- Reading function takes data from storage.txt (presumably from a previous write) and initializes the array with that data exactly how it was written
+- Writing function writes the data in the array into storage.txt so then it can be read the next time the program is run
+- Since Meredith and I are working in seperate spheres (her on GUI, and I on command line), our basic code has diverged quite a bit (entirely my fault, shoudl've communicated more as the backend dude)
+
+01/12/2018
+- got the GUI working (ha! to people who said I couldn't)
+- moved on from the minimal working version GUI and began writing second version, more updates soon to come
 
 01/11/2018
 - Created calcAverage() for SaturnGrades.java
