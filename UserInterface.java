@@ -90,15 +90,41 @@ public class UserInterface extends JFrame implements ActionListener{
     }
 
     public void setUpSubjectPane(){
-	subjectPane = new JPanel(new BorderLayout());
-	JLabel notSupp = new JLabel("Sorry, not supported now. Come back later!");
-	subjectPane.add(notSupp, BorderLayout.NORTH);
+	//initialize the pane
+	subjectPane = new JPanel();
+	//JLabel notSupp = new JLabel("Sorry, not supported now. Come back later!");	subjectPane.add(notSupp, BorderLayout.NORTH);
+
+	//add a "back" button
 	JButton viewhome = new JButton("Go back to homepage");
 	viewhome.setActionCommand("see_homepage");
 	viewhome.addActionListener(this);
 
+	//adds cushioning around the back button for a better look
 	subjectPane.setBorder(BorderFactory.createEmptyBorder(100,100,100,100));
-	subjectPane.add(viewhome, BorderLayout.CENTER);
+	subjectPane.add(viewhome);
+
+	//make array of subjects
+	Subject[] arr = new Subject[user.size()];
+	for(int i=0;i<user.size();i++){
+	    arr[i]=user.get(i);
+	}
+
+	//creating new button for each subject
+	for(int g=0;g<arr.length;g++){
+	    // JButton newButton = createSubButton(arr[g]);
+	    subjectPane.add(createSubButton(arr[g]));
+	}
+    }
+
+    public JButton createSubButton(Subject subj){
+	JButton newthang = new JButton(subj.getName());
+	SubjectInterface interact = makeNewSubInterface(subj);
+	newthang.addActionListener(new ActionListener(){
+		@Override public void actionPerformed(ActionEvent e){
+		    mvToSubPanel(interact);
+		}
+	    });
+	return newthang;
     }
 
     public void actionPerformed(ActionEvent e){
@@ -110,8 +136,25 @@ public class UserInterface extends JFrame implements ActionListener{
 	    this.setContentPane(homePane);
 	}
     }
+
+    public void mvToSubPanel(SubjectInterface pane){
+	this.setContentPane(pane);
+    }
+    
+    public SubjectInterface makeNewSubInterface(Subject sub){
+	SubjectInterface pane = new SubjectInterface(this, sub);
+	return pane;
+    }
+
     public static void main(String[] args){
 	User Meredith = new User("Meredith");
+	Subject Precalc = new Subject("Precalc");
+	Subject APUSH = new Subject("APUSH");
+
+	Meredith.addSubject(Precalc);
+	Meredith.addSubject(APUSH);
+	System.out.println(Meredith.displayClasses());
+
 	UserInterface test = new UserInterface(Meredith);
 	test.pack();
 	test.setVisible(true);
