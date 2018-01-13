@@ -1,14 +1,14 @@
 public class Assignment{
 
-    private double grade = 0.0;
-    private String name = "UntitledAssignment";
-    private String date = "00/00/0000";
-    
-    public Assignment(String name, double grade, String date){
+    public Assignment(double grade, String name, String date){
 	this.grade = grade;
 	this.name = name;
 	this.date = date;
     }
+    
+    private double grade = 0.0;
+    private String name = "Untitled";
+    private String date = "00/00/0000";
     
     public double getGrade(){return grade;}
     public String getName(){return name;}
@@ -19,6 +19,6 @@ public class Assignment{
     public void setDate(String updatedDate){date = updatedDate;}
 
     public String toString(){
-	return name + " " + grade + "% " + date;
+	return date + " " + name + " " + grade;
     }
 }
