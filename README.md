@@ -1,6 +1,10 @@
 # Saturn Grades
 SaturnGrades repository of our project
 
+01/12/18
+-got the GUI working (ha! to people who said I couldn't)
+-moved on from the minimal working version GUI and began writing second version, more updates soon to come
+
 01/11/2018
 - Created calcAverage() for SaturnGrades.java
 - Wrote a toString() for SaturnGrades.java
@@ -8,6 +12,7 @@ SaturnGrades repository of our project
 - Self note: mostly done with the classes themselves, need to implement reading/writing first, then command line functionality, then (if Meredith gets it, otherwise not) GUI
 - May need to add a few functions to support the reading/writing of files
 - Minor tweaks here and there (forgot what minor tweaks though... heh...)
+-(hi it's Meredith) I got a GUI to open but I still need it to switch between pages for minimal-working version
 
 01/10/2018
 - Created a new folder and revamped am currently revamping each individual class for command line functionality
