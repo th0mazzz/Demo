@@ -74,7 +74,17 @@ reaches:
  - [ ] write a function that roasts users
 
 ## devlog
-### 01/13/18 (Mer)
+### 01/14/2018 (Thomas)
+* Command line if and else statements are SO TEDIOUS AND TIME CONSUMING
+* I got MOST functionality regarding the command line:
+adding/removing subjects, subcategories, and assignments
+having a help page
+having a display option that lets you choose between two displays
+* I plan to implement the rest tomorrow so then I can start other HW and study for my two finals on Tuesday :(
+* Oh it also seems Meredith made another branch and I wasn't told of that so I'm not sure which branch she wants me to commit this to so I'll push everything into minimal-working for now
+
+
+### 01/13/2018 (Mer)
 * Just a morning update from me: we chatted a bit about the improved backend design Thomas made last night, and it's perfectly fine. I should've communicated with Thomas more because for the past few days, I've been dismissive about really seeing any part of new code he was working on because I expended all my efforts into learning GUI. While it is taking a long time to learn GUI and create the sort of wrapper I want, I hope it'll pay off in the end and increase the program's usability.
 * it's not the morning anymmore; I learned a bunch more GUI stuff today and concluded that the energy expended vs. how impressive this is going to look has a graph that resembles a square root curve; regarding actual progress made, I wrote a new class and fixed some straggling inconsistencies.
 
