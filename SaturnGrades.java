@@ -245,7 +245,22 @@ public class SaturnGrades{
 	}else{
       	    String keyword = args[0];
 	    if(keyword.equals("help")){
-		System.out.println("This is where help information should go. Will update when everything else is done.\n");
+		System.out.println("Saturn Grades --- Help!\n\nWelcome to the help page! This page contains all command information relating to this program!\n\nGeneral Information:\nEach command in Saturn Grades will begin with: \n\n     java SaturnGrades\n\nSyntax of each command is crucial as the same keyword uses different number of inputs to determine what exactly you wish to accomplish.\nTherefore, it is recommended you read carefully at the list of commands that this program currently has\nand pay particular attention to the structure of each command.\n\n" + "List of Saturn Grade commands:\n\n" + "java SaturnGrades\n(Takes you to the start page of the program.)\n\n"
+				             + "java SaturnGrades help\n(Takes you to the help page.)\n\n"
+				             + "java SaturnGrades display <type>\n(Displays information regarding your classes.)\n   <type> can be substituted for basic or informed\n   basic will give a general overview\n   informed will provide a detailed view\n\n"
+				             + "java SaturnGrades add <subject name>\n(Adds a subject with the name <subject name>.)\n\n"
+				             + "java SaturnGrades add <subject name> <subcategory name>\n(Adds a subcategory with the name <subcategory name> in existing subject <subject name>.)\n\n"
+				             + "java SaturnGrades add <subject name> <subcategory name> <assignment name>\n(Adds an assignment with the name <assignment name> in the existing subcategory <subcategory name> in <subject name>.)\n\n"
+				             + "java SaturnGrades remove <subject name>\n(Removes existing subject with the name <subject name> and all its contents.)\n\n"
+				             + "java SaturnGrades remove <subject name> <subcategory name>\n(Removes existing subcategory <subcategory name> from existing subject <subject name> and all its contents.)\n\n"
+				             + "java SaturnGrades remove <subject name> <subcategory name> <assignment name>\n(Removes existing assignment <assignment name> from existing subcategory <subcategory name> in <subject name>.)\n\n"
+				             + "java SaturnGrades update name <updated name>\n(Updates the user's name to <updated name>.)\n\n"
+				             + "java SaturnGrades update name <subject name> <updated name>\n(Updates the name of existing subject <subject name> to <updated name>.)\n\n"
+				             + "java SaturnGrades update name <subject name> <subcategory name> <updated name>\n(Updates the name of existing subcategory <subcategory name> in <subject name> to <updated name>.)\n\n"
+				             + "java SaturnGrades update weight <subject name> <subcategory name> <updated weight>\n(Updates the weight of existing subcategory <subcategory name> in <subject name> to <updated weight>.)\n\n"
+				             + "java SaturnGrades update name <subject name> <subcategory name> <assignment name> <updated name>\n(Updates the name of an existing assignment in <subcategory name> in <subject name>.)\n\n"
+				             + "java SaturnGrades update grade <subject name> <subcategory name> <assignment name> <updated grade>\n(Updates the grade of an existing assignment in <subcategory name> in <subject name>.)\n\n"
+				             + "java SaturnGrades update date <subject name> <subcategory name> <assignment name> <updated date>\n(Updates the date of an existing assignment in <subcategory name> in <subject name>.)\n\n");
 		System.exit(0);
 	    }
 	    if(keyword.equals("display")){
