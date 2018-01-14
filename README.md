@@ -42,6 +42,8 @@ making sure it works:
  - [x] be able to switch between the pages
  - [x] Write a class for subject pages
  - [x] be able to go to any subject page and back
+ - [ ] write a class for subcategory pages
+ - [ ] be able to view subcategory pages and go back
  - [ ] write a class for assignment pages
  - [ ] be able to view assignment pages and go back
 
