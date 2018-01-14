@@ -277,6 +277,13 @@ public class SaturnGrades{
 			user.writeFile();
 			System.exit(0);
 		    }
+		    if(args.length == 4){
+			int indexOfSubject = user.getSubjectIndex(args[1]);
+			user.getElement(indexOfSubject).addSubcategory(args[2], Double.parseDouble(args[3]));
+			System.out.println(args[2] + " with weight " + args[3] + " was added as a subcategory in " + args[3]);
+			user.writeFile();
+			System.exit(0);
+		    }
 
 			
 		}
@@ -298,6 +305,22 @@ public class SaturnGrades{
 			else{
 			    System.out.println(args[1] + " cannot be removed because it is not an existing subject.");
 			    System.exit(0);
+			}
+		    }
+		    if(args.length == 3){
+			if(user.checkIfSubjectPresent(args[1])){
+			    int indexOfSubject = user.getSubjectIndex(args[1]);
+			    if(user.getElement(indexOfSubject).checkIfSubcategoryPresent(args[2])){
+				int indexOfSubcategory = user.getElement(indexOfSubject).getSubcategoryIndex(args[2]);
+				user.getElement(indexOfSubject).removeSubcategory(args[2]);
+				System.out.println(args[2] + " was removed as a subcategory from " + args[1]);
+				user.writeFile();
+				System.exit(0);
+			    }
+       			    else{
+				System.out.println(args[2] + " cannot be removed because it is not an existing subcategory in " + args[1]);
+				System.exit(0);
+			    }
 			}
 		    }
 

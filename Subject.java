@@ -21,6 +21,26 @@ public class Subject{
 	return collection.get(index);
     }
 
+    public boolean checkIfSubcategoryPresent(String subcategoryName){
+	for(int index = 0; index < collection.size(); index++){
+	    if((this.getElement(index).getName()).equals(subcategoryName)){
+		return true;
+	    }
+	}
+	System.out.println("Subcategory does not exist.");
+	return false;
+    }
+
+    public int getSubcategoryIndex(String subcategoryName){
+	for(int index = 0; index < collection.size(); index++){
+	    if((this.getElement(index).getName()).equals(subcategoryName)){
+		return index;
+	    }
+	}
+	System.out.println("Subcategory does not exist");
+	return -1;
+    }
+
     public int size(){
 	return collection.size();
     }

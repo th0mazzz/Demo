@@ -32,6 +32,9 @@ public class test_checkIfSubjectPresentAndgetSubjectIndexDriver{
 	System.out.println(user.getSubjectIndex("APUSH")); //1
 	System.out.println(user.getSubjectIndex("Biology")); //0
 	System.out.println(user.getSubjectIndex("FakeSubject")); //error
-	
+
+	System.out.println(user.getElement(1).checkIfSubcategoryPresent("DBQs"));//true
+	System.out.println(user.getElement(0).checkIfSubcategoryPresent("DBQs"));//false
+	System.out.println(user.getElement(1).getSubcategoryIndex("DBQs"));//1
     }
 }
