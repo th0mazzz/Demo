@@ -31,7 +31,7 @@ public class Subject{
 	    sumOfSub = sumOfSub + (collection.get(index)).getWeight();
 	}
 	if(sumOfSub == 0.0){
-	    throw new RuntimeException("This subject has no subcategories! Please add at least one in this subject before continuing");
+	    return true;
 	}
 	return sumOfSub == 100.0;
     }
