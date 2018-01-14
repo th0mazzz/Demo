@@ -28,6 +28,26 @@ public class Subcategory{
 	return collection.get(index);
     }
 
+    public boolean checkIfAssignmentPresent(String assignmentName){
+	for(int index = 0; index < collection.size(); index++){
+	    if((this.getElement(index).getName()).equals(assignmentName)){
+		return true;
+	    }
+	}
+	System.out.println("Assignment does not exist.");
+	return false;
+    }
+
+    public int getAssignmentIndex(String assignmentName){
+	for(int index = 0; index < collection.size(); index++){
+	    if((this.getElement(index).getName()).equals(assignmentName)){
+		return index;
+	    }
+	}
+	System.out.println("Assignment does not exist");
+	return -1;
+    }
+    
     public int size(){
 	return collection.size();
     }
