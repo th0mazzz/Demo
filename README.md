@@ -75,6 +75,12 @@ reaches:
 
 ## devlog
 ### 01/14/2018 (Thomas)
+* I think I finished everything regarding command line functionality!
+* Completed update command: you can now update names, weights, grades, dates!
+* Made help screen more helpful
+* There are a few things to touch up in note_to_self.txt but they're not suepr urgent or important so I shall now start my other project and HWs
+
+### 01/13/2018 (Thomas)
 * Command line if and else statements are SO TEDIOUS AND TIME CONSUMING
 * I got MOST functionality regarding the command line:
 adding/removing subjects, subcategories, and assignments
