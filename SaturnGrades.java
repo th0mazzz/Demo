@@ -53,7 +53,7 @@ public class SaturnGrades{
 		return true;
 	    }
 	}
-	System.out.println("Subject does not exist");
+	System.out.println("Subject does not exist.");
 	return false;
     }
 
@@ -261,14 +261,14 @@ public class SaturnGrades{
 		    user.displayInformed();
 		    System.exit(0);
 		}
-		System.out.println("Oops! Something went wrong!\nPlease utilize the following format:\n\njava SaturnGrades display <type>\n\nwhere <type> is either entered as 'basic' or 'informed'.\ne.g.     java SaturnGrades display informed\n");
+		System.out.println("Oops! Something went wrong!\nPlease utilize the following format:\n\njava SaturnGrades display <type>\n\nwhere <type> is either entered as basic* or informed**.\ne.g.     java SaturnGrades display basic\n         java SaturnGrades display informed\n\n* basic - an overall view of all subjects and subcategories, and assignments\n**informed - a more detailed view of all subjects, subcategories, and assignments\n");
 		System.exit(0);
 	    }
 	    if(keyword.equals("add")){ //java SaturnGrades add <subject name> (args.length = 2)
 		                       //java SaturnGrades add <subject name> <subcategory name> <weight> (args.length = 4)
 		                       //java SaturnGrades add <subject name> <subcategory> <assignment name> <grade> <date> (args.length = 5)
 		if(args.length != 2 && args.length != 4 && args.length != 5){
-		    System.out.println("Oops! Something went wrong!\nPlease utilize one of following formats:\n\njava SaturnGrades add <subject name>\n(This one adds a subject.)\n\njava SaturnGrades add <subject name> <subcategory name> <subcategory weight*>\n(This one adds a subcategory with its weight.)\n\njava SaturnGrades add <subject name> <subcategory> <assignment name> <grade> <date>\n(This one adds an assignment with its grade and date.)\n\ne.g.     java SaturnGrades Calculus\n         java SaturnGrades Calculus Homeworks 25.0\n         java SaturnGrades Calculus Homeworks Homework#1 100 01/01/2018\n\n*weight - the percentage this subcategory will contribute to the subject's average\n");
+		    System.out.println("Oops! Something went wrong!\nPlease utilize one of following formats:\n\njava SaturnGrades add <subject name>\n(This one adds a subject.)\n\njava SaturnGrades add <subject name> <subcategory name> <subcategory weight*>\n(This one adds a subcategory with its weight to specified subject.)\n\njava SaturnGrades add <subject name> <subcategory> <assignment name> <grade> <date>\n(This one adds an assignment with its grade and date to specified subcategory in specified subject.)\n\ne.g.     java SaturnGrades Calculus\n         java SaturnGrades Calculus Homeworks 25.0\n         java SaturnGrades Calculus Homeworks Homework#1 100 01/01/2018\n\n*weight - the percentage this subcategory will contribute to the subject's average\n");
 		    System.exit(0);
 		}else{
 		    if(args.length == 2){
@@ -281,11 +281,30 @@ public class SaturnGrades{
 			
 		}
 	    }
-	    if(keyword.equals("remove")){ //java SaturnGrades remove <subject name>
+	    if(keyword.equals("remove")){ //java SaturnGrades remove <subject name> (args.length between 2 inclusive and 4 inclusive)
 		                          //java SaturnGrades remove <subject name> <subcategory name>
 		                          //java SaturnGrades remove <subject name> <subcategory name> <assignment name>
-		
-		
+		if(args.length < 2 || args.length > 4){
+		    System.out.println("Oops! Something went wrong!\nPlease utilize one of following formats:\n\njava SaturnGrades remove <subject name>\n(This one removes a subject.)\n\njava SaturnGrades remove <subject name> <subcategory name>\n(This one removes a subcategory from specified subject.)\n\njava SaturnGrades remove <subject name> <subcategory name> <assignment name>\n(This one removes a assignment from specified subcategory in specified subject.)\n\ne.g.     java SaturnGrades Chemistry\n         java SaturnGrades Chemistry Exams\n         java SaturnGrades Chemistry Exams Exam#3\n");
+		    System.exit(0);
+		}else{
+		    if(args.length == 2){
+			if(user.checkIfSubjectPresent(args[1])){
+				user.removeSubject(args[1]);
+				System.out.println(args[1] + " was removed as a subject.");
+				user.writeFile();
+				System.exit(0);
+			}
+			else{
+			    System.out.println(args[1] + " cannot be removed because it is not an existing subject.");
+			    System.exit(0);
+			}
+		    }
+
+
+
+		    
+		}
 	    }
 
 
