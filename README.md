@@ -62,9 +62,11 @@ basics:
  - [x] write a wrapper class to run the program (like a user or SaturnGrades thing)
  - [x] write functions to check if subcats are valid in a subject
  - [x] write calcAverage functions
+
 command line functionality
  - [x] get terminal functionality for summary keywords
  - [ ] be able to handle user input of subject names and grades and things like that
+
 reaches:
  - [ ] write a predictive average calculator based on future assignments and how much they would impact the grade
  - [ ] write a function that roasts users
