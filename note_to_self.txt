@@ -1,3 +1,7 @@
 Need to have a check for names (make sure they're one worded)
 
 and neither can date for assignments be either
+
+
+
+you need to check that input dates and grades are valid as to not make NumberFormatException

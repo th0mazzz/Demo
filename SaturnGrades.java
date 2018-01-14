@@ -266,23 +266,49 @@ public class SaturnGrades{
 	    }
 	    if(keyword.equals("add")){ //java SaturnGrades add <subject name> (args.length = 2)
 		                       //java SaturnGrades add <subject name> <subcategory name> <weight> (args.length = 4)
-		                       //java SaturnGrades add <subject name> <subcategory> <assignment name> <grade> <date> (args.length = 5)
-		if(args.length != 2 && args.length != 4 && args.length != 5){
+		                       //java SaturnGrades add <subject name> <subcategory> <assignment name> <grade> <date> (args.length = 6)
+		if(args.length != 2 && args.length != 4 && args.length != 6){
 		    System.out.println("Oops! Something went wrong!\nPlease utilize one of following formats:\n\njava SaturnGrades add <subject name>\n(This one adds a subject.)\n\njava SaturnGrades add <subject name> <subcategory name> <subcategory weight*>\n(This one adds a subcategory with its weight to specified subject.)\n\njava SaturnGrades add <subject name> <subcategory> <assignment name> <grade> <date>\n(This one adds an assignment with its grade and date to specified subcategory in specified subject.)\n\ne.g.     java SaturnGrades Calculus\n         java SaturnGrades Calculus Homeworks 25.0\n         java SaturnGrades Calculus Homeworks Homework#1 100 01/01/2018\n\n*weight - the percentage this subcategory will contribute to the subject's average\n");
 		    System.exit(0);
 		}else{
 		    if(args.length == 2){
 			user.addSubject(args[1]);
-			System.out.println(args[1] + " was added as a subject.");
+			System.out.println(args[1] + " was added as a subject.\n");
 			user.writeFile();
 			System.exit(0);
 		    }
 		    if(args.length == 4){
-			int indexOfSubject = user.getSubjectIndex(args[1]);
-			user.getElement(indexOfSubject).addSubcategory(args[2], Double.parseDouble(args[3]));
-			System.out.println(args[2] + " with weight " + args[3] + " was added as a subcategory in " + args[3]);
-			user.writeFile();
-			System.exit(0);
+			if(user.checkIfSubjectPresent(args[1])){
+			    int indexOfSubject = user.getSubjectIndex(args[1]);
+			    user.getElement(indexOfSubject).addSubcategory(args[2], Double.parseDouble(args[3]));
+			    System.out.println(args[2] + " with weight " + args[3] + " was added as a subcategory in " + args[3] + "\n");
+			    user.writeFile();
+			    System.exit(0);
+			}
+			else{
+			    System.out.println("Please enter an existing subject to add the subcategory to.\n");
+			    System.exit(0);
+			}
+		    }
+		    if(args.length == 6){
+			if(user.checkIfSubjectPresent(args[1])){
+			    int indexOfSubject = user.getSubjectIndex(args[1]);
+			    if(user.getElement(indexOfSubject).checkIfSubcategoryPresent(args[2])){
+				int indexOfSubcategory = user.getElement(indexOfSubject).getSubcategoryIndex(args[2]);
+				user.getElement(indexOfSubject).getElement(indexOfSubcategory).addAssignment(args[3], Double.parseDouble(args[4]), args[5]);
+				System.out.println(args[3] + " with grade " + args[4] + " and date " + args[5] + " was added as an assignment in " + args[2] + " in " + args[1] + "\n");
+				user.writeFile();
+				System.exit(0);
+			    }
+			    else{
+				System.out.println("Please enter an existing subcategory to add the assignment to.\n");
+				System.exit(0);
+			    }
+			}
+			else{
+			    System.out.println("Please enter an existing subject to add the assignment to.\n");
+			    System.exit(0);
+			}
 		    }
 
 			
@@ -303,7 +329,7 @@ public class SaturnGrades{
 				System.exit(0);
 			}
 			else{
-			    System.out.println(args[1] + " cannot be removed because it is not an existing subject.");
+			    System.out.println(args[1] + " cannot be removed because it is not an existing subject.\n");
 			    System.exit(0);
 			}
 		    }
@@ -313,20 +339,47 @@ public class SaturnGrades{
 			    if(user.getElement(indexOfSubject).checkIfSubcategoryPresent(args[2])){
 				int indexOfSubcategory = user.getElement(indexOfSubject).getSubcategoryIndex(args[2]);
 				user.getElement(indexOfSubject).removeSubcategory(args[2]);
-				System.out.println(args[2] + " was removed as a subcategory from " + args[1]);
+				System.out.println(args[2] + " was removed as a subcategory from " + args[1] + ".\n");
 				user.writeFile();
 				System.exit(0);
 			    }
        			    else{
-				System.out.println(args[2] + " cannot be removed because it is not an existing subcategory in " + args[1]);
+				System.out.println(args[2] + " cannot be removed because it is not an existing subcategory in " + args[1] + ".\n");
 				System.exit(0);
 			    }
 			}
+			else{
+			    System.out.println(args[2] + " cannot be removed because " + args[1] + " does not exist."  + "\n");
+			    System.exit(0);
+			}
 		    }
-
-
-
-		    
+		    if(args.length == 4){
+			if(user.checkIfSubjectPresent(args[1])){
+			    int indexOfSubject = user.getSubjectIndex(args[1]);
+			    if(user.getElement(indexOfSubject).checkIfSubcategoryPresent(args[2])){
+				int indexOfSubcategory = user.getElement(indexOfSubject).getSubcategoryIndex(args[2]);
+				if(user.getElement(indexOfSubject).getElement(indexOfSubcategory).checkIfAssignmentPresent(args[3])){
+				    int indexOfAssignment = user.getElement(indexOfSubject).getElement(indexOfSubcategory).getAssignmentIndex(args[3]);
+				    user.getElement(indexOfSubject).getElement(indexOfSubcategory).removeAssignment(args[3]);
+				    System.out.println(args[3] + " was removed as an assignment from " + args[2] + " in " + args[1] + ".\n");
+				    user.writeFile();
+				    System.exit(0);
+      				}
+				else{
+				    System.out.println(args[3] + " cannot be removed because it is not an existing assignment in " + args[2] + " in " + args[1] + ".\n");
+				    System.exit(0);
+				}
+			    }
+			    else{
+				System.out.println(args[3] + " cannot be removed because " + args[2]  + " does not exist in " + args[1] + ".\n");
+				System.exit(0);
+			    }
+			}
+			else{
+			    System.out.println(args[3] + " cannot be removed because "  + args[1] + " does not exist.\n");
+			    System.exit(0);
+			}
+		    }
 		}
 	    }
 
