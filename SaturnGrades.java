@@ -68,7 +68,7 @@ public class SaturnGrades{
     }
     
     public void displayBasic(){
-	System.out.println(this.getName());
+	System.out.println(this.getName() + "\n");
 	for(int subjectIndex = 0; subjectIndex < collection.size(); subjectIndex++){
 	    System.out.println("*----------" + this.getElement(subjectIndex).getName() + "----------*");
 	    System.out.println("Subcategories: " + this.getElement(subjectIndex) + "\n");
@@ -382,14 +382,77 @@ public class SaturnGrades{
 		    }
 		}
 	    }
+	    if(keyword.equals("update")){ //java SaturnGrades update name <updated name> (3 args)
+		                          //java SaturnGrades update name <subject> <updated name> (4 args)
+		                          //java SaturnGrades update name <subject> <subcategory> <updated name> (5 args)
+		                          //java SaturnGrades update weight <subject> <subcategory> <updated weight> (5 args)
+		                          //java SaturnGrades update name <subject> <subcategory> <assignment> <updated name> (6 args)
+		                          //java SaturnGrades update grade <subject> <subcategory> <assignment> <updated grade> (6 args)
+                                          //java SaturnGrades update date <subject> <subcategory> <assignment> <updated date> (7 args)
+		if(args.length < 3 || args.length > 7){
+		    System.out.println("Oops! Something went wrong!\nPlease utilize one of following formats:\n\njava SaturnGrades update name <updated name>\n(This one updates the name associated with the user.)\n\njava SaturnGrades update name <subject> <updated name>\n(This one updates the name of the subject.)\n\njava SaturnGrades update name <subject> <subcategory> <updated name>\n(This one updates the name of the subcategory in the specified subject.)\n\njava SaturnGrades update weight <subject> <subcategory> <updated weight>\n(This one updates the weight of the subcategory in the specified subject.)\n\njava SaturnGrades update name <subject> <subcategory> <assignment> <updated name>\n(This one updates the name of the assignment in the specified subcategory and subject.)\n\njava SaturnGrades update grade <subject> <subcategory> <assignment> <updated grade>\n(This one updates the grade of the assignment in the specified subcategory and subject.)\n\njava SaturnGrades update date <subject> <subcategory> <assignment> <updated date>\n(This one updates the date of the assignment in the specified subcategory and subject.)\n\ne.g.     java SaturnGrades update name John Doe\n         java SaturnGrades update Math Precalculus\n         java SaturnGrades update Math Quizzes Mini-Tests\n         java SaturnGrades Math Quizzes 10.0\n         java SaturnGrades Math Quizzes Quiz#1 Quiz#2\n         java SaturnGrades Math Quizzes Quiz#1 100.0\n         java SaturnGrades Math Quizzes 01/01/2018 12/12/2019\n");
+		    System.exit(0);
+		}else{
+		    if(args.length == 3 && args[1].equals("name")){
+			String oldName = user.getName();
+			user.setName(args[2]);
+			System.out.println("User's name changed from " + oldName + " to " + args[2] + ".\n");
+			user.writeFile();
+			System.exit(0);
+		    }
+		    if(args.length == 4){
+			if(args[1].equals("name")){
+			    if(user.checkIfSubjectPresent(args[2])){
+				int indexOfSubject = user.getSubjectIndex(args[2]);
+				String oldName = user.getElement(indexOfSubject).getName();
+				user.getElement(indexOfSubject).setName(args[3]);
+				System.out.println("Subject's name changed from " + oldName + " to " + args[3] + ".\n");
+				user.writeFile();
+				System.exit(0);
+			    }
+			    else{
+				System.out.println("No changes occurred as " + args[2] + " was unable to be located.\n");
+				System.exit(0);
+			    }
+			}
+			else{
+			    System.out.println("Please recheck the format of the input.\n\njava SaturnGrades update name <subject> <updated name>\n");
+			    System.exit(0);
+			}
+		    }
+		    if(args.length == 5){ //java SaturnGrades update name <subject> <subcategory> <updated name> (5 args)
+			if(args[1].equals("name")){
+			    if(user.checkIfSubjectPresent(args[2])){
+				int indexOfSubject = user.getSubjectIndex(args[2]);
+				if(user.getElement(indexOfSubject).checkIfSubcategoryPresent(args[3])){
+				    int indexOfSubcategory = user.getElement(indexOfSubject).getSubcategoryIndex(args[3]);
+				    String oldName = user.getElement(indexOfSubject).getElement(indexOfSubcategory).getName();
+				    user.getElement(indexOfSubject).getElement(indexOfSubcategory).setName(args[4]);
+				    System.out.println("Subcategory's name changed from " + oldName + " to " + args[4] + ".\n");
+				    user.writeFile();
+				    System.exit(0);
+				}
+				else{
+				    System.out.println("No changes occurred as " + args[3] + " was unable to be located.\n");
+				    System.exit(0);
+				}
+			    }
+			    else{
+				System.out.println("No changes occurred as " + args[2] + " was unable to be located.\n");
+				System.exit(0);
+			    }
+			}else{
+			    //THE WEIGHT ONE GOES HERE
+			}
+		    }
 
 
 
+		    
 
-
-
-
-
+		
+		}
+	    }
 
 	    else{
 		System.out.println("Invalid keyword or format. Please check your input again.");
