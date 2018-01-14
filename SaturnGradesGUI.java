@@ -47,30 +47,30 @@ public class SaturnGradesGUI extends JFrame implements ActionListener{
 	this.setUpHomePane();
 
 	this.setLocationRelativeTo(null);
-	this.setDefaultLookAndFeelDecorated(true);
+	//this.setDefaultLookAndFeelDecorated(true);
 	this.setIconImage(new ImageIcon("https://d30y9cdsu7xlg0.cloudfront.net/png/129365-200.png").getImage());
-	this.setSize(500,500);
+	this.setSize(1000,1000);
 	this.setUpSubjectPane();
     }
 
     public void setUpHomePane(){
 	homePane = new JPanel(new BorderLayout());
 
-	JPanel left = new JPanel();
+	JPanel top = new JPanel();
 	JLabel SaturnGrades = new JLabel("Saturn Grades");
 	SaturnGrades.setOpaque(true);
 	SaturnGrades.setBackground(new Color(124, 132,142));
-	SaturnGrades.setPreferredSize(new Dimension(200,200));
-	left.add(SaturnGrades);
-	homePane.add(left, BorderLayout.WEST);
+	//SaturnGrades.setPreferredSize(new Dimension(200,200));
+	top.add(SaturnGrades);
+	homePane.add(top, BorderLayout.NORTH);
 
-	JPanel right = new JPanel();
-	JLabel GPA = new JLabel(""+program.getAverage());
+	JPanel bottom = new JPanel();
+	JLabel GPA = new JLabel("GPA: "+program.getAverage());
 	GPA.setOpaque(true);
 	GPA.setBackground(new Color(124,135,124));
-	GPA.setPreferredSize(new Dimension(200, 200));
-	right.add(GPA);
-	homePane.add(right, BorderLayout.EAST);
+	//GPA.setPreferredSize(new Dimension(200, 200));
+	bottom.add(GPA);
+	homePane.add(bottom, BorderLayout.SOUTH);
 
 	//homePane.setBorder(BorderFactory.createEmptyBorder(100,100,100,100));
 	homePane.add(setUpMidPane());
@@ -92,7 +92,6 @@ public class SaturnGradesGUI extends JFrame implements ActionListener{
     public void setUpSubjectPane(){
 	//initialize the pane
 	subjectPane = new JPanel();
-	//JLabel notSupp = new JLabel("Sorry, not supported now. Come back later!");	subjectPane.add(notSupp, BorderLayout.NORTH);
 
 	//add a "back" button
 	JButton viewhome = new JButton("Go back to homepage");
