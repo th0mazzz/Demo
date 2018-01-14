@@ -47,6 +47,26 @@ public class SaturnGrades{
 	return sumOfSubjects / size();
     }
 
+    public boolean checkIfSubjectPresent(String subjectName){
+	for(int index = 0; index < collection.size(); index++){
+	    if((this.getElement(index).getName()).equals(subjectName)){
+		return true;
+	    }
+	}
+	System.out.println("Subject does not exist");
+	return false;
+    }
+
+    public int getSubjectIndex(String subjectName){
+	for(int index = 0; index < collection.size(); index++){
+	    if((this.getElement(index).getName()).equals(subjectName)){
+		return index;
+	    }
+	}
+	System.out.println("Subject does not exist");
+	return -1;
+    }
+    
     public void displayBasic(){
 	System.out.println(this.getName());
 	for(int subjectIndex = 0; subjectIndex < collection.size(); subjectIndex++){
@@ -241,10 +261,32 @@ public class SaturnGrades{
 		    user.displayInformed();
 		    System.exit(0);
 		}
-		System.out.println("Oops! Something went wrong!\nPlease utilize the following format:\n\njava SaturnGrades display <type>\n\nwhere <type> is either entered as 'basic' or 'informed'\ne.g.     java SaturnGrades display informed\n");
+		System.out.println("Oops! Something went wrong!\nPlease utilize the following format:\n\njava SaturnGrades display <type>\n\nwhere <type> is either entered as 'basic' or 'informed'.\ne.g.     java SaturnGrades display informed\n");
 		System.exit(0);
 	    }
+	    if(keyword.equals("add")){ //java SaturnGrades add <subject name> (args.length = 2)
+		                       //java SaturnGrades add <subject name> <subcategory name> <weight> (args.length = 4)
+		                       //java SaturnGrades add <subject name> <subcategory> <assignment name> <grade> <date> (args.length = 5)
+		if(args.length != 2 && args.length != 4 && args.length != 5){
+		    System.out.println("Oops! Something went wrong!\nPlease utilize one of following formats:\n\njava SaturnGrades add <subject name>\n(This one adds a subject.)\n\njava SaturnGrades add <subject name> <subcategory name> <subcategory weight*>\n(This one adds a subcategory with its weight.)\n\njava SaturnGrades add <subject name> <subcategory> <assignment name> <grade> <date>\n(This one adds an assignment with its grade and date.)\n\ne.g.     java SaturnGrades Calculus\n         java SaturnGrades Calculus Homeworks 25.0\n         java SaturnGrades Calculus Homeworks Homework#1 100 01/01/2018\n\n*weight - the percentage this subcategory will contribute to the subject's average\n");
+		    System.exit(0);
+		}else{
+		    if(args.length == 2){
+			user.addSubject(args[1]);
+			System.out.println(args[1] + " was added as a subject.");
+			user.writeFile();
+			System.exit(0);
+		    }
 
+			
+		}
+	    }
+	    if(keyword.equals("remove")){ //java SaturnGrades remove <subject name>
+		                          //java SaturnGrades remove <subject name> <subcategory name>
+		                          //java SaturnGrades remove <subject name> <subcategory name> <assignment name>
+		
+		
+	    }
 
 
 
@@ -265,37 +307,7 @@ public class SaturnGrades{
 	       
 	}
 
-	user.writeFile();
+	
 
     }
 }
-
-/*
-arg 0 possibilities
-  subjectName
-  subcategoryName
-  assignmentName
-  addSubject
-  removeSubject
-  add
-
-
-
-
------------------------------------
-  arg0 is keyword
-if three args, making assignment
-  arg1 is variable info grade
-  arg2 is variable info name
-  arg3 is variable info date
-
-
-if two args
-  arg1 is subcategory name
-  arg2 is subcategory weight
-
-if one arg
-  arg1 is subject name
-
-
- */
