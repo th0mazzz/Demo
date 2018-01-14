@@ -42,6 +42,8 @@ making sure it works:
  - [x] be able to switch between the pages
  - [x] Write a class for subject pages
  - [x] be able to go to any subject page and back
+ - [x] write a class for subcategory pages
+ - [ ] be able to view subcategory pages and go back
  - [ ] write a class for assignment pages
  - [ ] be able to view assignment pages and go back
 
@@ -74,6 +76,7 @@ reaches:
 ## devlog
 ### 01/13/18 (Mer)
 * Just a morning update from me: we chatted a bit about the improved backend design Thomas made last night, and it's perfectly fine. I should've communicated with Thomas more because for the past few days, I've been dismissive about really seeing any part of new code he was working on because I expended all my efforts into learning GUI. While it is taking a long time to learn GUI and create the sort of wrapper I want, I hope it'll pay off in the end and increase the program's usability.
+* it's not the morning anymmore; I learned a bunch more GUI stuff today and concluded that the energy expended vs. how impressive this is going to look has a graph that resembles a square root curve; regarding actual progress made, I wrote a new class and fixed some straggling inconsistencies.
 
 ### 01/12/2018 (Thomas)
 * Was able to get reading and writing functionality (absurdly long time to do)
