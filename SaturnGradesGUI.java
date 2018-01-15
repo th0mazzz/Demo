@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -8,7 +9,7 @@ public class SaturnGradesGUI extends JFrame implements ActionListener{
     private JPanel homePane;
     private JPanel subjectPane;
     private SaturnGrades program;
-    private String title;
+    private ArrayList<Subject> arr;
 
     public JPanel getHomePane(){
 	return homePane;
@@ -18,9 +19,6 @@ public class SaturnGradesGUI extends JFrame implements ActionListener{
     }
     public SaturnGrades getProgram(){
 	return program;
-    }
-    public String getTitle(){
-	return title;
     }
 
     public void setHomePane(JPanel pane){
@@ -32,31 +30,29 @@ public class SaturnGradesGUI extends JFrame implements ActionListener{
     public void setProgram(SaturnGrades sg){
 	program = sg;
     }
-    public void setTheTitle(String smth){
-	title=smth;
-	this.setTitle(title);
-    }
     
     public SaturnGradesGUI(SaturnGrades user){
 	program=user;
-	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	
 	//set the title
-	this.setTheTitle("Saturn Grades");
+	setTitle("Saturn Grades");
 
-	this.setUpHomePane();
+	setUpHomePane();
+	setUpSubjectPane();
 
-	this.setLocationRelativeTo(null);
+	setContentPane(homePane);
+	setLocationRelativeTo(null);
 	//this.setDefaultLookAndFeelDecorated(true);
-	this.setIconImage(new ImageIcon("https://d30y9cdsu7xlg0.cloudfront.net/png/129365-200.png").getImage());
-	this.setSize(1000,1000);
-	this.setUpSubjectPane();
+	//this.setIconImage(new ImageIcon("https://d30y9cdsu7xlg0.cloudfront.net/png/129365-200.png").getImage());
+	setSize(500, 500);
+	setVisible(true);
     }
 
     public void setUpHomePane(){
 	homePane = new JPanel(new BorderLayout());
 
-	JPanel top = new JPanel();
+	JPanel top = new JPanel(new FlowLayout());
 	JLabel SaturnGrades = new JLabel("Saturn Grades");
 	SaturnGrades.setOpaque(true);
 	SaturnGrades.setBackground(new Color(124, 132,142));
@@ -64,7 +60,7 @@ public class SaturnGradesGUI extends JFrame implements ActionListener{
 	top.add(SaturnGrades);
 	homePane.add(top, BorderLayout.NORTH);
 
-	JPanel bottom = new JPanel();
+	JPanel bottom = new JPanel(new FlowLayout());
 	JLabel GPA = new JLabel("GPA: "+program.getAverage());
 	GPA.setOpaque(true);
 	GPA.setBackground(new Color(124,135,124));
@@ -74,7 +70,6 @@ public class SaturnGradesGUI extends JFrame implements ActionListener{
 
 	//homePane.setBorder(BorderFactory.createEmptyBorder(100,100,100,100));
 	homePane.add(setUpMidPane());
-	this.setContentPane(homePane);
     }
 
     public JPanel setUpMidPane(){
@@ -99,19 +94,16 @@ public class SaturnGradesGUI extends JFrame implements ActionListener{
 	viewhome.addActionListener(this);
 
 	//adds cushioning around the back button for a better look
-	subjectPane.setBorder(BorderFactory.createEmptyBorder(100,100,100,100));
+	//subjectPane.setBorder(BorderFactory.createEmptyBorder(100,100,100,100));
 	subjectPane.add(viewhome);
 
 	//make array of subjects
-	Subject[] arr = new Subject[program.size()];
-	for(int i=0;i<program.size();i++){
-	    arr[i]=program.getElement(i);
-	}
+	arr = program.getCollection();
 
 	//creating new button for each subject
-	for(int g=0;g<arr.length;g++){
+	for(int g=0;g<arr.size();g++){
 	    // JButton newButton = createSubButton(arr[g]);
-	    subjectPane.add(createSubButton(arr[g]));
+	    subjectPane.add(createSubButton(arr.get(g)));
 	}
     }
 
@@ -121,6 +113,7 @@ public class SaturnGradesGUI extends JFrame implements ActionListener{
 	newthang.addActionListener(new ActionListener(){
 		@Override public void actionPerformed(ActionEvent e){
 		    mvToSubPanel(interact);
+		    revalidate();
 		}
 	    });
 	return newthang;
@@ -130,14 +123,17 @@ public class SaturnGradesGUI extends JFrame implements ActionListener{
 	String command = e.getActionCommand();
 	if("see_subjects".equals(command)){
 	    this.setContentPane(subjectPane);
+	    revalidate();
 	}
 	if("see_homepage".equals(command)){
 	    this.setContentPane(homePane);
+	    revalidate();
 	}
     }
 
     public void mvToSubPanel(SubjectInterface pane){
 	this.setContentPane(pane);
+	revalidate();
     }
     
     public SubjectInterface makeNewSubInterface(Subject sub){
@@ -148,11 +144,29 @@ public class SaturnGradesGUI extends JFrame implements ActionListener{
     public static void main(String[] args){
 	SaturnGrades Meredith = new SaturnGrades();
 
-	Meredith.addSubject("Precalc");
-	Meredith.addSubject("APUSH");
+	Subject Precalc = new Subject("Precalc");
+	Meredith.addSubject(Precalc);
+	Subject APUSH = new Subject("APUSH");
+	Meredith.addSubject(APUSH);
 
-	SaturnGradesGUI test = new SaturnGradesGUI(Meredith);
-	test.pack();
-	test.setVisible(true);
+	Subcategory PrecalcTests = new Subcategory("Tests", 80.0);
+	Precalc.addSubcategory(PrecalcTests);
+	Subcategory PrecalcHW = new Subcategory("HW",10.0);
+	Precalc.addSubcategory(PrecalcHW);
+	Subcategory PrecalcPart = new Subcategory("Participation",10.0);
+	Precalc.addSubcategory(PrecalcPart);
+	System.out.println(Precalc.checkSubcategorySum());
+	
+	PrecalcTests.addAssignment("Test 1", 90.0, "10/15/17");
+	PrecalcTests.addAssignment("Test 2", 98.0, "10/30/17");
+	PrecalcHW.addAssignment("hw 1", 97.0, "11/12/17");
+	PrecalcPart.addAssignment("mp 1", 100.0, "12/22/17");
+
+	SwingUtilities.invokeLater(new Runnable() {
+		@Override
+		    public void run(){
+		    SaturnGradesGUI test = new SaturnGradesGUI(Meredith);
+		}
+	    });
     }
 }
