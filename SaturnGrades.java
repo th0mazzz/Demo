@@ -9,6 +9,10 @@ public class SaturnGrades{
     private double average = 100.0;
     private ArrayList<Subject> collection = new ArrayList<>();
     
+    public ArrayList<Subject> getCollection(){
+	return collection;
+    }
+
     public int size(){
 	return collection.size();
     }
@@ -37,6 +41,13 @@ public class SaturnGrades{
 		collection.remove(index);
 	    }
 	}
+    }
+
+    public void addSubject(Subject subj){
+	collection.add(subj);
+    }
+    public void removeSubject(Subject subj){
+	collection.remove(subj);
     }
 
     public double calcAverage(){
