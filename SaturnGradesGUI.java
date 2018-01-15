@@ -157,16 +157,20 @@ public class SaturnGradesGUI extends JFrame implements ActionListener{
 	Precalc.addSubcategory(PrecalcPart);
 	System.out.println(Precalc.checkSubcategorySum());
 	
-	PrecalcTests.addAssignment("Test 1", 90.0, "10/15/17");
-	PrecalcTests.addAssignment("Test 2", 98.0, "10/30/17");
-	PrecalcHW.addAssignment("hw 1", 97.0, "11/12/17");
-	PrecalcPart.addAssignment("mp 1", 100.0, "12/22/17");
+	PrecalcTests.addAssignment("Test 1", 90.0, "10/15/2017");
+	PrecalcTests.addAssignment("Test 2", 98.0, "10/30/2017");
+	PrecalcHW.addAssignment("hw 1", 97.0, "11/12/2017");
+	PrecalcPart.addAssignment("mp 1", 100.0, "12/22/2017");
 
+	System.out.println(PrecalcPart.getCollection());
+
+       
 	SwingUtilities.invokeLater(new Runnable() {
 		@Override
 		    public void run(){
 		    SaturnGradesGUI test = new SaturnGradesGUI(Meredith);
 		}
 	    });
+	
     }
 }

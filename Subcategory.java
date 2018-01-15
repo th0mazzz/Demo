@@ -4,12 +4,13 @@ public class Subcategory{
     private double average = 0;
     private String name = "UntitledSubcategory";
     private double weight = 0;
-    private ArrayList<Assignment> collection = new ArrayList<>();
+    private ArrayList<Assignment> collection;
     
     public Subcategory(String name, double weight){
 	this.average = 100.0;
 	this.name = name;
 	this.weight = weight;
+	collection = new ArrayList<Assignment>();
 	
     }
 
@@ -20,9 +21,11 @@ public class Subcategory{
 	average = (Math.round(average * 10.0)) / 10.0;
 	return average;
     }
+
     public ArrayList<Assignment> getCollection(){
 	return collection;
     }
+
     public double getWeight(){return weight;}
     public String getName(){return name;}
 

@@ -6,7 +6,6 @@ import java.awt.event.*;
 public class SubjectInterface extends JPanel implements ActionListener{
     private JLabel title;
     private SaturnGradesGUI topLevel;
-    private Subcategory data;
     private Subject subject;
     private ArrayList<Subcategory> arr;
 
@@ -32,13 +31,14 @@ public class SubjectInterface extends JPanel implements ActionListener{
 	newthang.addActionListener(new ActionListener(){
 		@Override public void actionPerformed(ActionEvent e){
 		    mvToSubcatPanel(interact);
+		    revalidate();
 		}
 	    });
 	return newthang;
     }
 
     public SubcatInterface makeNewSubcatInterface(Subcategory subcat){
-	SubcatInterface pane = new SubcatInterface(topLevel, this, data);
+	SubcatInterface pane = new SubcatInterface(topLevel, this, subcat);
 	return pane;
     }
     

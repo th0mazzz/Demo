@@ -45,7 +45,7 @@ making sure it works:
  - [x] write a class for subcategory pages
  - [x] be able to view subcategory pages and go back
  - [x] write a class for assignment pages
- - [ ] be able to view assignment pages and go back
+ - [x] be able to view assignment pages and go back
 
 user input:
  - [ ] be able to add and delete subjects
@@ -74,6 +74,9 @@ reaches:
  - [ ] write a function that roasts users
 
 ## devlog
+
+###01/15/18 (Meredith)
+* fixed the null pointer exception GUI bug from yesterday
 
 ### 01/14/18 (Meredith)
 * you know how everyone thought tobacco was good for you in the 50's yeah, I'm convinced java's the new smoking, because debugging nullpointerexceptions and learning all of swing in two days was about as enjoyable as passing a kidney stone.
