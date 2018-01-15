@@ -1,11 +1,13 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 public class SubcatInterface extends JPanel implements ActionListener{
     private SaturnGradesGUI frame;
     private SubjectInterface pane;
     private Subcategory data;
+    private ArrayList<Assignment> arr;
 
     public SubcatInterface(SaturnGradesGUI frame, SubjectInterface pane, Subcategory data){
 	setLayout(new BorderLayout());
@@ -13,6 +15,36 @@ public class SubcatInterface extends JPanel implements ActionListener{
 	this.pane=pane;
 	this.data=data;
 	addBackButton();
+	
+	//initialize array of assignments
+	arr = data.getCollection();
+	
+	//create a new button for each assignment
+	for(int i=0;i<arr.size();i++){
+	    add(createAssignmentButton(arr.get(i)));
+	}
+    }
+
+    public JButton createAssignmentButton(Assignment thing){
+	JButton newthang = new JButton(thing.getName());
+	AssignmentInterface interact = makeNewAssignmentInterface(thing);
+	newthang.addActionListener(new ActionListener(){
+		@Override public void actionPerformed(ActionEvent e){
+		    mvToAssignmentPanel(interact);
+		    revalidate();
+		}
+	    });
+	return newthang;
+    }
+
+    public AssignmentInterface makeNewAssignmentInterface(Assignment thing){
+	AssignmentInterface pane = new AssignmentInterface(frame, this, thing);
+	return pane;
+    }
+
+    public void mvToAssignmentPanel(AssignmentInterface pane){
+	frame.setContentPane(pane);
+	revalidate();
     }
 
     public SaturnGradesGUI getFrame(){
@@ -46,6 +78,7 @@ public class SubcatInterface extends JPanel implements ActionListener{
 	String command = e.getActionCommand();
 	if("go_back".equals(command)){
 	    frame.setContentPane(pane);
+	    revalidate();
 	}
     }
 }
