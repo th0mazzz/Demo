@@ -43,8 +43,8 @@ making sure it works:
  - [x] Write a class for subject pages
  - [x] be able to go to any subject page and back
  - [x] write a class for subcategory pages
- - [ ] be able to view subcategory pages and go back
- - [ ] write a class for assignment pages
+ - [x] be able to view subcategory pages and go back
+ - [x] write a class for assignment pages
  - [ ] be able to view assignment pages and go back
 
 user input:
@@ -67,13 +67,19 @@ basics:
 
 command line functionality
  - [x] get terminal functionality for summary keywords
- - [ ] be able to handle user input of subject names and grades and things like that
+ - [x] be able to handle user input of subject names and grades and things like that
 
 reaches:
  - [ ] write a predictive average calculator based on future assignments and how much they would impact the grade
  - [ ] write a function that roasts users
 
 ## devlog
+
+### 01/14/18 (Meredith)
+* you know how everyone thought tobacco was good for you in the 50's yeah, I'm convinced java's the new smoking, because debugging nullpointerexceptions and learning all of swing in two days was about as enjoyable as passing a kidney stone.
+* I totally didn't make as much progress as I wanted to, I regret not using cardlayout and the GUI looks way uglier than I'd like it to be, but c'est la vie
+* I finally wrote all the basic GUI classes (plus I had some other stuff to do today so progress was slow) so I'll get back to it tomorrow!
+
 ### 01/14/2018 (Thomas)
 * I think I finished everything regarding command line functionality!
 * Completed update command: you can now update names, weights, grades, dates!
