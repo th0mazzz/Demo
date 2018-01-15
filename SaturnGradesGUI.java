@@ -52,59 +52,62 @@ public class SaturnGradesGUI extends JFrame implements ActionListener{
     public void setUpHomePane(){
 	homePane = new JPanel(new BorderLayout());
 
-	JPanel top = new JPanel(new FlowLayout());
 	JLabel SaturnGrades = new JLabel("Saturn Grades");
 	SaturnGrades.setOpaque(true);
 	SaturnGrades.setBackground(new Color(124, 132,142));
-	//SaturnGrades.setPreferredSize(new Dimension(200,200));
-	top.add(SaturnGrades);
-	homePane.add(top, BorderLayout.NORTH);
+	//SaturnGrades.setPreferredSize(new Dimension(150,50));
+	homePane.add(SaturnGrades, BorderLayout.NORTH);
 
-	JPanel bottom = new JPanel(new FlowLayout());
-	JLabel GPA = new JLabel("GPA: "+program.getAverage());
-	GPA.setOpaque(true);
-	GPA.setBackground(new Color(124,135,124));
-	//GPA.setPreferredSize(new Dimension(200, 200));
-	bottom.add(GPA);
-	homePane.add(bottom, BorderLayout.SOUTH);
-
-	//homePane.setBorder(BorderFactory.createEmptyBorder(100,100,100,100));
-	homePane.add(setUpMidPane());
-    }
-
-    public JPanel setUpMidPane(){
-	JPanel midPane = new JPanel();
 	JButton viewsubs = new JButton("View Subjects");
 	viewsubs.setActionCommand("see_subjects");
 	viewsubs.addActionListener(this);
+	homePane.add(viewsubs, BorderLayout.SOUTH);
 
-	midPane.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
-	midPane.add(viewsubs);
+	//homePane.setBorder(BorderFactory.createEmptyBorder(100,100,100,100));
+	homePane.add(setUpMidPane(), BorderLayout.CENTER);
+    }
+
+    public JPanel setUpMidPane(){
+	JPanel midPane = new JPanel(new FlowLayout());
+	JLabel GPA = new JLabel("GPA: "+program.getAverage());
+	GPA.setOpaque(true);
+	GPA.setBackground(new Color(124,135,124));
+	//GPA.setPreferredSize(new Dimension(150, 50));
+
+	//midPane.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+	midPane.add(GPA);
 
 	return midPane;
     }
 
     public void setUpSubjectPane(){
 	//initialize the pane
-	subjectPane = new JPanel();
+	subjectPane = new JPanel(new BorderLayout());
 
-	//add a "back" button
-	JButton viewhome = new JButton("Go back to homepage");
-	viewhome.setActionCommand("see_homepage");
-	viewhome.addActionListener(this);
+	//creating top label
+	JLabel subs = new JLabel("My Subjects");
+	subjectPane.add(subs, BorderLayout.NORTH);
 
-	//adds cushioning around the back button for a better look
-	//subjectPane.setBorder(BorderFactory.createEmptyBorder(100,100,100,100));
-	subjectPane.add(viewhome);
+	//creating middle scrollable pane with subject buttons
+	JPanel pane = new JPanel();
+	pane.setLayout(new BoxLayout(pane, BoxLayout.Y_AXIS));
+	JScrollPane midSubjectPane = new JScrollPane(pane, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
 	//make array of subjects
 	arr = program.getCollection();
 
 	//creating new button for each subject
 	for(int g=0;g<arr.size();g++){
-	    // JButton newButton = createSubButton(arr[g]);
-	    subjectPane.add(createSubButton(arr.get(g)));
+	    pane.add(createSubButton(arr.get(g)));
 	}
+
+	subjectPane.add(midSubjectPane, BorderLayout.CENTER);
+
+	//add a "back" button at the bottom
+	JButton viewhome = new JButton("Go back to homepage");
+	viewhome.setActionCommand("see_homepage");
+	viewhome.addActionListener(this);
+	subjectPane.add(viewhome, BorderLayout.SOUTH);
     }
 
     public JButton createSubButton(Subject subj){
@@ -116,6 +119,7 @@ public class SaturnGradesGUI extends JFrame implements ActionListener{
 		    revalidate();
 		}
 	    });
+	newthang.setAlignmentX(Component.CENTER_ALIGNMENT);
 	return newthang;
     }
 

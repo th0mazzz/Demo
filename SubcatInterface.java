@@ -8,21 +8,33 @@ public class SubcatInterface extends JPanel implements ActionListener{
     private SubjectInterface pane;
     private Subcategory data;
     private ArrayList<Assignment> arr;
+    private JScrollPane midpane;
 
     public SubcatInterface(SaturnGradesGUI frame, SubjectInterface pane, Subcategory data){
 	setLayout(new BorderLayout());
 	this.frame=frame;
 	this.pane=pane;
 	this.data=data;
+	JLabel title = new JLabel(data.getName());
+	this.add(title, BorderLayout.NORTH);
+	setUpMidPane();
 	addBackButton();
 	
+    }
+
+    public void setUpMidPane(){
+	JPanel pane = new JPanel();
+	pane.setLayout(new BoxLayout(pane, BoxLayout.Y_AXIS));
+	midpane = new JScrollPane(pane, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
 	//initialize array of assignments
 	arr = data.getCollection();
 	
 	//create a new button for each assignment
 	for(int i=0;i<arr.size();i++){
-	    add(createAssignmentButton(arr.get(i)));
+	    pane.add(createAssignmentButton(arr.get(i)));
 	}
+	this.add(midpane, BorderLayout.CENTER);
     }
 
     public JButton createAssignmentButton(Assignment thing){
@@ -34,6 +46,7 @@ public class SubcatInterface extends JPanel implements ActionListener{
 		    revalidate();
 		}
 	    });
+	newthang.setAlignmentX(Component.CENTER_ALIGNMENT);
 	return newthang;
     }
 

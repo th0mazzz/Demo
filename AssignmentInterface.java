@@ -12,6 +12,8 @@ public class AssignmentInterface extends JPanel implements ActionListener{
 	this.frame=frame;
 	backpane=pane;
 	this.data=data;
+	JLabel title = new JLabel(data.getName());
+	add(title, BorderLayout.NORTH);
 	addBackButton();
     }
 

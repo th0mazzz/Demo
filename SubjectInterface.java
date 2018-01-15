@@ -8,23 +8,34 @@ public class SubjectInterface extends JPanel implements ActionListener{
     private SaturnGradesGUI topLevel;
     private Subject subject;
     private ArrayList<Subcategory> arr;
+    private JScrollPane subcatPane;
 
     public SubjectInterface(SaturnGradesGUI frame, Subject sub){
+	setLayout(new BorderLayout());
 	topLevel = frame;
 	subject = sub;
 	title=new JLabel(frame.getTitle()+"-"+subject.getName());
-	this.add(title);
+	this.add(title, BorderLayout.NORTH);
 	addBackButton();
+	setUpSubcatPane();
+
+    }
+    
+    public void setUpSubcatPane(){
+	JPanel pane = new JPanel();
+	pane.setLayout(new BoxLayout(pane, BoxLayout.Y_AXIS));
+	subcatPane = new JScrollPane(pane, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
 	//make array of subcategories
 	arr = subject.getSubcats();
 	
 	//creates a new button for each subcategory
 	for(int g=0;g<arr.size();g++){
-	    this.add(createSubcatButton(arr.get(g)));
+	    pane.add(createSubcatButton(arr.get(g)));
 	}
+	this.add(subcatPane, BorderLayout.CENTER);
     }
-    
+
     public JButton createSubcatButton(Subcategory subcat){
 	JButton newthang = new JButton(subcat.getName());
 	SubcatInterface interact = makeNewSubcatInterface(subcat);
@@ -34,6 +45,7 @@ public class SubjectInterface extends JPanel implements ActionListener{
 		    revalidate();
 		}
 	    });
+	newthang.setAlignmentX(Component.CENTER_ALIGNMENT);
 	return newthang;
     }
 
@@ -71,7 +83,7 @@ public class SubjectInterface extends JPanel implements ActionListener{
 	JButton back = new JButton("Go Back");
 	back.setActionCommand("go_back");
 	back.addActionListener(this);
-	this.add(back);
+	this.add(back, BorderLayout.SOUTH);
     }
 
     public void actionPerformed(ActionEvent e){
