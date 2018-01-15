@@ -20,7 +20,9 @@ public class Subcategory{
 	average = (Math.round(average * 10.0)) / 10.0;
 	return average;
     }
-    
+    public ArrayList<Assignment> getCollection(){
+	return collection;
+    }
     public double getWeight(){return weight;}
     public String getName(){return name;}
 

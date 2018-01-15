@@ -17,6 +17,10 @@ public class Subject{
 	return average;
     }
 
+    public ArrayList<Subcategory> getSubcats(){
+	return collection;
+    }
+
     public Subcategory getElement(int index){
 	return collection.get(index);
     }
@@ -67,6 +71,13 @@ public class Subject{
 		collection.remove(index);
 	    }
 	}
+    }
+
+    public void addSubcategory(Subcategory subcat){
+	collection.add(subcat);
+    }
+    public void removeSubcategory(Subcategory subcat){
+	collection.remove(subcat);
     }
 
     public double calcAverage(){
