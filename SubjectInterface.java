@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -5,7 +6,9 @@ import java.awt.event.*;
 public class SubjectInterface extends JPanel implements ActionListener{
     private JLabel title;
     private SaturnGradesGUI topLevel;
+    private Subcategory data;
     private Subject subject;
+    private ArrayList<Subcategory> arr;
 
     public SubjectInterface(SaturnGradesGUI frame, Subject sub){
 	topLevel = frame;
@@ -13,8 +16,37 @@ public class SubjectInterface extends JPanel implements ActionListener{
 	title=new JLabel(frame.getTitle()+"-"+subject.getName());
 	this.add(title);
 	addBackButton();
+
+	//make array of subcategories
+	arr = subject.getSubcats();
+	
+	//creates a new button for each subcategory
+	for(int g=0;g<arr.size();g++){
+	    this.add(createSubcatButton(arr.get(g)));
+	}
     }
     
+    public JButton createSubcatButton(Subcategory subcat){
+	JButton newthang = new JButton(subcat.getName());
+	SubcatInterface interact = makeNewSubcatInterface(subcat);
+	newthang.addActionListener(new ActionListener(){
+		@Override public void actionPerformed(ActionEvent e){
+		    mvToSubcatPanel(interact);
+		}
+	    });
+	return newthang;
+    }
+
+    public SubcatInterface makeNewSubcatInterface(Subcategory subcat){
+	SubcatInterface pane = new SubcatInterface(topLevel, this, data);
+	return pane;
+    }
+    
+    public void mvToSubcatPanel(SubcatInterface pane){
+	topLevel.setContentPane(pane);
+	revalidate();
+    }
+
     public JLabel getTitle(){
 	return title;
     }
@@ -46,6 +78,7 @@ public class SubjectInterface extends JPanel implements ActionListener{
 	String command = e.getActionCommand();
 	if("go_back".equals(command)){
 	    topLevel.setContentPane(topLevel.getSubjectPane());
+	    revalidate();
 	}
     }
 
