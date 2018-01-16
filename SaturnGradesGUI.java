@@ -55,7 +55,7 @@ public class SaturnGradesGUI extends JFrame implements ActionListener{
 	JLabel SaturnGrades = new JLabel("Saturn Grades");
 	SaturnGrades.setOpaque(true);
 	SaturnGrades.setBackground(new Color(124, 132,142));
-	//SaturnGrades.setPreferredSize(new Dimension(150,50));
+	SaturnGrades.setPreferredSize(new Dimension(150,50));
 	homePane.add(SaturnGrades, BorderLayout.NORTH);
 
 	JButton viewsubs = new JButton("View Subjects");
@@ -71,7 +71,7 @@ public class SaturnGradesGUI extends JFrame implements ActionListener{
 	JPanel midPane = new JPanel(new FlowLayout());
 	JLabel GPA = new JLabel("GPA: "+program.getAverage());
 	GPA.setOpaque(true);
-	GPA.setBackground(new Color(124,135,124));
+	//GPA.setBackground(new Color(124,135,124));
 	//GPA.setPreferredSize(new Dimension(150, 50));
 
 	//midPane.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
@@ -81,15 +81,31 @@ public class SaturnGradesGUI extends JFrame implements ActionListener{
     }
 
     public void setUpSubjectPane(){
+	JPanel pane = new JPanel();
+
 	//initialize the pane
 	subjectPane = new JPanel(new BorderLayout());
 
-	//creating top label
+	//creating top label & add subject button
+	JPanel top = new JPanel(new FlowLayout());
 	JLabel subs = new JLabel("My Subjects");
-	subjectPane.add(subs, BorderLayout.NORTH);
+	top.add(subs);
+	JLabel add = new JLabel("Add a subject: ");
+	top.add(add);
+	JTextField addsubs = new JTextField(10);
+	JButton addit = new JButton("add");
+	addit.addActionListener(new ActionListener(){
+		@Override public void actionPerformed(ActionEvent e){
+		    pane.add(createSubButton(new Subject(addsubs.getText())));
+		    addsubs.setText("");
+		    revalidate();
+		}
+	    });
+	top.add(addsubs);
+	top.add(addit);
+	subjectPane.add(top, BorderLayout.NORTH);
 
 	//creating middle scrollable pane with subject buttons
-	JPanel pane = new JPanel();
 	pane.setLayout(new BoxLayout(pane, BoxLayout.Y_AXIS));
 	JScrollPane midSubjectPane = new JScrollPane(pane, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -132,7 +148,7 @@ public class SaturnGradesGUI extends JFrame implements ActionListener{
 	if("see_homepage".equals(command)){
 	    this.setContentPane(homePane);
 	    revalidate();
-	}
+	}	    
     }
 
     public void mvToSubPanel(SubjectInterface pane){
@@ -146,29 +162,7 @@ public class SaturnGradesGUI extends JFrame implements ActionListener{
     }
 
     public static void main(String[] args){
-	SaturnGrades Meredith = new SaturnGrades();
-
-	Subject Precalc = new Subject("Precalc");
-	Meredith.addSubject(Precalc);
-	Subject APUSH = new Subject("APUSH");
-	Meredith.addSubject(APUSH);
-
-	Subcategory PrecalcTests = new Subcategory("Tests", 80.0);
-	Precalc.addSubcategory(PrecalcTests);
-	Subcategory PrecalcHW = new Subcategory("HW",10.0);
-	Precalc.addSubcategory(PrecalcHW);
-	Subcategory PrecalcPart = new Subcategory("Participation",10.0);
-	Precalc.addSubcategory(PrecalcPart);
-	System.out.println(Precalc.checkSubcategorySum());
-	
-	PrecalcTests.addAssignment("Test 1", 90.0, "10/15/2017");
-	PrecalcTests.addAssignment("Test 2", 98.0, "10/30/2017");
-	PrecalcHW.addAssignment("hw 1", 97.0, "11/12/2017");
-	PrecalcPart.addAssignment("mp 1", 100.0, "12/22/2017");
-
-	System.out.println(PrecalcPart.getCollection());
-
-       
+	SaturnGrades Meredith = new SaturnGrades();     
 	SwingUtilities.invokeLater(new Runnable() {
 		@Override
 		    public void run(){
