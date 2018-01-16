@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class SubjectInterface extends JPanel implements ActionListener{
-    private JLabel title;
+    private JPanel top;
     private SaturnGradesGUI topLevel;
     private Subject subject;
     private ArrayList<Subcategory> arr;
@@ -14,8 +14,10 @@ public class SubjectInterface extends JPanel implements ActionListener{
 	setLayout(new BorderLayout());
 	topLevel = frame;
 	subject = sub;
-	title=new JLabel(frame.getTitle()+"-"+subject.getName());
-	this.add(title, BorderLayout.NORTH);
+	top = new JPanel(new FlowLayout());
+	JLabel title=new JLabel(frame.getTitle()+"-"+subject.getName());
+	top.add(title);
+	this.add(top, BorderLayout.NORTH);
 	addBackButton();
 	setUpSubcatPane();
 
@@ -26,6 +28,22 @@ public class SubjectInterface extends JPanel implements ActionListener{
 	pane.setLayout(new BoxLayout(pane, BoxLayout.Y_AXIS));
 	subcatPane = new JScrollPane(pane, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
+	JLabel add = new JLabel("Add a subcategory (name, weight): ");
+	top.add(add);
+	JTextField subcatname = new JTextField(10);
+	JTextField subcatweight = new JTextField(10);
+	JButton addit = new JButton("add");
+	addit.addActionListener(new ActionListener(){
+		@Override public void actionPerformed(ActionEvent e){
+		    pane.add(createSubcatButton(new Subcategory(subcatname.getText(),Double.parseDouble(subcatweight.getText()))));
+		    subcatname.setText("");
+		    subcatweight.setText("");
+		    revalidate();
+		}
+	    });
+	top.add(subcatname);
+	top.add(subcatweight);
+	top.add(addit);
 	//make array of subcategories
 	arr = subject.getSubcats();
 	
@@ -37,12 +55,11 @@ public class SubjectInterface extends JPanel implements ActionListener{
     }
 
     public JButton createSubcatButton(Subcategory subcat){
-	JButton newthang = new JButton(subcat.getName());
+	JButton newthang = new JButton(subcat.getName()+"- "+subcat.getWeight()+"%");
 	SubcatInterface interact = makeNewSubcatInterface(subcat);
 	newthang.addActionListener(new ActionListener(){
 		@Override public void actionPerformed(ActionEvent e){
 		    mvToSubcatPanel(interact);
-		    revalidate();
 		}
 	    });
 	newthang.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -59,9 +76,6 @@ public class SubjectInterface extends JPanel implements ActionListener{
 	revalidate();
     }
 
-    public JLabel getTitle(){
-	return title;
-    }
     public SaturnGradesGUI getTopLevel(){
 	return topLevel;
     }
@@ -69,9 +83,6 @@ public class SubjectInterface extends JPanel implements ActionListener{
 	return subject;
     }
     
-    public void setTheTitle(JLabel words){
-	title=words;
-    }
     public void setTopLevel(SaturnGradesGUI frame){
 	topLevel = frame;
     }
