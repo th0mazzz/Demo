@@ -9,14 +9,17 @@ public class SubcatInterface extends JPanel implements ActionListener{
     private Subcategory data;
     private ArrayList<Assignment> arr;
     private JScrollPane midpane;
+    private JPanel top;
 
     public SubcatInterface(SaturnGradesGUI frame, SubjectInterface pane, Subcategory data){
 	setLayout(new BorderLayout());
 	this.frame=frame;
 	this.pane=pane;
 	this.data=data;
+	top = new JPanel(new FlowLayout());
 	JLabel title = new JLabel(data.getName());
-	this.add(title, BorderLayout.NORTH);
+	top.add(title);
+	this.add(top, BorderLayout.NORTH);
 	setUpMidPane();
 	addBackButton();
 	
@@ -26,6 +29,26 @@ public class SubcatInterface extends JPanel implements ActionListener{
 	JPanel pane = new JPanel();
 	pane.setLayout(new BoxLayout(pane, BoxLayout.Y_AXIS));
 	midpane = new JScrollPane(pane, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+	JLabel add = new JLabel("Add an assignment (name, percent grade earned, date): ");
+	top.add(add);
+	JTextField name = new JTextField(10);
+	JTextField grade = new JTextField(5);
+	JTextField date = new JTextField(10);
+	JButton addit = new JButton("add");
+	addit.addActionListener(new ActionListener(){
+		@Override public void actionPerformed(ActionEvent e){
+		    pane.add(createAssignmentButton(new Assignment(name.getText(),Double.parseDouble(grade.getText()),date.getText())));
+		    name.setText("");
+		    grade.setText("");
+		    date.setText("");
+		    revalidate();
+		}
+	    });
+	top.add(name);
+	top.add(grade);
+	top.add(date);
+	top.add(addit);
 
 	//initialize array of assignments
 	arr = data.getCollection();
