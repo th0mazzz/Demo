@@ -15,6 +15,19 @@ public class AssignmentInterface extends JPanel implements ActionListener{
 	JLabel title = new JLabel(data.getName());
 	add(title, BorderLayout.NORTH);
 	addBackButton();
+	setUpMidPane();
+    }
+
+    public void setUpMidPane(){
+	JPanel midpane = new JPanel();
+	midpane.setLayout(new BoxLayout(midpane, BoxLayout.Y_AXIS));
+
+	JLabel grade = new JLabel(data.getGrade()+"");
+	midpane.add(grade);
+	JLabel date = new JLabel("Date assigned: "+data.getDate());
+	midpane.add(date);
+
+	this.add(midpane, BorderLayout.CENTER);
     }
 
     public void addBackButton(){
