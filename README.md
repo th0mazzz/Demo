@@ -48,9 +48,11 @@ making sure it works:
  - [x] be able to view assignment pages and go back
 
 user input:
- - [ ] be able to add and delete subjects
- - [ ] be able to add and delete subcategories in a subject, and have the program yell at you if the cats are invalid
- - [ ] be able to add and delete assignments
+ - [x] be able to add subjects
+ - [x] be able to add subcategories in a subject
+ - [x] be able to add assignments
+ - [ ] be able to delete stuff
+ - [ ] have the program yell at you if the subcats are invalid
  - [ ] have the averages show up for every subcategory and update every time a new assignment is added
  - [ ] averages show, automatic update for every subject
  - [ ] GPA show on homepage and be automatically updated
@@ -77,6 +79,8 @@ reaches:
 
 ###01/15/18 (Meredith)
 * fixed the null pointer exception GUI bug from yesterday
+* yes, I know it's 1:30 in the morning. sue me for not taking care of my health? you can now add stuff from the GUI. Gone are the days of manually instantiating stuff from the main! I can't delete things though, since writing that would require lots of parsing and implementing MouseListener- aka stuff I will save for the coming week. The demo version doesn't have to be the most feature rich!
+* I also did a bunch of stuff today that made it look better, including: experimenting with BoxLayout, subdividing content panes into JPanels, and adding ScrollPanes! (I think I should commit more. I only commit about once a day, and I forget to mention ALL the things I've done over the course of a day's coding.)
 
 ### 01/14/18 (Meredith)
 * you know how everyone thought tobacco was good for you in the 50's yeah, I'm convinced java's the new smoking, because debugging nullpointerexceptions and learning all of swing in two days was about as enjoyable as passing a kidney stone.
