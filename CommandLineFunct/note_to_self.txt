@@ -1,3 +1,0 @@
-Oh yeah, Saturn Grades needs to have an overall GPA
-
-need to implement that into displayInformed()

@@ -2,7 +2,7 @@ import java.util.ArrayList;
 public class Subcategory{
 
     private double average = 0;
-    private String name = "UntitledSubcategory";
+    private String name = "Untitled";
     private double weight = 0;
     private ArrayList<Assignment> collection = new ArrayList<>();
     
@@ -20,48 +20,41 @@ public class Subcategory{
     public double getWeight(){return weight;}
     public String getName(){return name;}
 
-    public Assignment getElement(int index){
-	return collection.get(index);
-    }
-
-    public int size(){
-	return collection.size();
-    }
-    
-    public void addAssignment(String name, double grade, String date){
-	Assignment newAssignment = new Assignment(name, grade, date);
+    public void addAssignment(double grade, String name, String date){
+	Assignment newAssignment = new Assignment(grade, name, date);
 	collection.add(newAssignment);
-	average = calcAverage();
     }
 
-    public void removeAssignment(String name){
+    public void deleteAssignment(double grade, String name, String date){
 	for(int index = 0; index < collection.size(); index++){
-	    if((collection.get(index).getName()).equals(name)){
+	    if(collection.get(index).getName() == name){
 		collection.remove(index);
 	    }
 	}
-	average = calcAverage();
     }
 
     public double calcAverage(){
 	double sumOfGrades = 0.0;
 	for(int index = 0; index < collection.size(); index++){
 	    sumOfGrades = sumOfGrades + collection.get(index).getGrade();
+	    System.out.println(sumOfGrades);
 	}
 	return sumOfGrades / collection.size();
     }
+	    
+    public String displayAssignments(){
+	String returnString = "[";
+	for(int index = 0; index < collection.size() - 1; index++){
+	    returnString = returnString + collection.get(index) + ", ";
+	}
+	if(collection.size() > 0){
+	    returnString = returnString + collection.get(collection.size() - 1);
+	    return returnString + "]";
+	}
+	return "Subcat name: "+name+returnString + "]";
+    }
     
     public String toString(){
-	String returnString = "";
-	int index = 0;
-	if(collection.size() != 0){
-	    for(; index < collection.size() - 1; index++){
-		returnString = returnString + collection.get(index).getName() + ", ";
-	    }
-	return returnString + collection.get(index).getName();
-	}
-	else{
-	    return "This subcategory has no assignments!";
-	}
+	return name;
     }
 }
