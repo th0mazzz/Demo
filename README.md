@@ -76,8 +76,11 @@ reaches:
  - [ ] write a function that roasts users
 
 ## devlog
+### 01/16/2018 (Thomas)
+* I got a quickView() function working that displays your GPA and your subject averages
+* Implemented that into the command line so that if your name is "Unnamed" (which is default), then it will show the default welcome window. However, if you changed your name, it will display this cooler, more informative quickview window
 
-###01/15/18 (Meredith)
+### 01/15/2018 (Meredith)
 * fixed the null pointer exception GUI bug from yesterday
 * yes, I know it's 1:30 in the morning. sue me for not taking care of my health? you can now add stuff from the GUI. Gone are the days of manually instantiating stuff from the main! I can't delete things though, since writing that would require lots of parsing and implementing MouseListener- aka stuff I will save for the coming week. The demo version doesn't have to be the most feature rich!
 * I also did a bunch of stuff today that made it look better, including: experimenting with BoxLayout, subdividing content panes into JPanels, and adding ScrollPanes! (I think I should commit more. I only commit about once a day, and I forget to mention ALL the things I've done over the course of a day's coding.)
