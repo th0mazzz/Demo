@@ -10,6 +10,7 @@ public class SaturnGradesGUI extends JFrame implements ActionListener{
     private JPanel subjectPane;
     private SaturnGrades program;
     private ArrayList<Subject> arr;
+    private ArrayList<JButton> subButtons = new ArrayList<>();
 
     public JPanel getHomePane(){
 	return homePane;
@@ -96,13 +97,41 @@ public class SaturnGradesGUI extends JFrame implements ActionListener{
 	JButton addit = new JButton("add");
 	addit.addActionListener(new ActionListener(){
 		@Override public void actionPerformed(ActionEvent e){
-		    pane.add(createSubButton(new Subject(addsubs.getText())));
+		    Subject a = new Subject(addsubs.getText());
+		    arr.add(a);
+		    program.addSubject(a,addsubs.getText());
+		    program.writeFile();
+		    pane.add(createSubButton(a));
 		    addsubs.setText("");
 		    revalidate();
 		}
 	    });
 	top.add(addsubs);
 	top.add(addit);
+
+	//adding to the top panel a remove button
+	JLabel remove = new JLabel("remove");
+	top.add(remove);
+	JTextField rmsubs = new JTextField(10);
+	JButton rmit = new JButton("remove");
+	rmit.addActionListener(new ActionListener(){
+		@Override public void actionPerformed(ActionEvent e){
+		    arr.remove(rmsubs.getText());
+		    for(int i=0;i<subButtons.size();i++){
+			if(subButtons.get(i).equals(rmsubs.getText())){
+			    pane.remove(i);
+			    subButtons.remove(i);
+			}
+		    }
+		    program.removeSubject(rmsubs.getText());
+		    program.writeFile();
+		    rmsubs.setText("");
+		    revalidate();
+		}
+	    });
+	top.add(rmsubs);
+	top.add(rmit);
+
 	subjectPane.add(top, BorderLayout.NORTH);
 
 	//creating middle scrollable pane with subject buttons
@@ -136,6 +165,7 @@ public class SaturnGradesGUI extends JFrame implements ActionListener{
 		}
 	    });
 	newthang.setAlignmentX(Component.CENTER_ALIGNMENT);
+	subButtons.add(newthang);
 	return newthang;
     }
 

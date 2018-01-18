@@ -38,7 +38,8 @@ public class SubcatInterface extends JPanel implements ActionListener{
 	JButton addit = new JButton("add");
 	addit.addActionListener(new ActionListener(){
 		@Override public void actionPerformed(ActionEvent e){
-		    pane.add(createAssignmentButton(new Assignment(name.getText(),Double.parseDouble(grade.getText()),date.getText())));
+		    Assignment a = new Assignment(name.getText(),Double.parseDouble(grade.getText()),date.getText());
+		    pane.add(createAssignmentButton(a));
 		    name.setText("");
 		    grade.setText("");
 		    date.setText("");
