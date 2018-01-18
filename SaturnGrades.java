@@ -254,12 +254,22 @@ public class SaturnGrades{
    }  
     
     public static void main(String[] args){
-	clearScreen();
+	//clearScreen();
 	SaturnGrades user = new SaturnGrades();
-
+	Console console = System.console();
+	
+	String keyword = null;
+	keyword = console.readLine("Please enter a key word: "); //prints line and takes whatever user typed in
+	System.out.println("You entered: " + keyword);
+	String[] array = new String[0];
+	if(keyword.equals("logout")){
+	    System.exit(0);
+	}
+	user.main(array);
+	
 	user.readFile();
 	
-	if(args.length == 0){
+	/*if(args.length == 0){
 	    if(user.getName().equals("Unnamed")){
 		System.out.println("Welcome to Saturn Grades!\nPlease enter a keyword followed by the necessary information required.\nEnter help as the keyword for more information.\n\njava SaturnGrades <keyword>\n\nIt is also recommended that you update your name to replace this welcome screen with a quickview screen the next time\n\njava SaturnGrades\n\nis executed.\n");
 		System.exit(0);
@@ -621,7 +631,7 @@ public class SaturnGrades{
 
 
 	       
-	}
+	}*/
 
 	
 
