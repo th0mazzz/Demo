@@ -118,7 +118,7 @@ public class SaturnGradesGUI extends JFrame implements ActionListener{
 		@Override public void actionPerformed(ActionEvent e){
 		    arr.remove(rmsubs.getText());
 		    for(int i=0;i<subButtons.size();i++){
-			if(subButtons.get(i).equals(rmsubs.getText())){
+			if(subButtons.get(i).getText().equals(rmsubs.getText())){
 			    pane.remove(i);
 			    subButtons.remove(i);
 			}
@@ -127,6 +127,7 @@ public class SaturnGradesGUI extends JFrame implements ActionListener{
 		    program.writeFile();
 		    rmsubs.setText("");
 		    revalidate();
+		    repaint();
 		}
 	    });
 	top.add(rmsubs);
