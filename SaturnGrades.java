@@ -43,8 +43,9 @@ public class SaturnGrades{
 	}
     }
 
-    public void addSubject(Subject subj){
+    public void addSubject(Subject subj, String name){
 	collection.add(subj);
+	subj.setName(name);
     }
     public void removeSubject(Subject subj){
 	collection.remove(subj);
