@@ -76,6 +76,10 @@ reaches:
  - [ ] write a function that roasts users
 
 ## devlog
+### 01/17/2018 (Thomas)
+* Created a new branch called console-feature to experiment with console input taking
+* Experimented with it, familiarized with how it basically works, thinking on how to implement it because my main would need to be completely restructured (hence the new branch)
+
 ### 01/16/2018 (Thomas)
 * I got a quickView() function working that displays your GPA and your subject averages
 * Implemented that into the command line so that if your name is "Unnamed" (which is default), then it will show the default welcome window. However, if you changed your name, it will display this cooler, more informative quickview window
