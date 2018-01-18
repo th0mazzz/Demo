@@ -254,20 +254,31 @@ public class SaturnGrades{
    }  
     
     public static void main(String[] args){
-	//clearScreen();
 	SaturnGrades user = new SaturnGrades();
 	Console console = System.console();
+	clearScreen();
+	
+	user.readFile();
 	
 	String keyword = null;
+	if(user.getName().equals("Unnamed")){
+	    System.out.println("Welcome to Saturn Grades!\nPlease enter a keyword followed by the necessary information required.\nEnter help as the keyword for more information.\n\njava SaturnGrades <keyword>\n\nIt is also recommended that you update your name to replace this welcome screen with a quickview screen the next time\n\njava SaturnGrades\n\nis executed.\n");
+	    System.exit(0);
+	}
+	else{
+	    user.quickView();
+	}
+	
 	keyword = console.readLine("Please enter a key word: "); //prints line and takes whatever user typed in
-	System.out.println("You entered: " + keyword);
-	String[] array = new String[0];
+	
+	
 	if(keyword.equals("logout")){
 	    System.exit(0);
 	}
-	user.main(array);
+	String[] emptyArray = new String[0];
+	user.main(emptyArray);
 	
-	user.readFile();
+	
 	
 	/*if(args.length == 0){
 	    if(user.getName().equals("Unnamed")){
@@ -277,7 +288,10 @@ public class SaturnGrades{
 	    else{
 		user.quickView();
 	    }
-	}else{
+	}
+
+
+	else{
       	    String keyword = args[0];
 	    if(keyword.equals("help")){
 		System.out.println("Saturn Grades --- Help!\n\nWelcome to the help page! This page contains all command information relating to this program!\n\nGeneral Information:\nEach command in Saturn Grades will begin with: \n\n     java SaturnGrades\n\nSyntax of each command is crucial as the same keyword uses different number of inputs to determine what exactly you wish to accomplish.\nTherefore, it is recommended you read carefully at the list of commands that this program currently has\nand pay particular attention to the structure of each command.\n\n" + "List of Saturn Grade commands:\n\n" + "java SaturnGrades\n(Takes you to the welcome page of the program / quickview page of the program.)\n\n"
