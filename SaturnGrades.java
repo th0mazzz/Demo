@@ -256,27 +256,75 @@ public class SaturnGrades{
     public static void main(String[] args){
 	SaturnGrades user = new SaturnGrades();
 	Console console = System.console();
-	clearScreen();
+
+	String[] emptyArray = new String[0];
 	
+	clearScreen();	
 	user.readFile();
-	
-	String keyword = null;
+
 	if(user.getName().equals("Unnamed")){
-	    System.out.println("Welcome to Saturn Grades!\nPlease enter a keyword followed by the necessary information required.\nEnter help as the keyword for more information.\n\njava SaturnGrades <keyword>\n\nIt is also recommended that you update your name to replace this welcome screen with a quickview screen the next time\n\njava SaturnGrades\n\nis executed.\n");
-	    System.exit(0);
-	}
-	else{
+		System.out.println("Welcome to Saturn Grades!\nPlease enter a keyword and follow instructions.\nEnter help as the keyword for a list of keywords.\n\nIt is also recommended that you update your name to replace this welcome screen with a quickview screen.\n");
+		System.exit(0);
+	}else{
 	    user.quickView();
 	}
 	
-	keyword = console.readLine("Please enter a key word: "); //prints line and takes whatever user typed in
+	String keyword = console.readLine("Please enter a keyword: ");
 	
-	
-	if(keyword.equals("logout")){
-	    System.exit(0);
+	if(!keyword.equals("")){;
+
+	    
+	    if(keyword.equals("help")){
+		clearScreen();
+		System.out.println("Saturn Grades Help!\n\n" +
+                                   "display - will display information about your classes in a basic or informed manner" +
+                                   "\n\n");
+		String anything = console.readLine("Press enter to resume to the welcome screen.\n\n");
+		user.main(emptyArray);
+	    }
+
+
+	    if(keyword.equals("display")){
+		clearScreen();
+		String typeOfDisplay = console.readLine("Please enter 'basic' or 'informed' for the type of display: ");
+		
+		if(typeOfDisplay.equals("basic")){
+		    clearScreen();
+		    user.displayBasic();
+		    String anything = console.readLine("Press enter to resume to the welcome screen.\n\n");
+		    user.main(emptyArray);;
+		}
+		if(typeOfDisplay.equals("informed")){
+		    clearScreen();
+		    user.displayInformed();
+		    String anything = console.readLine("Press enter to resume to the welcome screen.\n\n");
+		    user.main(emptyArray);
+		}
+		clearScreen();
+		console.readLine("Please enter 'basic' or 'informed' next time.\nPress enter to resume to the welcome screen.\n\n");
+		user.main(emptyArray);
+	    }
+
+
+	    
+
+	    clearScreen();
+	    System.out.println("Invalid keyword detected!\n\n");
+	    String anything = console.readLine("Press enter to continue.\n\n");
+	    user.main(emptyArray);
+	    
+	}else{
+
+	    clearScreen();
+	    System.out.println("No keyword detected!\n\n");
+	    String anything = console.readLine("Press enter to continue.\n\n");
+	    user.main(emptyArray);
+
 	}
-	String[] emptyArray = new String[0];
-	user.main(emptyArray);
+
+
+	    
+	
 	
 	
 	
