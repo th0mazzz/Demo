@@ -354,7 +354,7 @@ public class SaturnGrades{
 			int indexOfSubject = user.getSubjectIndex(subjectName);
 			String subcategoryName = console.readLine("Please enter the name of the subcategory you wish to add this assigment to: ");
 			clearScreen();
-			if(user.checkIfSubcategoryPresent(subcategoryName)){
+			if(user.getElement(indexOfSubject).checkIfSubcategoryPresent(subcategoryName)){
 			    int indexOfSubcategory = user.getElement(indexOfSubject).getSubcategoryIndex(subcategoryName);
 			    
 			}
