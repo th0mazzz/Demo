@@ -104,6 +104,7 @@ public class SaturnGradesGUI extends JFrame implements ActionListener{
 		    pane.add(createSubButton(a));
 		    addsubs.setText("");
 		    revalidate();
+		    repaint();
 		}
 	    });
 	top.add(addsubs);
@@ -163,6 +164,7 @@ public class SaturnGradesGUI extends JFrame implements ActionListener{
 		@Override public void actionPerformed(ActionEvent e){
 		    mvToSubPanel(interact);
 		    revalidate();
+		    repaint();
 		}
 	    });
 	newthang.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -175,16 +177,19 @@ public class SaturnGradesGUI extends JFrame implements ActionListener{
 	if("see_subjects".equals(command)){
 	    this.setContentPane(subjectPane);
 	    revalidate();
+	    repaint();
 	}
 	if("see_homepage".equals(command)){
 	    this.setContentPane(homePane);
 	    revalidate();
+	    repaint();
 	}	    
     }
 
     public void mvToSubPanel(SubjectInterface pane){
 	this.setContentPane(pane);
 	revalidate();
+	repaint();
     }
     
     public SubjectInterface makeNewSubInterface(Subject sub){

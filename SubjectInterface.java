@@ -9,6 +9,7 @@ public class SubjectInterface extends JPanel implements ActionListener{
     private Subject subject;
     private ArrayList<Subcategory> arr;
     private JScrollPane subcatPane;
+    private ArrayList<JButton> subcatBs = new ArrayList<>();
 
     public SubjectInterface(SaturnGradesGUI frame, Subject sub){
 	setLayout(new BorderLayout());
@@ -28,6 +29,7 @@ public class SubjectInterface extends JPanel implements ActionListener{
 	pane.setLayout(new BoxLayout(pane, BoxLayout.Y_AXIS));
 	subcatPane = new JScrollPane(pane, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
+	//makes adding subcategory functionality
 	JLabel add = new JLabel("Add a subcategory (name, weight): ");
 	top.add(add);
 	JTextField subcatname = new JTextField(10);
@@ -39,11 +41,37 @@ public class SubjectInterface extends JPanel implements ActionListener{
 		    subcatname.setText("");
 		    subcatweight.setText("");
 		    revalidate();
+		    repaint();
 		}
 	    });
 	top.add(subcatname);
 	top.add(subcatweight);
 	top.add(addit);
+
+	//makes remove subcategory functionality
+	JLabel remove = new JLabel("remove");
+	top.add(remove);
+	JTextField rm = new JTextField(10);
+	JButton rmstuff = new JButton("remove");
+	rmstuff.addActionListener(new ActionListener(){
+		@Override public void actionPerformed(ActionEvent e){
+		    arr.remove(rm.getText());
+		    for(int i=0;i<subcatBs.size();i++){
+			if(subcatBs.get(i).getText().equals(rm.getText())){
+			    pane.remove(i);
+			    subcatBs.remove(i);
+			}
+		    }
+		    subject.removeSubcategory(rm.getText());
+		    topLevel.getProgram().writeFile();
+		    rm.setText("");
+		    revalidate();
+		    repaint();
+		}
+	    });
+	top.add(rm);
+	top.add(rmstuff);
+
 	//make array of subcategories
 	arr = subject.getSubcats();
 	
@@ -63,6 +91,7 @@ public class SubjectInterface extends JPanel implements ActionListener{
 		}
 	    });
 	newthang.setAlignmentX(Component.CENTER_ALIGNMENT);
+	subcatBs.add(newthang);
 	return newthang;
     }
 
@@ -74,6 +103,7 @@ public class SubjectInterface extends JPanel implements ActionListener{
     public void mvToSubcatPanel(SubcatInterface pane){
 	topLevel.setContentPane(pane);
 	revalidate();
+	repaint();
     }
 
     public SaturnGradesGUI getTopLevel(){
@@ -102,6 +132,7 @@ public class SubjectInterface extends JPanel implements ActionListener{
 	if("go_back".equals(command)){
 	    topLevel.setContentPane(topLevel.getSubjectPane());
 	    revalidate();
+	    repaint();
 	}
     }
 
