@@ -306,18 +306,81 @@ public class SaturnGrades{
 	    }
 
 
+
+	    if(keyword.equals("add")){ //java SaturnGrades add <subject name> (args.length = 2)
+		                       //java SaturnGrades add <subject name> <subcategory name> <weight> (args.length = 4)
+		                       //java SaturnGrades add <subject name> <subcategory> <assignment name> <grade> <date> (args.length = 6)
+		clearScreen();
+		String whatYouWannaAdd = console.readLine("Enter whether you want to add a subject, subcategory, or assignment: ");
+
+		if(whatYouWannaAdd.toLowerCase().equals("subject")){
+		    clearScreen();
+		    String subjectName = console.readLine("Please enter the name of this new subject: ");
+		    clearScreen();
+		    user.addSubject(subjectName);
+		    System.out.println(subjectName + " was added as a subject.\n");
+		    user.writeFile();
+		    String anything = console.readLine("Press enter to resume to the welcome screen.\n\n");
+		    user.main(emptyArray);
+		}
+	    }
+
+		/*
+		if(args.length == 4){
+		    if(user.checkIfSubjectPresent(args[1])){
+			int indexOfSubject = user.getSubjectIndex(args[1]);
+			user.getElement(indexOfSubject).addSubcategory(args[2], Double.parseDouble(args[3]));
+			System.out.println(args[2] + " with weight " + args[3] + " was added as a subcategory in " + args[3] + "\n");
+			user.writeFile();
+			System.exit(0);
+		    }
+		    else{
+			System.out.println("Please enter an existing subject to add the subcategory to.\n");
+			System.exit(0);
+		    }
+		}
+		if(args.length == 6){
+		    if(user.checkIfSubjectPresent(args[1])){
+			int indexOfSubject = user.getSubjectIndex(args[1]);
+			if(user.getElement(indexOfSubject).checkIfSubcategoryPresent(args[2])){
+			    int indexOfSubcategory = user.getElement(indexOfSubject).getSubcategoryIndex(args[2]);
+			    user.getElement(indexOfSubject).getElement(indexOfSubcategory).addAssignment(args[3], Double.parseDouble(args[4]), args[5]);
+			    System.out.println(args[3] + " with grade " + args[4] + " and date " + args[5] + " was added as an assignment in " + args[2] + " in " + args[1] + "\n");
+			    user.writeFile();
+			    System.exit(0);
+			}
+			else{
+			    System.out.println("Please enter an existing subcategory to add the assignment to.\n");
+			    System.exit(0);
+			}
+		    }
+		    else{
+			System.out.println("Please enter an existing subject to add the assignment to.\n");
+			System.exit(0);
+		    }
+		}
+
+			
+	    }
+	}
+
+		*/
+
+	    
+
+
 	    
 
 	    clearScreen();
 	    System.out.println("Invalid keyword detected!\n\n");
-	    String anything = console.readLine("Press enter to continue.\n\n");
+	    String anything = console.readLine("Press enter to resume to the welcome screen.\n\n");
 	    user.main(emptyArray);
 	    
 	}else{
 
 	    clearScreen();
 	    System.out.println("No keyword detected!\n\n");
-	    String anything = console.readLine("Press enter to continue.\n\n");
+	    String anything = console.readLine("Press enter to resume to the welcome screen.\n\n");
 	    user.main(emptyArray);
 
 	}

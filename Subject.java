@@ -87,12 +87,18 @@ public class Subject{
 		 sumOfSubcategories = sumOfSubcategories + (collection.get(index).getAverage()) *
 		     ((collection.get(index).getWeight()) / 100);
 	     }
+	     if(collection.size() == 0){
+		 return 100.0;
+	     }
 	     double calculatedAverage = sumOfSubcategories;
 	     return calculatedAverage;
+	     
 	 }
 	 else{
-	     throw new RuntimeException("Your subcategory weights do not total to 100.0!");
+	     System.out.println("Your subcategory weights do not total to 100.0!");
+	     System.exit(0);
 	 }
+	return 0.0;
      }
 
     public String toString(){
