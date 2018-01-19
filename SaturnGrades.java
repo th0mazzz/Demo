@@ -276,7 +276,8 @@ public class SaturnGrades{
 	    
 	    if(keyword.equals("help")){
 		clearScreen();
-		System.out.println("Saturn Grades Help!\n\n" +
+		System.out.println("Saturn Grades Help!\n" +
+				   "Note: Be sure to not include extraneous characters, such as spaces when prompted for user input/\n\n" +
                                    "display - will display information about your classes in a basic or informed manner" +
                                    "\n\n");
 		String anything = console.readLine("Press enter to resume to the welcome screen.\n\n");
@@ -307,10 +308,8 @@ public class SaturnGrades{
 
 
 
-	    if(keyword.equals("add")){ //java SaturnGrades add <subject name> (args.length = 2)
-		                       //java SaturnGrades add <subject name> <subcategory name> <weight> (args.length = 4)
-		                       //java SaturnGrades add <subject name> <subcategory> <assignment name> <grade> <date> (args.length = 6)
-		clearScreen();
+	    if(keyword.equals("add")){ //java SaturnGrades add <subject name> <subcategory> <assignment name> <grade> <date> (args.length = 6)
+       		clearScreen();
 		String whatYouWannaAdd = console.readLine("Enter whether you want to add a subject, subcategory, or assignment: ");
 
 		if(whatYouWannaAdd.toLowerCase().equals("subject")){
@@ -323,22 +322,59 @@ public class SaturnGrades{
 		    String anything = console.readLine("Press enter to resume to the welcome screen.\n\n");
 		    user.main(emptyArray);
 		}
-	    }
 
-		/*
-		if(args.length == 4){
-		    if(user.checkIfSubjectPresent(args[1])){
-			int indexOfSubject = user.getSubjectIndex(args[1]);
-			user.getElement(indexOfSubject).addSubcategory(args[2], Double.parseDouble(args[3]));
-			System.out.println(args[2] + " with weight " + args[3] + " was added as a subcategory in " + args[3] + "\n");
-			user.writeFile();
-			System.exit(0);
+		if(whatYouWannaAdd.toLowerCase().equals("subcategory")){
+		    clearScreen();
+		    String subjectName = console.readLine("Please enter the name of the subject you wish to add this subcategory to: ");
+		    clearScreen();
+		    if(user.checkIfSubjectPresent(subjectName)){
+			int indexOfSubject = user.getSubjectIndex(subjectName);
+			String subcategoryName = console.readLine("Please enter the name of the subcategory you wish to add: ");
+			clearScreen();
+			String subcategoryWeight = console.readLine("Please enter the weight of the subcategory you wish to add: ");
+			clearScreen();
+			user.getElement(indexOfSubject).addSubcategory(subcategoryName, Double.parseDouble(subcategoryWeight));
+       			user.writeFile();
+			System.out.println(subcategoryName + " with weight " + subcategoryWeight + " was added as a subcategory in " + subjectName + ".\n");
+			String anything = console.readLine("Press enter to resume to the welcome screen.\n\n");
+			user.main(emptyArray);
 		    }
 		    else{
-			System.out.println("Please enter an existing subject to add the subcategory to.\n");
-			System.exit(0);
+			System.out.println(subjectName + " does not exist as a subject.");
+			String anything = console.readLine("Press enter to resume to the welcome screen.\n\n");
+			user.main(emptyArray);
 		    }
 		}
+
+		if(whatYouWannaAdd.toLowerCase().equals("assignment")){
+		    clearScreen();
+		    String subjectName = console.readLine("Please enter the name of the subject you wish to add this subcategory to: ");
+		    clearScreen();
+		    if(user.checkIfSubjectPresent(subjectName)){
+			int indexOfSubject = user.getSubjectIndex(subjectName);
+			String subcategoryName = console.readLine("Please enter the name of the subcategory you wish to add this assigment to: ");
+			clearScreen();
+			if(user.checkIfSubcategoryPresent(subcategoryName)){
+			    int indexOfSubcategory = user.getElement(indexOfSubject).getSubcategoryIndex(subcategoryName);
+			    
+			}
+			else{
+
+			}
+		    }
+		    else{
+
+		    }
+		}
+
+
+
+		
+	    }
+
+	    
+		/*
+		
 		if(args.length == 6){
 		    if(user.checkIfSubjectPresent(args[1])){
 			int indexOfSubject = user.getSubjectIndex(args[1]);
@@ -372,7 +408,7 @@ public class SaturnGrades{
 	    
 
 	    clearScreen();
-	    System.out.println("Invalid keyword detected!\n\n");
+	    System.out.println("Invalid keyword detected!\nBe sure to not include extraneous characters (including spaces) when prompted for user input.\n\n");
 	    String anything = console.readLine("Press enter to resume to the welcome screen.\n\n");
 	    user.main(emptyArray);
 	    
