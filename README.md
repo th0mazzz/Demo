@@ -49,8 +49,11 @@ making sure it works:
 
 user input:
  - [x] be able to add subjects
+ - [ ] be able to edit subject names
  - [x] be able to add subcategories in a subject
+ - [ ] be able to edit subcategory names and weights
  - [x] be able to add assignments
+ - [ ] be able to edit assignment grades and dates
  - [ ] be able to delete stuff
  - [ ] have the program yell at you if the subcats are invalid
  - [ ] have the averages show up for every subcategory and update every time a new assignment is added
@@ -59,6 +62,12 @@ user input:
 
 reaches:
  - [ ] write a quick summary view page
+ - [ ] write a signup page for users
+ - [ ] write a login page for users
+ - [ ] write a user class
+ - [ ] have "ghost" assignments that have just total points, but no points earned
+ - [ ] be able to display ghost low end average, high end average, and actual average for a subject
+ - [ ] be able to do that for subcategory as well
 
 ### Code Goals
 basics:
@@ -76,6 +85,21 @@ reaches:
  - [ ] write a function that roasts users
 
 ## devlog
+
+### 01/18/2018 (Mer)
+* is it just me, or are all these days blending together?
+* removing works now! except for subcategory, but I'm too lazy to debug that right now
+* also clarified the difference between repaint() and revalidate(). Tl;dr --> I need to call repaint too
+
+### 01/17/2018 (Mer)
+* Surprise surprise, I did work on the project today as well
+* I rewrote the adding GUI stuff so it doesn't declare anonymous variables; I need the variable references since looking ahead, we're planning on implementing a login system so all the info contained in one instantiation of the program does need to be saved long term
+* attempted to add removing, but it doesn't work. maybe I'll try using mouseListener instead of matching the strings of the button labels.
+
+### 01/16/2018 (Mer)
+* I always commit with (somewhat) accurate messages but forget to update the devlog here. Anyway, I made the assignment page display some basic info
+* I also began implementing add functionality on the GUI
+
 ### 01/16/2018 (Thomas)
 * I got a quickView() function working that displays your GPA and your subject averages
 * Implemented that into the command line so that if your name is "Unnamed" (which is default), then it will show the default welcome window. However, if you changed your name, it will display this cooler, more informative quickview window
