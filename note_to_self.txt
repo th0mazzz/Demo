@@ -1,10 +1,9 @@
 Need to have a check for names (make sure they're one worded)
-
 and neither can date for assignments be either
 
+You need to check that input dates and grades are valid as to not make NumberFormatException
 
 
-you need to check that input dates and grades are valid as to not make NumberFormatException
+Also change your calcAverages exceptions to exits to make more elegant looking
 
-
-also change your calcAverages exceptions to exits to make more elegant looking
+Nice feature: have the program display subjects / subcategories / assignments as you're putting in input

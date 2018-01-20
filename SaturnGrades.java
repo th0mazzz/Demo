@@ -296,7 +296,7 @@ public class SaturnGrades{
 				   "Note: Be sure to not include extraneous characters, such as spaces when prompted for user input/\n\n" +
                                    "display - will display information about your classes in a basic or informed manner" +
                                    "\n\n");
-		String anything = console.readLine("Press enter to resume to the welcome screen.\n\n");
+		console.readLine("Press enter to resume to the welcome screen.\n\n");
 		user.main(emptyArray);
 	    }
 
@@ -308,13 +308,13 @@ public class SaturnGrades{
 		if(typeOfDisplay.equals("basic")){
 		    clearScreen();
 		    user.displayBasic();
-		    String anything = console.readLine("Press enter to resume to the welcome screen.\n\n");
+		    console.readLine("Press enter to resume to the welcome screen.\n\n");
 		    user.main(emptyArray);;
 		}
 		if(typeOfDisplay.equals("informed")){
 		    clearScreen();
 		    user.displayInformed();
-		    String anything = console.readLine("Press enter to resume to the welcome screen.\n\n");
+		    console.readLine("Press enter to resume to the welcome screen.\n\n");
 		    user.main(emptyArray);
 		}
 		clearScreen();
@@ -335,7 +335,7 @@ public class SaturnGrades{
 		    user.addSubject(subjectName);
 		    System.out.println(subjectName + " was added as a subject.\n");
 		    user.writeFile();
-		    String anything = console.readLine("Press enter to resume to the welcome screen.\n\n");
+		    console.readLine("Press enter to resume to the welcome screen.\n\n");
 		    user.main(emptyArray);
 		}
 
@@ -343,21 +343,22 @@ public class SaturnGrades{
 		    clearScreen();
 		    String subjectName = console.readLine("Please enter the name of the subject you wish to add this subcategory to: ");
 		    clearScreen();
+		    
 		    if(user.checkIfSubjectPresent(subjectName)){
 			int indexOfSubject = user.getSubjectIndex(subjectName);
-			String subcategoryName = console.readLine("Please enter the name of the subcategory you wish to add: ");
+			String subcategoryName = console.readLine("Please enter the name of this new subcategory: ");
 			clearScreen();
-			String subcategoryWeight = console.readLine("Please enter the weight of the subcategory you wish to add: ");
+			String subcategoryWeight = console.readLine("Please enter the weight of this new subcategory: ");
 			clearScreen();
 			user.getElement(indexOfSubject).addSubcategory(subcategoryName, Double.parseDouble(subcategoryWeight));
        			user.writeFile();
 			System.out.println(subcategoryName + " with weight " + subcategoryWeight + " was added as a subcategory in " + subjectName + ".\n");
-			String anything = console.readLine("Press enter to resume to the welcome screen.\n\n");
+			console.readLine("Press enter to resume to the welcome screen.\n\n");
 			user.main(emptyArray);
 		    }
 		    else{
 			System.out.println(subjectName + " does not exist as a subject.");
-			String anything = console.readLine("Press enter to resume to the welcome screen.\n\n");
+			console.readLine("Press enter to resume to the welcome screen.\n\n");
 			user.main(emptyArray);
 		    }
 		}
@@ -366,13 +367,15 @@ public class SaturnGrades{
 		    clearScreen();
 		    String subjectName = console.readLine("Please enter the name of the subject you wish to add this subcategory to: ");
 		    clearScreen();
+		    
 		    if(user.checkIfSubjectPresent(subjectName)){
 			int indexOfSubject = user.getSubjectIndex(subjectName);
 			String subcategoryName = console.readLine("Please enter the name of the subcategory you wish to add this assigment to: ");
 			clearScreen();
+			
 			if(user.getElement(indexOfSubject).checkIfSubcategoryPresent(subcategoryName)){
 			    int indexOfSubcategory = user.getElement(indexOfSubject).getSubcategoryIndex(subcategoryName);
-			    String assignmentName = console.readLine("Please enter the name of the assignment you wish to add: ");
+			    String assignmentName = console.readLine("Please enter the name of this new assignment: ");
 			    clearScreen();
 			    Double assignmentGrade = Double.parseDouble(console.readLine("Please enter the grade of the assignment you wish to add: "));
 			    clearScreen();
@@ -381,31 +384,49 @@ public class SaturnGrades{
 			    user.writeFile();
 			    System.out.println(assignmentName + " with grade " + assignmentGrade + " and date " + assignmentDate + " was added as an assignment in subcategory " +
 					       subcategoryName + " in " + subjectName + ".\n");
-			    String anything = console.readLine("Press enter to resume to the welcome screen.\n\n");
+			    console.readLine("Press enter to resume to the welcome screen.\n\n");
 			    user.main(emptyArray);
 			}
 			else{
 			    System.out.println(subcategoryName + " does not exist as a subcategory in subjectName.");
-			    String anything = console.readLine("Press enter to resume to the welcome screen.\n\n");
+			    console.readLine("Press enter to resume to the welcome screen.\n\n");
 			    user.main(emptyArray);
 			}
 		    }
 		    else{
 			System.out.println(subjectName + " does not exist as a subject.");
-			String anything = console.readLine("Press enter to resume to the welcome screen.\n\n");
+			console.readLine("Press enter to resume to the welcome screen.\n\n");
+			user.main(emptyArray);
+		    }
+		}
+	    }
+
+	    if(keyword.equals("remove")){
+		clearScreen();
+		String whatYouWannaRemove = console.readLine("Enter whether you want to remove a subject, subcategory, or assignment: ");
+		clearScreen();
+		
+		if(whatYouWannaRemove.toLowerCase().equals("subject")){
+		    String subjectName = console.readLine("Please enter the name of the subject to be removed: ");
+		    clearScreen();
+		    
+		    if(user.checkIfSubjectPresent(subjectName)){
+			user.removeSubject(subjectName);
+			user.writeFile();
+			System.out.println(subjectName + " was removed as a subject.\n");
+			console.readLine("Press enter to resume to the welcome screen.\n\n");
+			user.main(emptyArray);
+		    }
+		    else{
+			System.out.println(subjectName + " does not exist as a subject.");
+			console.readLine("Press enter to resume to the welcome screen.\n\n");
 			user.main(emptyArray);
 		    }
 		}
 
 
-
 		
 	    }
-
-	   
-
-	    
-
 
 	    
 
