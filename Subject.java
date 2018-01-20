@@ -95,10 +95,8 @@ public class Subject{
 	     
 	 }
 	 else{
-	     System.out.println("Your subcategory weights do not total to 100.0!");
-	     System.exit(0);
+	     return -1000.0;
 	 }
-	return 0.0;
      }
 
     public String toString(){

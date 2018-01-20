@@ -53,7 +53,7 @@ public class SaturnGrades{
     public double calcAverage(){
 	double sumOfSubjects = 0.0;
 	for(int index = 0; index < collection.size(); index++){
-	    sumOfSubjects = sumOfSubjects + (collection.get(index)).getAverage(); //this getAverage() is printing some weird stuff
+	    sumOfSubjects = sumOfSubjects + (collection.get(index)).getAverage();
 	}
 	return sumOfSubjects / size();
     }
@@ -93,9 +93,17 @@ public class SaturnGrades{
 
     public void displayInformed(){
 	System.out.println(this.getName());
-	System.out.println("GPA: " + this.getAverage() + "%" + "\n");
+	if(this.getAverage() < 0){
+	    System.out.println("GPA: Unavaliable because your subcategory weights in one of your subjects do not total to 100.0!");
+	}else{
+	    System.out.println("GPA: " + this.getAverage() + "%");
+	}
 	for(int subjectIndex = 0; subjectIndex < collection.size(); subjectIndex++){
-	    System.out.println("*----------" + this.getElement(subjectIndex).getName() + " (" + this.getElement(subjectIndex).getAverage() + "%)----------*");
+	    if(this.getElement(subjectIndex).getAverage() < 0){
+		System.out.println("*----------" + this.getElement(subjectIndex).getName() + " (Unavaliable because its subcategory weights do not total to 100.0!)----------*");
+	    }else{
+		System.out.println("*----------" + this.getElement(subjectIndex).getName() + " (" + this.getElement(subjectIndex).getAverage() + "%)----------*");
+	    }
 	    System.out.println("Subcategories: " + this.getElement(subjectIndex) + "\n");
 	    for(int subcategoryIndex = 0; subcategoryIndex < this.getElement(subjectIndex).size(); subcategoryIndex++){
 		System.out.println("Subcategory: " + this.getElement(subjectIndex).getElement(subcategoryIndex).getName() + " (" + this.getElement(subjectIndex).getElement(subcategoryIndex).getAverage() + "%) (Worth " + this.getElement(subjectIndex).getElement(subcategoryIndex).getWeight() + "% of " + this.getElement(subjectIndex).getName()  + " average)");
@@ -110,9 +118,17 @@ public class SaturnGrades{
 
     public void quickView(){
 	System.out.println("Welcome back " + this.getName() + "! Check the overview of your progress below!\n");
-	System.out.println("GPA: " + this.getAverage() + "%");
+	if(this.getAverage() < 0){
+	    System.out.println("GPA: Unavaliable because your subcategory weights in one of your subjects do not total to 100.0!");
+	}else{
+	    System.out.println("GPA: " + this.getAverage() + "%");
+	}
 	for(int subjectIndex = 0; subjectIndex < collection.size(); subjectIndex++){
-	    System.out.println(this.getElement(subjectIndex).getAverage() + "% " + this.getElement(subjectIndex).getName());
+	    if(this.getElement(subjectIndex).getAverage() < 0){
+		System.out.println("N/A% " + this.getElement(subjectIndex).getName() + " (Unavaliable because its subcategory weights do not total to 100.0!)");
+	    }else{
+		System.out.println(this.getElement(subjectIndex).getAverage() + "% " + this.getElement(subjectIndex).getName());
+	    }
 	}
 	System.out.println(""); //prints blank line at end
     }
@@ -302,7 +318,7 @@ public class SaturnGrades{
 		    user.main(emptyArray);
 		}
 		clearScreen();
-		console.readLine("Please enter 'basic' or 'informed' next time.\nPress enter to resume to the welcome screen.\n\n");
+		console.readLine("Please enter 'basic' or 'informed' next time.\n\n\nPress enter to resume to the welcome screen.\n\n");
 		user.main(emptyArray);
 	    }
 
@@ -356,51 +372,37 @@ public class SaturnGrades{
 			clearScreen();
 			if(user.getElement(indexOfSubject).checkIfSubcategoryPresent(subcategoryName)){
 			    int indexOfSubcategory = user.getElement(indexOfSubject).getSubcategoryIndex(subcategoryName);
-			    
-			}
-			else{
-
-			}
-		    }
-		    else{
-
-		    }
-		}
-
-
-
-		
-	    }
-
-	    
-		/*
-		
-		if(args.length == 6){
-		    if(user.checkIfSubjectPresent(args[1])){
-			int indexOfSubject = user.getSubjectIndex(args[1]);
-			if(user.getElement(indexOfSubject).checkIfSubcategoryPresent(args[2])){
-			    int indexOfSubcategory = user.getElement(indexOfSubject).getSubcategoryIndex(args[2]);
-			    user.getElement(indexOfSubject).getElement(indexOfSubcategory).addAssignment(args[3], Double.parseDouble(args[4]), args[5]);
-			    System.out.println(args[3] + " with grade " + args[4] + " and date " + args[5] + " was added as an assignment in " + args[2] + " in " + args[1] + "\n");
+			    String assignmentName = console.readLine("Please enter the name of the assignment you wish to add: ");
+			    clearScreen();
+			    Double assignmentGrade = Double.parseDouble(console.readLine("Please enter the grade of the assignment you wish to add: "));
+			    clearScreen();
+			    String assignmentDate = console.readLine("Please enter the date of the assignment you wish to add: ");
+			    user.getElement(indexOfSubject).getElement(indexOfSubcategory).addAssignment(assignmentName, assignmentGrade, assignmentDate);
 			    user.writeFile();
-			    System.exit(0);
+			    System.out.println(assignmentName + " with grade " + assignmentGrade + " and date " + assignmentDate + " was added as an assignment in subcategory " +
+					       subcategoryName + " in " + subjectName + ".\n");
+			    String anything = console.readLine("Press enter to resume to the welcome screen.\n\n");
+			    user.main(emptyArray);
 			}
 			else{
-			    System.out.println("Please enter an existing subcategory to add the assignment to.\n");
-			    System.exit(0);
+			    System.out.println(subcategoryName + " does not exist as a subcategory in subjectName.");
+			    String anything = console.readLine("Press enter to resume to the welcome screen.\n\n");
+			    user.main(emptyArray);
 			}
 		    }
 		    else{
-			System.out.println("Please enter an existing subject to add the assignment to.\n");
-			System.exit(0);
+			System.out.println(subjectName + " does not exist as a subject.");
+			String anything = console.readLine("Press enter to resume to the welcome screen.\n\n");
+			user.main(emptyArray);
 		    }
 		}
 
-			
-	    }
-	}
 
-		*/
+
+		
+	    }
+
+	   
 
 	    
 
