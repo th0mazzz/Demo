@@ -76,9 +76,20 @@ reaches:
  - [ ] write a function that roasts users
 
 ## devlog
+### 01/19/2018
+* Yes! I finished implementing adding everything!
+* Fixed issue display averages when subcategories don't total to 100.0
+* Wrote remove subject
+* Overall, making slow but steady progress regarding this console stuff... it feels so much better than typing java SaturnGrades all the time!
+
+### 01/18/2018
+* Tried to understand console better... and now I do!
+* Implemented display and adding (partially)! Heck yeah!
+
 ### 01/17/2018 (Thomas)
 * Created a new branch called console-feature to experiment with console input taking
 * Experimented with it, familiarized with how it basically works, thinking on how to implement it because my main would need to be completely restructured (hence the new branch)
+* Got quickview window working
 
 ### 01/16/2018 (Thomas)
 * I got a quickView() function working that displays your GPA and your subject averages
