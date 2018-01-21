@@ -365,7 +365,7 @@ public class SaturnGrades{
 
 		if(whatYouWannaAdd.toLowerCase().equals("assignment")){
 		    clearScreen();
-		    String subjectName = console.readLine("Please enter the name of the subject you wish to add this subcategory to: ");
+		    String subjectName = console.readLine("Please enter the name of the subject you wish to add this assignment to: ");
 		    clearScreen();
 		    
 		    if(user.checkIfSubjectPresent(subjectName)){
@@ -455,41 +455,53 @@ public class SaturnGrades{
 			}
 		    }
 
-		
-
-		/*
+		if(whatYouWannaRemove.toLowerCase().equals("assignment")){
+		    clearScreen();
+		    String subjectName = console.readLine("Please enter the name of the subject you wish to remove an assignment from: ");
+		    String subcategoryNameRef = "";
+		    String assignmentNameRef = "";
+		    clearScreen();
 		    
-		    
-		    if(args.length == 4){
-			if(user.checkIfSubjectPresent(args[1])){
-			    int indexOfSubject = user.getSubjectIndex(args[1]);
-			    if(user.getElement(indexOfSubject).checkIfSubcategoryPresent(args[2])){
-				int indexOfSubcategory = user.getElement(indexOfSubject).getSubcategoryIndex(args[2]);
-				if(user.getElement(indexOfSubject).getElement(indexOfSubcategory).checkIfAssignmentPresent(args[3])){
-				    int indexOfAssignment = user.getElement(indexOfSubject).getElement(indexOfSubcategory).getAssignmentIndex(args[3]);
-				    user.getElement(indexOfSubject).getElement(indexOfSubcategory).removeAssignment(args[3]);
-				    System.out.println(args[3] + " was removed as an assignment from " + args[2] + " in " + args[1] + ".\n");
+			if(user.checkIfSubjectPresent(subjectName)){
+			    int indexOfSubject = user.getSubjectIndex(subjectName);
+			    String subcategoryName = console.readLine("Please enter the name of the subcategory you wish to remove an assignment from: ");
+			    subcategoryNameRef = subcategoryName;
+			    clearScreen();
+			    
+			    if(user.getElement(indexOfSubject).checkIfSubcategoryPresent(subcategoryName)){
+				int indexOfSubcategory = user.getElement(indexOfSubject).getSubcategoryIndex(subcategoryName);
+				String assignmentName = console.readLine("Please enter the name of the assignment you wish to remove: ");
+				assignmentNameRef = assignmentName;
+				clearScreen();
+				
+				if(user.getElement(indexOfSubject).getElement(indexOfSubcategory).checkIfAssignmentPresent(assignmentName)){
+				    int indexOfAssignment = user.getElement(indexOfSubject).getElement(indexOfSubcategory).getAssignmentIndex(assignmentName);
+				    user.getElement(indexOfSubject).getElement(indexOfSubcategory).removeAssignment(assignmentName);
 				    user.writeFile();
-				    System.exit(0);
+				    System.out.println(assignmentName  + " was removed as an assignment from " + subcategoryName + " in " + subjectName + ".\n");
+				    console.readLine("Press enter to resume to the welcome screen.\n\n");
+				    user.main(emptyArray);
       				}
 				else{
-				    System.out.println(args[3] + " cannot be removed because it is not an existing assignment in " + args[2] + " in " + args[1] + ".\n");
-				    System.exit(0);
+				    System.out.println(assignmentNameRef + " cannot be removed because it is not an existing assignment in " + subcategoryNameRef + " in " + subjectName + ".\n");
+				    console.readLine("Press enter to resume to the welcome screen.\n\n");
+				    user.main(emptyArray);
 				}
 			    }
 			    else{
-				System.out.println(args[3] + " cannot be removed because " + args[2]  + " does not exist in " + args[1] + ".\n");
-				System.exit(0);
+				System.out.println(assignmentNameRef + " cannot be removed because " + subcategoryNameRef  + " does not exist in " + subjectName + ".\n");
+				console.readLine("Press enter to resume to the welcome screen.\n\n");
+				user.main(emptyArray);
 			    }
 			}
 			else{
-			    System.out.println(args[3] + " cannot be removed because "  + args[1] + " does not exist.\n");
-			    System.exit(0);
+			    System.out.println(assignmentNameRef + " cannot be removed because "  + subjectName + " does not exist.\n");
+			    console.readLine("Press enter to resume to the welcome screen.\n\n");
+			    user.main(emptyArray);
 			}
-		    }
 		}
-	    }
-		*/
+
+
 
 		
 	    }
