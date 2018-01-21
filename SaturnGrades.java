@@ -554,7 +554,7 @@ public class SaturnGrades{
 			
 			    if(user.checkIfSubjectPresent(subjectName)){
 				int indexOfSubject = user.getSubjectIndex(subjectName);
-				String subcategoryName = console.readLine("Please enter the name of the subject whose name you wish to update: ");
+				String subcategoryName = console.readLine("Please enter the name of the subcategory whose name you wish to update: ");
 				clearScreen();
 				
 				if(user.getElement(indexOfSubject).checkIfSubcategoryPresent(subcategoryName)){
@@ -580,6 +580,51 @@ public class SaturnGrades{
 				user.main(emptyArray);
 			    }
 		    }
+
+		    if(partYouWannaUpdate.equals("weight")){
+			String subjectName = console.readLine("Please enter the subject where this subcategory exists in: ");
+			clearScreen();
+			
+			    if(user.checkIfSubjectPresent(subjectName)){
+				int indexOfSubject = user.getSubjectIndex(subjectName);
+				String subcategoryName = console.readLine("Please enter the name of the subcategory whose weight you wish to update: ");
+				clearScreen();
+				
+				if(user.getElement(indexOfSubject).checkIfSubcategoryPresent(subcategoryName)){
+				    int indexOfSubcategory = user.getElement(indexOfSubject).getSubcategoryIndex(subcategoryName);
+				    double oldWeight = user.getElement(indexOfSubject).getElement(indexOfSubcategory).getWeight();
+				    String updatedWeight = console.readLine("Please enter the updated weight of this subcategory: ");
+				    double updatedWeightCopy = 0.0; //so I can access the double from outside try/catch 
+				    try{
+					double updatedWeightDouble = Double.parseDouble(updatedWeight); //so we can see if it will convert to double
+					updatedWeightCopy = updatedWeightDouble;
+				    }catch(NumberFormatException e){
+					clearScreen();
+					System.out.println(updatedWeight + " is not a viable value for weight!\n");
+					console.readLine("Press enter to resume to the welcome screen.\n\n");
+					user.main(emptyArray);
+				    }
+				    clearScreen();
+				    user.getElement(indexOfSubject).getElement(indexOfSubcategory).setWeight(updatedWeightCopy);
+				    user.writeFile();
+				    clearScreen();
+				    System.out.println("Subcategory's weight changed from " + oldWeight + " to " + updatedWeight + ".\n");
+				    console.readLine("Press enter to resume to the welcome screen.\n\n");
+				    user.main(emptyArray);
+				}
+				else{
+				    System.out.println("No changes occurred as " + subcategoryName + " was unable to be located.\n");
+				    console.readLine("Press enter to resume to the welcome screen.\n\n");
+				    user.main(emptyArray);
+				}
+			    }else{
+				System.out.println("No changes occurred as " + subjectName + " was unable to be located.\n");
+				console.readLine("Press enter to resume to the welcome screen.\n\n");
+				user.main(emptyArray);
+			    }
+		    }
+
+		    
 		    
 		}
 
