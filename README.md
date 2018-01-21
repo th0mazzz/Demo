@@ -11,28 +11,33 @@ TheDreamCrushers
 Saturn Grades (totally not shamelessly ripping off another popular grading system)
 
 ## Description
-Create a grade calculator that can calculate an estimated GPA based on given class, subcategory, and assignment grade inputs. Designed with students as users in mind. Will (hopefully) have more features.
-### how to use this program
-hopefully, we'll have programmed directions into the command line version AND the GUI version, but, in case I drown in coffee and die this weekend or defenestrate myself from the excessive Java exposure, I'll put the directions here
+Saturn Grades is a (mostly) terminal based program and (mostly) GUI based program that tracks your academic record throughout your student career by adding classes and assignments. It will calculate your GPA as well as individual subject & subcategory averages, and store data for assignments in all subjects.
+
+### How to use this program
+For command line, please compile SaturnGrades.java. For GUI, please compile SaturnGradesGUI.java. To run either file, please enter "java <file name>", replacing file name with the version you wish to run.
+
+Command Line: As a new user, the first page you come across when you open the program is the welcome page. In order to have a more detailed welcome screen, you are advised to update your name from the default "Unnamed". For more information on commands, type "help" as the keyword on the welcome screen. Keywords are what advance you to do various things in the program, as well as enter information for your subjects, subcategories, and assignments.
+
+(For Mr. K: The command line functionality now has a "step-by-step" input rather than the "enter all parameters" input, which is supposed to make it less annoying to use. Just follow the rules and you should be fine!)
+
 ### Critical Features
 Subjects
-* can have an infinite amount of categories, as long as the total weight of all the categories together is exactly 100%.
-* When a subject has 0 categories, it does not compute an average. Same for if the weight of all its categories does not add up to 100.
-* Subjects will always show their current averages
-* Subjects will automatically update the average if a subcategory or assignment is changed, added, or deleted
+* Can have an infinite amount of categories, as long as the total weight of all the categories together is exactly 100%.
+* When a subject has 0 categories, its average defaults to 100.0. If the sum of its subcategory weights is not 100.0, the subject will not compute an average, and GPA will not show.
+* Subjects will always show their current averages when displayed.
+* Subjects will automatically update the average if a subcategory or assignment is changed, added, or deleted.
 
 Subcategories
-* can have an infinite amount of assignments, as long as the assignments have positive point worths.
-* can be deleted
-* can be edited (name and weight)
-* Subcategories also always show their current averages (if you have a 95 test average or a 65 test average, youd want to know!!)
+* Can have an infinite amount of assignments, as long as the assignments have positive point worths.
+* Can be deleted
+* Can be edited (name and weight)
+* Subcategories also always show their current averages when displayed(if you have a 95 test average or a 65 test average, youd want to know!!)
 * Subcategories also automatically update the entire subcategory average if an assignment is changed, added, or deleted. So after getting back a test, you can input it and know how it directly affects your test average.
 * If a subcategory has no assignments contained in it, its grade defaults to 100%
 
 Assignments
-* can be deleted
-* Assignments can be assigned in advance- meaning the user does not input a points earned value, but does input a points worth value. The application uses these in advance assignments to predict averages, a to be added later feature.
-* can be edited (name, points, etc.)
+* Can be deleted
+* Can be edited (name, grade, date)
 
 ## Goals/What's Currently Done
 ### GUI Goals
@@ -76,9 +81,20 @@ basics:
  - [x] write functions to check if subcats are valid in a subject
  - [x] write calcAverage functions
 
-command line functionality
+Command Line Functionality Goals
+ - [x] be able to add subjects
+ - [x] be able to edit subject names
+ - [x] be able to add subcategories in a subject
+ - [x] be able to edit subcategory names and weights
+ - [x] be able to add assignments
+ - [x] be able to edit assignment grades and dates
+ - [x] be able to delete stuff
+ - [x] have the program yell at you if the subcategory sum is not 100.0 for a subject
+ - [x] have the averages show up for every subcategory and update every time a new assignment is added when displayed
+ - [x] averages show when displayed, automatic update for every subject
+ - [x] GPA show on welcome screen and be automatically updated
  - [x] get terminal functionality for summary keywords
- - [x] be able to handle user input of subject names and grades and things like that
+ - [x] implement console (meaning program doesn't exit after every action)
 
 reaches:
  - [ ] write a predictive average calculator based on future assignments and how much they would impact the grade
@@ -86,6 +102,14 @@ reaches:
 
 ## devlog
 <<<<<<< HEAD
+### 01/21/2018
+* Okay. I think I'm done with this project. Finally. Command. Line. Functionality. Done. And now I have to study for two finals, hurray! Exhausted by this project whew... I doubt I'm going to implement anything else major
+* Finished implementing console completely!
+* Added exception catching for certain exceptions
+* Merged branch console-feature with version3, deleted branch console-feature
+* Updated the command line help page of the program
+* I dont know whether Mr. K wants us to wipe the program's storage but I'll keep it there for now (I'm mentioning this because the welcome screen looks different with and without the default name saved)
+* Ran the program (command line) in all possible scenarios I could think of and saw no errors or bugs so far. Will probably run it once more later on today to double check. Also, may merge version3 to master later on today as well.
 
 ### 01/20/2018 (Thomas)
 * Finished remove! You can now remove subjects/subcategories/assignments!

@@ -9,13 +9,13 @@ public class Subcategory{
     public Subcategory(String name, double weight){
 	this.average = 100.0;
 	this.name = name;
-	this.weight = weight;
+	this.weight = Math.abs(weight);
 	collection = new ArrayList<Assignment>();
 	
     }
 
     public void setName(String updatedName){name = updatedName;}
-    public void setWeight(double updatedWeight){weight = updatedWeight;}
+    public void setWeight(double updatedWeight){weight = Math.abs(updatedWeight);}
 
     public double getAverage(){
 	average = (Math.round(average * 10.0)) / 10.0;

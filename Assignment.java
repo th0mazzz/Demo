@@ -5,7 +5,7 @@ public class Assignment{
     private String date = "00/00/0000";
     
     public Assignment(String name, double grade, String date){
-	this.grade = grade;
+	this.grade =  Math.abs(grade);
 	this.name = name;
 	this.date = date;
     }
@@ -14,7 +14,7 @@ public class Assignment{
     public String getName(){return name;}
     public String getDate(){return date;}
 
-    public void setGrade(double updatedGrade){grade = updatedGrade;}
+    public void setGrade(double updatedGrade){grade = Math.abs(updatedGrade);}
     public void setName(String updatedName){name = updatedName;}
     public void setDate(String updatedDate){date = updatedDate;}
 

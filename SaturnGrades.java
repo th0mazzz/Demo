@@ -22,9 +22,14 @@ public class SaturnGrades{
     public void setName(String name){this.name = name;}
     
     public double getAverage(){
-	average = calcAverage();
-	average = (Math.round(average * 10.0)) / 10.0;
-	return average;
+	if(collection.size() > 0){
+	    average = calcAverage();
+	    average = (Math.round(average * 10.0)) / 10.0;
+	    return average;
+	}else{
+	    System.out.print("Add some subjects! ");
+	    return 100.0;
+	}
     }
 
     public Subject getElement(int index){
@@ -299,8 +304,16 @@ public class SaturnGrades{
 	    if(keyword.equals("help")){
 		clearScreen();
 		System.out.println("Saturn Grades Help!\n" +
-				   "Note: Be sure to not include extraneous characters, such as spaces when prompted for user input/\n\n" +
-                                   "display - will display information about your classes in a basic or informed manner" +
+				   "Note: Be sure to not include extraneous characters, such as spaces when prompted for user input.\n\n" +
+				   "---Commands---\n" +
+				   "add - will add a subject, subcategory, or assignment\n" +
+                                   "display - will display information about your classes in a basic or informed manner\n" +
+				   "exit - will exit the program\n" + 
+				   "help - will display this page for reference\n" +
+				   "remove - will remove a subject, subcategory, or assignment\n" +
+				   "update - will change information regarding a subject, subcategory, assignment, or the user's name\n\n" +
+				   "---Keyword Inputs within Commands (to be entered when prompted)---\n" +
+				   "subject\nsubcategory\nassignment\nname\nweight\ngrade\ndate" +
                                    "\n\n");
 		console.readLine("Press enter to resume to the welcome screen.\n\n");
 		user.main(emptyArray);
@@ -330,7 +343,7 @@ public class SaturnGrades{
 
 
 
-	    if(keyword.equals("add")){ //java SaturnGrades add <subject name> <subcategory> <assignment name> <grade> <date> (args.length = 6)
+	    if(keyword.equals("add")){
        		clearScreen();
 		String whatYouWannaAdd = console.readLine("Enter whether you want to add a subject, subcategory, or assignment: ");
 
@@ -372,7 +385,7 @@ public class SaturnGrades{
 				user.main(emptyArray);
 			    }
 			    user.writeFile();
-			    System.out.println(subcategoryName + " with weight " + subcategoryWeight + " was added as a subcategory in " + subjectName + ".\n");
+			    System.out.println(subcategoryName + " with weight " + Math.abs(Double.parseDouble(subcategoryWeight)) + " was added as a subcategory in " + subjectName + ".\n");
 			    console.readLine("Press enter to resume to the welcome screen.\n\n");
 			    user.main(emptyArray);
 			}else{
@@ -415,10 +428,11 @@ public class SaturnGrades{
 				}
 				clearScreen();
 				String assignmentDate = console.readLine("Note: Only the first word will be saved as the date. For multi-worded dates, use hyphens.\nPlease enter the date of the assignment you wish to add: ");
+				clearScreen();
 				if(assignmentDate.length() != 0){
 				    user.getElement(indexOfSubject).getElement(indexOfSubcategory).addAssignment(assignmentName, assignmentGradeCopy, assignmentDate);
 				    user.writeFile();
-				    System.out.println(assignmentName + " with grade " + assignmentGradeCopy + " and date " + assignmentDate + " was added as an assignment in subcategory " +
+				    System.out.println(assignmentName + " with grade " + Math.abs(assignmentGradeCopy) + " and date " + assignmentDate + " was added as an assignment in subcategory " +
 						       subcategoryName + " in " + subjectName + ".\n");
 				    console.readLine("Press enter to resume to the welcome screen.\n\n");
 				    user.main(emptyArray);
@@ -464,7 +478,7 @@ public class SaturnGrades{
 			user.main(emptyArray);
 		    }
 		    else{
-			System.out.println(subjectName + " does not exist as a subject.");
+			System.out.println(subjectName + " cannot be removed because it does not exist as a subject.");
 			console.readLine("Press enter to resume to the welcome screen.\n\n");
 			user.main(emptyArray);
 		    }
@@ -495,7 +509,7 @@ public class SaturnGrades{
 			}
 		    }
 		    else{
-			System.out.println(subcategoryNameRef + " cannot be removed because " + subjectName + " does not exist."  + "\n");
+			System.out.println("Subcategory cannot be removed because " + subjectName + " does not exist."  + "\n");
 			console.readLine("Press enter to resume to the welcome screen.\n\n");
 			user.main(emptyArray);
 		    }
@@ -535,13 +549,13 @@ public class SaturnGrades{
 			    }
 			}
 			else{
-			    System.out.println(assignmentNameRef + " cannot be removed because " + subcategoryNameRef  + " does not exist in " + subjectName + ".\n");
+			    System.out.println("Assignment cannot be removed because " + subcategoryNameRef  + " does not exist in " + subjectName + ".\n");
 			    console.readLine("Press enter to resume to the welcome screen.\n\n");
 			    user.main(emptyArray);
 			}
 		    }
 		    else{
-			System.out.println(assignmentNameRef + " cannot be removed because "  + subjectName + " does not exist.\n");
+			System.out.println("Assignment cannot be removed because "  + subjectName + " does not exist.\n");
 			console.readLine("Press enter to resume to the welcome screen.\n\n");
 			user.main(emptyArray);
 		    }
@@ -674,7 +688,7 @@ public class SaturnGrades{
 				user.getElement(indexOfSubject).getElement(indexOfSubcategory).setWeight(updatedWeightCopy);
 				user.writeFile();
 				clearScreen();
-				System.out.println("Subcategory's weight changed from " + oldWeight + " to " + updatedWeight + ".\n");
+				System.out.println("Subcategory's weight changed from " + oldWeight + " to " + Math.abs(updatedWeightCopy) + ".\n");
 				console.readLine("Press enter to resume to the welcome screen.\n\n");
 				user.main(emptyArray);
 			    }
@@ -778,7 +792,7 @@ public class SaturnGrades{
 				    clearScreen();
 				    user.getElement(indexOfSubject).getElement(indexOfSubcategory).getElement(indexOfAssignment).setGrade(updatedGradeCopy);
 				    user.writeFile();
-				    System.out.println("Assignment's grade changed from " + oldGrade + " to " + updatedGradeCopy + ".\n");
+				    System.out.println("Assignment's grade changed from " + oldGrade + " to " + Math.abs(updatedGradeCopy) + ".\n");
 				    console.readLine("Press enter to resume to the welcome screen.\n\n");
 				    user.main(emptyArray);
       				}
@@ -830,7 +844,7 @@ public class SaturnGrades{
 					user.main(emptyArray);
 				    }else{
 					clearScreen();
-					console.readLine("You must enter a name for the subject!\nPress enter to resume to the welcome screen.\n\n");
+					console.readLine("You must enter a date for the assignment!\nPress enter to resume to the welcome screen.\n\n");
 					user.main(emptyArray);
 				    }
       				}
