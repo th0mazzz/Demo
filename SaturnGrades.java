@@ -424,6 +424,72 @@ public class SaturnGrades{
 		    }
 		}
 
+		if(whatYouWannaRemove.toLowerCase().equals("subcategory")){
+		    clearScreen();
+		    String subjectName = console.readLine("Please enter the name of the subject you wish to remove a subcategory from: ");
+		    String subcategoryNameRef = "";
+		    clearScreen();
+		    
+			if(user.checkIfSubjectPresent(subjectName)){
+			    int indexOfSubject = user.getSubjectIndex(subjectName);
+			    String subcategoryName = console.readLine("Please enter the name of the subcategory you wish to remove: ");
+			    subcategoryNameRef = subcategoryName;
+			    if(user.getElement(indexOfSubject).checkIfSubcategoryPresent(subcategoryName)){
+				int indexOfSubcategory = user.getElement(indexOfSubject).getSubcategoryIndex(subcategoryName);
+				user.getElement(indexOfSubject).removeSubcategory(subcategoryName);
+				user.writeFile();
+				System.out.println(subcategoryName + " was removed as a subcategory from " + subjectName + ".\n");
+				console.readLine("Press enter to resume to the welcome screen.\n\n");
+				user.main(emptyArray);
+			    }
+       			    else{
+				System.out.println(subcategoryName + " cannot be removed because it is not an existing subcategory in " + subjectName + ".\n");
+				console.readLine("Press enter to resume to the welcome screen.\n\n");
+				user.main(emptyArray);
+			    }
+			}
+			else{
+			    System.out.println(subcategoryNameRef + " cannot be removed because " + subjectName + " does not exist."  + "\n");
+			    console.readLine("Press enter to resume to the welcome screen.\n\n");
+			    user.main(emptyArray);
+			}
+		    }
+
+		
+
+		/*
+		    
+		    
+		    if(args.length == 4){
+			if(user.checkIfSubjectPresent(args[1])){
+			    int indexOfSubject = user.getSubjectIndex(args[1]);
+			    if(user.getElement(indexOfSubject).checkIfSubcategoryPresent(args[2])){
+				int indexOfSubcategory = user.getElement(indexOfSubject).getSubcategoryIndex(args[2]);
+				if(user.getElement(indexOfSubject).getElement(indexOfSubcategory).checkIfAssignmentPresent(args[3])){
+				    int indexOfAssignment = user.getElement(indexOfSubject).getElement(indexOfSubcategory).getAssignmentIndex(args[3]);
+				    user.getElement(indexOfSubject).getElement(indexOfSubcategory).removeAssignment(args[3]);
+				    System.out.println(args[3] + " was removed as an assignment from " + args[2] + " in " + args[1] + ".\n");
+				    user.writeFile();
+				    System.exit(0);
+      				}
+				else{
+				    System.out.println(args[3] + " cannot be removed because it is not an existing assignment in " + args[2] + " in " + args[1] + ".\n");
+				    System.exit(0);
+				}
+			    }
+			    else{
+				System.out.println(args[3] + " cannot be removed because " + args[2]  + " does not exist in " + args[1] + ".\n");
+				System.exit(0);
+			    }
+			}
+			else{
+			    System.out.println(args[3] + " cannot be removed because "  + args[1] + " does not exist.\n");
+			    System.exit(0);
+			}
+		    }
+		}
+	    }
+		*/
 
 		
 	    }
