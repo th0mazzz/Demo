@@ -672,8 +672,109 @@ public class SaturnGrades{
 			    console.readLine("Press enter to resume to the welcome screen.\n\n");
 			    user.main(emptyArray);
 			}
+		    }
+
+		    if(partYouWannaUpdate.toLowerCase().equals("grade")){
+			String subjectName = console.readLine("Please enter the name of subject that contains the assignment whose grade you wish to update: ");
+			clearScreen();
+			
+			if(user.checkIfSubjectPresent(subjectName)){
+			    int indexOfSubject = user.getSubjectIndex(subjectName);
+			    String subcategoryName = console.readLine("Please enter the name of the subcategory that contains the assignment whose grade you wish to update: ");
+			    clearScreen();
+			    			    
+			    if(user.getElement(indexOfSubject).checkIfSubcategoryPresent(subcategoryName)){
+				int indexOfSubcategory = user.getElement(indexOfSubject).getSubcategoryIndex(subcategoryName);
+				String assignmentName = console.readLine("Please enter the name of the assignment whose grade you wish to update: ");
+				clearScreen();
+				
+				if(user.getElement(indexOfSubject).getElement(indexOfSubcategory).checkIfAssignmentPresent(assignmentName)){
+				    int indexOfAssignment = user.getElement(indexOfSubject).getElement(indexOfSubcategory).getAssignmentIndex(assignmentName);
+				    double oldGrade = user.getElement(indexOfSubject).getElement(indexOfSubcategory).getElement(indexOfAssignment).getGrade();
+				    String updatedGrade = console.readLine("Please enter the new grade of this assignment: ");
+				    double updatedGradeCopy = 0.0; //to access the updatedGrade value outside try/catch
+				    try{
+					double updatedGradeDouble = Double.parseDouble(updatedGrade);
+					updatedGradeCopy = updatedGradeDouble;
+				    }catch(NumberFormatException e){
+					clearScreen();
+					System.out.println(updatedGrade + " is not a viable value for grade!\n");
+					console.readLine("Press enter to resume to the welcome screen.\n\n");
+					user.main(emptyArray);
+				    }
+				    clearScreen();
+				    user.getElement(indexOfSubject).getElement(indexOfSubcategory).getElement(indexOfAssignment).setGrade(updatedGradeCopy);
+				    user.writeFile();
+				    System.out.println("Assignment's grade changed from " + oldGrade + " to " + updatedGradeCopy + ".\n");
+				    console.readLine("Press enter to resume to the welcome screen.\n\n");
+				    user.main(emptyArray);
+      				}
+				else{
+				    System.out.println("No changes occurred as " + assignmentName + " was unable to be located.\n");
+				    console.readLine("Press enter to resume to the welcome screen.\n\n");
+				    user.main(emptyArray);
+				}
+			    }
+			    else{
+				System.out.println("No changes occurred as " + subcategoryName + " was unable to be located.\n");
+				console.readLine("Press enter to resume to the welcome screen.\n\n");
+				user.main(emptyArray);
+			    }
+			}
+			else{
+			    System.out.println("No changes occurred as " + subjectName + " was unable to be located.\n");
+			    console.readLine("Press enter to resume to the welcome screen.\n\n");
+			    user.main(emptyArray);
+			}
 
 		    }
+
+		    if(partYouWannaUpdate.toLowerCase().equals("date")){
+			String subjectName = console.readLine("Please enter the name of subject that contains the assignment whose date you wish to update: ");
+			clearScreen();
+			
+			if(user.checkIfSubjectPresent(subjectName)){
+			    int indexOfSubject = user.getSubjectIndex(subjectName);
+			    String subcategoryName = console.readLine("Please enter the name of the subcategory that contains the assignment whose date you wish to update: ");
+			    clearScreen();
+			    			    
+			    if(user.getElement(indexOfSubject).checkIfSubcategoryPresent(subcategoryName)){
+				int indexOfSubcategory = user.getElement(indexOfSubject).getSubcategoryIndex(subcategoryName);
+				String assignmentName = console.readLine("Please enter the name of the assignment whose date you wish to update: ");
+				clearScreen();
+				
+				if(user.getElement(indexOfSubject).getElement(indexOfSubcategory).checkIfAssignmentPresent(assignmentName)){
+				    int indexOfAssignment = user.getElement(indexOfSubject).getElement(indexOfSubcategory).getAssignmentIndex(assignmentName);
+				    String oldDate = user.getElement(indexOfSubject).getElement(indexOfSubcategory).getElement(indexOfAssignment).getDate();
+				    String updatedDate = console.readLine("Please enter the new date of this assignment: ");
+				    clearScreen();
+				    user.getElement(indexOfSubject).getElement(indexOfSubcategory).getElement(indexOfAssignment).setDate(updatedDate);
+				    user.writeFile();
+				    System.out.println("Assignment's date changed from " + oldDate + " to " + updatedDate + ".\n");
+				    console.readLine("Press enter to resume to the welcome screen.\n\n");
+				    user.main(emptyArray);
+      				}
+				else{
+				    System.out.println("No changes occurred as " + assignmentName + " was unable to be located.\n");
+				    console.readLine("Press enter to resume to the welcome screen.\n\n");
+				    user.main(emptyArray);
+				}
+			    }
+			    else{
+				System.out.println("No changes occurred as " + subcategoryName + " was unable to be located.\n");
+				console.readLine("Press enter to resume to the welcome screen.\n\n");
+				user.main(emptyArray);
+			    }
+			}
+			else{
+			    System.out.println("No changes occurred as " + subjectName + " was unable to be located.\n");
+			    console.readLine("Press enter to resume to the welcome screen.\n\n");
+			    user.main(emptyArray);
+			}
+		    }
+
+
+		    
 		}
 
 
