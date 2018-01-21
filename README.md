@@ -76,13 +76,19 @@ reaches:
  - [ ] write a function that roasts users
 
 ## devlog
-### 01/19/2018
+### 01/20/2018 (Thomas)
+* Finished remove! You can now remove subjects/subcategories/assignments!
+* Basically started the update option in the main, got up to updating assignment names (finished with subject, subcategory, and user's name), have updating assignment grades/dates left I think
+* Planning to work more tomorrow (by finishing update option for assignment), don't think we're going to add any more features after finishing this
+* Touch up on little aspects of the SaturnGrades main function tmr
+
+### 01/19/2018 (Thomas)
 * Yes! I finished implementing adding everything!
 * Fixed issue display averages when subcategories don't total to 100.0
 * Wrote remove subject
 * Overall, making slow but steady progress regarding this console stuff... it feels so much better than typing java SaturnGrades all the time!
 
-### 01/18/2018
+### 01/18/2018 (Thomas)
 * Tried to understand console better... and now I do!
 * Implemented display and adding (partially)! Heck yeah!
 
