@@ -18,6 +18,7 @@ public class SaturnGrades{
     }
 
     public String getName(){return name;}
+    
     public void setName(String name){this.name = name;}
     
     public double getAverage(){
@@ -147,6 +148,11 @@ public class SaturnGrades{
 	}
     }
 
+    public static boolean checkIfWord(String word){
+	return !((word.equals("*")) || (word.equals("!")) || (word.equals("~")) || (word.equals("?")) ||
+		 (word.equals(",")) || (word.equals("'")) || (word.equals(".")));
+    }
+    
     public void readFile(){
 	String fileName = "storage.txt";
 	try{
@@ -267,7 +273,7 @@ public class SaturnGrades{
     public static void clearScreen() {  
 	System.out.print("\033[H\033[2J");  //resets cursor to default location
 	System.out.flush();  //clears the terminal
-   }  
+    }  
     
     public static void main(String[] args){
 	SaturnGrades user = new SaturnGrades();
@@ -279,7 +285,7 @@ public class SaturnGrades{
 	user.readFile();
 
 	if(user.getName().equals("Unnamed")){
-		System.out.println("Welcome to Saturn Grades!\nPlease enter a keyword and follow instructions.\nEnter help as the keyword for a list of keywords.\n\nIt is also recommended that you update your name to replace this welcome screen with a quickview screen.\n\n");
+	    System.out.println("Welcome to Saturn Grades!\nPlease enter a keyword and follow instructions.\nEnter help as the keyword for a list of keywords.\n\nIt is also recommended that you update your name to replace this welcome screen with a quickview screen.\n\n");
 	}else{
 	    user.quickView();
 	}
@@ -317,7 +323,7 @@ public class SaturnGrades{
 		    user.main(emptyArray);
 		}
 		clearScreen();
-		console.readLine("Please enter 'basic' or 'informed' next time.\n\n\nPress enter to resume to the welcome screen.\n\n");
+		console.readLine("Please enter 'basic' or 'informed' next time.\n\nPress enter to resume to the welcome screen.\n\n");
 		user.main(emptyArray);
 	    }
 
@@ -329,13 +335,19 @@ public class SaturnGrades{
 
 		if(whatYouWannaAdd.toLowerCase().equals("subject")){
 		    clearScreen();
-		    String subjectName = console.readLine("Please enter the name of this new subject: ");
-		    clearScreen();
-		    user.addSubject(subjectName);
-		    System.out.println(subjectName + " was added as a subject.\n");
-		    user.writeFile();
-		    console.readLine("Press enter to resume to the welcome screen.\n\n");
-		    user.main(emptyArray);
+		    String subjectName = console.readLine("Note: Only the first word will be saved as the name. For multi-worded subjects, use hyphens.\nPlease enter the name of this new subject: ");
+		    if(subjectName.length() != 0){
+			clearScreen();
+			user.addSubject(subjectName);
+			System.out.println(subjectName + " was added as a subject.\n");
+			user.writeFile();
+			console.readLine("Press enter to resume to the welcome screen.\n\n");
+			user.main(emptyArray);
+		    }else{
+			clearScreen();
+			console.readLine("You must enter a name for the subject!\nPress enter to resume to the welcome screen.\n\n");
+			user.main(emptyArray);
+		    }
 		}
 
 		if(whatYouWannaAdd.toLowerCase().equals("subcategory")){
@@ -345,15 +357,28 @@ public class SaturnGrades{
 		    
 		    if(user.checkIfSubjectPresent(subjectName)){
 			int indexOfSubject = user.getSubjectIndex(subjectName);
-			String subcategoryName = console.readLine("Please enter the name of this new subcategory: ");
-			clearScreen();
-			String subcategoryWeight = console.readLine("Please enter the weight of this new subcategory: ");
-			clearScreen();
-			user.getElement(indexOfSubject).addSubcategory(subcategoryName, Double.parseDouble(subcategoryWeight));
-       			user.writeFile();
-			System.out.println(subcategoryName + " with weight " + subcategoryWeight + " was added as a subcategory in " + subjectName + ".\n");
-			console.readLine("Press enter to resume to the welcome screen.\n\n");
-			user.main(emptyArray);
+			String subcategoryName = console.readLine("Note: Only the first word will be saved as the name. For multi-worded subcategories, use hyphens.\nPlease enter the name of this new subcategory: ");
+
+			if(subcategoryName.length() != 0){
+			    clearScreen();
+			    String subcategoryWeight = console.readLine("Please enter the weight of this new subcategory: ");
+			    clearScreen();
+			    try{
+			    user.getElement(indexOfSubject).addSubcategory(subcategoryName, Double.parseDouble(subcategoryWeight));
+			    }catch(NumberFormatException e){
+				System.out.println(subcategoryWeight + " is not a viable value for weight!");
+				console.readLine("Press enter to resume to the welcome screen.\n\n");
+				user.main(emptyArray);
+			    }
+			    user.writeFile();
+			    System.out.println(subcategoryName + " with weight " + subcategoryWeight + " was added as a subcategory in " + subjectName + ".\n");
+			    console.readLine("Press enter to resume to the welcome screen.\n\n");
+			    user.main(emptyArray);
+			}else{
+			    clearScreen();
+			    console.readLine("You must enter a name for the subcategory!\nPress enter to resume to the welcome screen.\n\n");
+			    user.main(emptyArray);
+			}
 		    }
 		    else{
 			System.out.println(subjectName + " does not exist as a subject.");
@@ -374,17 +399,38 @@ public class SaturnGrades{
 			
 			if(user.getElement(indexOfSubject).checkIfSubcategoryPresent(subcategoryName)){
 			    int indexOfSubcategory = user.getElement(indexOfSubject).getSubcategoryIndex(subcategoryName);
-			    String assignmentName = console.readLine("Please enter the name of this new assignment: ");
-			    clearScreen();
-			    Double assignmentGrade = Double.parseDouble(console.readLine("Please enter the grade of the assignment you wish to add: "));
-			    clearScreen();
-			    String assignmentDate = console.readLine("Please enter the date of the assignment you wish to add: ");
-			    user.getElement(indexOfSubject).getElement(indexOfSubcategory).addAssignment(assignmentName, assignmentGrade, assignmentDate);
-			    user.writeFile();
-			    System.out.println(assignmentName + " with grade " + assignmentGrade + " and date " + assignmentDate + " was added as an assignment in subcategory " +
-					       subcategoryName + " in " + subjectName + ".\n");
-			    console.readLine("Press enter to resume to the welcome screen.\n\n");
-			    user.main(emptyArray);
+			    String assignmentName = console.readLine("Note: Only the first word will be saved as the name. For multi-worded assignments, use hyphens.\nPlease enter the name of this new assignment: ");
+			    if(assignmentName.length() != 0){
+				clearScreen();
+				String assignmentGradeString = console.readLine("Please enter the grade of the assignment you wish to add: ");
+				double assignmentGradeCopy = 0.0;
+				try{
+				    double assignmentGrade = Double.parseDouble(assignmentGradeString);
+				    assignmentGradeCopy = assignmentGrade;
+				}catch(NumberFormatException e){
+				    System.out.println(assignmentGradeString + " is not a viable value for grade!");
+				    console.readLine("Press enter to resume to the welcome screen.\n\n");
+				    user.main(emptyArray);
+				}
+				clearScreen();
+				String assignmentDate = console.readLine("Note: Only the first word will be saved as the date. For multi-worded dates, use hyphens.\nPlease enter the date of the assignment you wish to add: ");
+				if(assignmentDate.length() != 0){
+				    user.getElement(indexOfSubject).getElement(indexOfSubcategory).addAssignment(assignmentName, assignmentGradeCopy, assignmentDate);
+				    user.writeFile();
+				    System.out.println(assignmentName + " with grade " + assignmentGradeCopy + " and date " + assignmentDate + " was added as an assignment in subcategory " +
+						       subcategoryName + " in " + subjectName + ".\n");
+				    console.readLine("Press enter to resume to the welcome screen.\n\n");
+				    user.main(emptyArray);
+				}else{
+				    clearScreen();
+				    console.readLine("You must enter a date for the assignment!\nPress enter to resume to the welcome screen.\n\n");
+				    user.main(emptyArray);
+				}
+			    }else{
+				clearScreen();
+				console.readLine("You must enter a name for the assignment!\nPress enter to resume to the welcome screen.\n\n");
+				user.main(emptyArray);
+			    }
 			}
 			else{
 			    System.out.println(subcategoryName + " does not exist as a subcategory in subjectName.");
@@ -429,30 +475,30 @@ public class SaturnGrades{
 		    String subcategoryNameRef = "";
 		    clearScreen();
 		    
-			if(user.checkIfSubjectPresent(subjectName)){
-			    int indexOfSubject = user.getSubjectIndex(subjectName);
-			    String subcategoryName = console.readLine("Please enter the name of the subcategory you wish to remove: ");
-			    subcategoryNameRef = subcategoryName;
-			    if(user.getElement(indexOfSubject).checkIfSubcategoryPresent(subcategoryName)){
-				int indexOfSubcategory = user.getElement(indexOfSubject).getSubcategoryIndex(subcategoryName);
-				user.getElement(indexOfSubject).removeSubcategory(subcategoryName);
-				user.writeFile();
-				System.out.println(subcategoryName + " was removed as a subcategory from " + subjectName + ".\n");
-				console.readLine("Press enter to resume to the welcome screen.\n\n");
-				user.main(emptyArray);
-			    }
-       			    else{
-				System.out.println(subcategoryName + " cannot be removed because it is not an existing subcategory in " + subjectName + ".\n");
-				console.readLine("Press enter to resume to the welcome screen.\n\n");
-				user.main(emptyArray);
-			    }
+		    if(user.checkIfSubjectPresent(subjectName)){
+			int indexOfSubject = user.getSubjectIndex(subjectName);
+			String subcategoryName = console.readLine("Please enter the name of the subcategory you wish to remove: ");
+			subcategoryNameRef = subcategoryName;
+			if(user.getElement(indexOfSubject).checkIfSubcategoryPresent(subcategoryName)){
+			    int indexOfSubcategory = user.getElement(indexOfSubject).getSubcategoryIndex(subcategoryName);
+			    user.getElement(indexOfSubject).removeSubcategory(subcategoryName);
+			    user.writeFile();
+			    System.out.println(subcategoryName + " was removed as a subcategory from " + subjectName + ".\n");
+			    console.readLine("Press enter to resume to the welcome screen.\n\n");
+			    user.main(emptyArray);
 			}
 			else{
-			    System.out.println(subcategoryNameRef + " cannot be removed because " + subjectName + " does not exist."  + "\n");
+			    System.out.println(subcategoryName + " cannot be removed because it is not an existing subcategory in " + subjectName + ".\n");
 			    console.readLine("Press enter to resume to the welcome screen.\n\n");
 			    user.main(emptyArray);
 			}
 		    }
+		    else{
+			System.out.println(subcategoryNameRef + " cannot be removed because " + subjectName + " does not exist."  + "\n");
+			console.readLine("Press enter to resume to the welcome screen.\n\n");
+			user.main(emptyArray);
+		    }
+		}
 
 		if(whatYouWannaRemove.toLowerCase().equals("assignment")){
 		    clearScreen();
@@ -461,43 +507,43 @@ public class SaturnGrades{
 		    String assignmentNameRef = "";
 		    clearScreen();
 		    
-			if(user.checkIfSubjectPresent(subjectName)){
-			    int indexOfSubject = user.getSubjectIndex(subjectName);
-			    String subcategoryName = console.readLine("Please enter the name of the subcategory you wish to remove an assignment from: ");
-			    subcategoryNameRef = subcategoryName;
-			    clearScreen();
+		    if(user.checkIfSubjectPresent(subjectName)){
+			int indexOfSubject = user.getSubjectIndex(subjectName);
+			String subcategoryName = console.readLine("Please enter the name of the subcategory you wish to remove an assignment from: ");
+			subcategoryNameRef = subcategoryName;
+			clearScreen();
 			    
-			    if(user.getElement(indexOfSubject).checkIfSubcategoryPresent(subcategoryName)){
-				int indexOfSubcategory = user.getElement(indexOfSubject).getSubcategoryIndex(subcategoryName);
-				String assignmentName = console.readLine("Please enter the name of the assignment you wish to remove: ");
-				assignmentNameRef = assignmentName;
-				clearScreen();
+			if(user.getElement(indexOfSubject).checkIfSubcategoryPresent(subcategoryName)){
+			    int indexOfSubcategory = user.getElement(indexOfSubject).getSubcategoryIndex(subcategoryName);
+			    String assignmentName = console.readLine("Please enter the name of the assignment you wish to remove: ");
+			    assignmentNameRef = assignmentName;
+			    clearScreen();
 				
-				if(user.getElement(indexOfSubject).getElement(indexOfSubcategory).checkIfAssignmentPresent(assignmentName)){
-				    int indexOfAssignment = user.getElement(indexOfSubject).getElement(indexOfSubcategory).getAssignmentIndex(assignmentName);
-				    user.getElement(indexOfSubject).getElement(indexOfSubcategory).removeAssignment(assignmentName);
-				    user.writeFile();
-				    System.out.println(assignmentName  + " was removed as an assignment from " + subcategoryName + " in " + subjectName + ".\n");
-				    console.readLine("Press enter to resume to the welcome screen.\n\n");
-				    user.main(emptyArray);
-      				}
-				else{
-				    System.out.println(assignmentNameRef + " cannot be removed because it is not an existing assignment in " + subcategoryNameRef + " in " + subjectName + ".\n");
-				    console.readLine("Press enter to resume to the welcome screen.\n\n");
-				    user.main(emptyArray);
-				}
+			    if(user.getElement(indexOfSubject).getElement(indexOfSubcategory).checkIfAssignmentPresent(assignmentName)){
+				int indexOfAssignment = user.getElement(indexOfSubject).getElement(indexOfSubcategory).getAssignmentIndex(assignmentName);
+				user.getElement(indexOfSubject).getElement(indexOfSubcategory).removeAssignment(assignmentName);
+				user.writeFile();
+				System.out.println(assignmentName  + " was removed as an assignment from " + subcategoryName + " in " + subjectName + ".\n");
+				console.readLine("Press enter to resume to the welcome screen.\n\n");
+				user.main(emptyArray);
 			    }
 			    else{
-				System.out.println(assignmentNameRef + " cannot be removed because " + subcategoryNameRef  + " does not exist in " + subjectName + ".\n");
+				System.out.println(assignmentNameRef + " cannot be removed because it is not an existing assignment in " + subcategoryNameRef + " in " + subjectName + ".\n");
 				console.readLine("Press enter to resume to the welcome screen.\n\n");
 				user.main(emptyArray);
 			    }
 			}
 			else{
-			    System.out.println(assignmentNameRef + " cannot be removed because "  + subjectName + " does not exist.\n");
+			    System.out.println(assignmentNameRef + " cannot be removed because " + subcategoryNameRef  + " does not exist in " + subjectName + ".\n");
 			    console.readLine("Press enter to resume to the welcome screen.\n\n");
 			    user.main(emptyArray);
 			}
+		    }
+		    else{
+			System.out.println(assignmentNameRef + " cannot be removed because "  + subjectName + " does not exist.\n");
+			console.readLine("Press enter to resume to the welcome screen.\n\n");
+			user.main(emptyArray);
+		    }
 		}      
 	    }
 
@@ -507,14 +553,20 @@ public class SaturnGrades{
 		clearScreen();
 
 		if(whatYouWannaUpdate.toLowerCase().equals("name")){
-		    String updatedName = console.readLine("Please enter what you wish to update your name to: ");
-
-		    String oldName = user.getName();
-		    user.setName(updatedName);
-		    user.writeFile();
-		    System.out.println("User's name changed from " + oldName + " to " + updatedName + ".\n");
-		    console.readLine("Press enter to resume to the welcome screen.\n\n");
-		    user.main(emptyArray);
+		    String updatedName = console.readLine("Note: Only the first word will be saved as the name. For multi-worded names, use hyphens.\nPlease enter what you wish to update your name to: ");
+		    if(updatedName.length() != 0){
+			clearScreen();
+			String oldName = user.getName();
+			user.setName(updatedName);
+			user.writeFile();
+			System.out.println("User's name changed from " + oldName + " to " + updatedName + ".\n");
+			console.readLine("Press enter to resume to the welcome screen.\n\n");
+			user.main(emptyArray);
+		    }else{
+			clearScreen();
+			console.readLine("You must enter a name!\nPress enter to resume to the welcome screen.\n\n");
+			user.main(emptyArray);
+		    }
 		}
 		
 		if(whatYouWannaUpdate.toLowerCase().equals("subject")){
@@ -522,25 +574,31 @@ public class SaturnGrades{
 		    clearScreen();
 		    String subjectName = console.readLine("Please enter the name of the subject whose name you wish to update: ");
 		    
-			if(user.checkIfSubjectPresent(subjectName)){
-			    clearScreen();
-			    int indexOfSubject = user.getSubjectIndex(subjectName);
-			    String oldName = user.getElement(indexOfSubject).getName();
-			    clearScreen();
-			    String updatedName = console.readLine("Please enter the updated name for this subject: ");
+		    if(user.checkIfSubjectPresent(subjectName)){
+			clearScreen();
+			int indexOfSubject = user.getSubjectIndex(subjectName);
+			String oldName = user.getElement(indexOfSubject).getName();
+			clearScreen();
+			String updatedName = console.readLine("Note: Only the first word will be saved as the name. For multi-worded subjects, use hyphens.\nPlease enter the updated name for this subject: ");
+			if(updatedName.length() != 0){
 			    clearScreen();
 			    user.getElement(indexOfSubject).setName(updatedName);
 			    user.writeFile();
 			    System.out.println("Subject's name changed from " + oldName + " to " + updatedName + ".\n");
 			    console.readLine("Press enter to resume to the welcome screen.\n\n");
 			    user.main(emptyArray);
-			}
-			else{
+			}else{
 			    clearScreen();
-			    System.out.println("No changes occurred as " + subjectName + " was unable to be located.\n");
-			    console.readLine("Press enter to resume to the welcome screen.\n\n");
+			    console.readLine("You must enter a name for the subject!\nPress enter to resume to the welcome screen.\n\n");
 			    user.main(emptyArray);
 			}
+		    }
+		    else{
+			clearScreen();
+			System.out.println("No changes occurred as " + subjectName + " was unable to be located.\n");
+			console.readLine("Press enter to resume to the welcome screen.\n\n");
+			user.main(emptyArray);
+		    }
 		}
 
 		if(whatYouWannaUpdate.toLowerCase().equals("subcategory")){
@@ -552,15 +610,17 @@ public class SaturnGrades{
 			String subjectName = console.readLine("Please enter the subject where this subcategory exists in: ");
 			clearScreen();
 			
-			    if(user.checkIfSubjectPresent(subjectName)){
-				int indexOfSubject = user.getSubjectIndex(subjectName);
-				String subcategoryName = console.readLine("Please enter the name of the subcategory whose name you wish to update: ");
-				clearScreen();
+			if(user.checkIfSubjectPresent(subjectName)){
+			    int indexOfSubject = user.getSubjectIndex(subjectName);
+			    String subcategoryName = console.readLine("Please enter the name of the subcategory whose name you wish to update: ");
+			    clearScreen();
 				
-				if(user.getElement(indexOfSubject).checkIfSubcategoryPresent(subcategoryName)){
-				    int indexOfSubcategory = user.getElement(indexOfSubject).getSubcategoryIndex(subcategoryName);
-				    String oldName = user.getElement(indexOfSubject).getElement(indexOfSubcategory).getName();
-				    String updatedName = console.readLine("Please enter the updated name of this subcategory: ");
+			    if(user.getElement(indexOfSubject).checkIfSubcategoryPresent(subcategoryName)){
+				int indexOfSubcategory = user.getElement(indexOfSubject).getSubcategoryIndex(subcategoryName);
+				String oldName = user.getElement(indexOfSubject).getElement(indexOfSubcategory).getName();
+				String updatedName = console.readLine("Note: Only the first word will be saved as the name. For multi-worded subcategories, use hyphens.\nPlease enter the updated name of this subcategory: ");
+
+				if(updatedName.length() != 0){
 				    clearScreen();
 				    user.getElement(indexOfSubject).getElement(indexOfSubcategory).setName(updatedName);
 				    user.writeFile();
@@ -568,60 +628,65 @@ public class SaturnGrades{
 				    System.out.println("Subcategory's name changed from " + oldName + " to " + updatedName + ".\n");
 				    console.readLine("Press enter to resume to the welcome screen.\n\n");
 				    user.main(emptyArray);
-				}
-				else{
-				    System.out.println("No changes occurred as " + subcategoryName + " was unable to be located.\n");
-				    console.readLine("Press enter to resume to the welcome screen.\n\n");
+				}else{
+				    clearScreen();
+				    console.readLine("You must enter a name for the subcategory!\nPress enter to resume to the welcome screen.\n\n");
 				    user.main(emptyArray);
 				}
-			    }else{
-				System.out.println("No changes occurred as " + subjectName + " was unable to be located.\n");
+			    }
+			    else{
+				System.out.println("No changes occurred as " + subcategoryName + " was unable to be located.\n");
 				console.readLine("Press enter to resume to the welcome screen.\n\n");
 				user.main(emptyArray);
 			    }
+			}else{
+			    System.out.println("No changes occurred as " + subjectName + " was unable to be located.\n");
+			    console.readLine("Press enter to resume to the welcome screen.\n\n");
+			    user.main(emptyArray);
+			}
 		    }
 
 		    if(partYouWannaUpdate.equals("weight")){
 			String subjectName = console.readLine("Please enter the subject where this subcategory exists in: ");
 			clearScreen();
 			
-			    if(user.checkIfSubjectPresent(subjectName)){
-				int indexOfSubject = user.getSubjectIndex(subjectName);
-				String subcategoryName = console.readLine("Please enter the name of the subcategory whose weight you wish to update: ");
-				clearScreen();
+			if(user.checkIfSubjectPresent(subjectName)){
+			    int indexOfSubject = user.getSubjectIndex(subjectName);
+			    String subcategoryName = console.readLine("Please enter the name of the subcategory whose weight you wish to update: ");
+			    clearScreen();
 				
-				if(user.getElement(indexOfSubject).checkIfSubcategoryPresent(subcategoryName)){
-				    int indexOfSubcategory = user.getElement(indexOfSubject).getSubcategoryIndex(subcategoryName);
-				    double oldWeight = user.getElement(indexOfSubject).getElement(indexOfSubcategory).getWeight();
-				    String updatedWeight = console.readLine("Please enter the updated weight of this subcategory: ");
-				    double updatedWeightCopy = 0.0; //so I can access the double from outside try/catch 
-				    try{
-					double updatedWeightDouble = Double.parseDouble(updatedWeight); //so we can see if it will convert to double
-					updatedWeightCopy = updatedWeightDouble;
-				    }catch(NumberFormatException e){
-					clearScreen();
-					System.out.println(updatedWeight + " is not a viable value for weight!\n");
-					console.readLine("Press enter to resume to the welcome screen.\n\n");
-					user.main(emptyArray);
-				    }
+			    if(user.getElement(indexOfSubject).checkIfSubcategoryPresent(subcategoryName)){
+				int indexOfSubcategory = user.getElement(indexOfSubject).getSubcategoryIndex(subcategoryName);
+				double oldWeight = user.getElement(indexOfSubject).getElement(indexOfSubcategory).getWeight();
+				String updatedWeight = console.readLine("Please enter the updated weight of this subcategory: ");
+				double updatedWeightCopy = 0.0; //so I can access the double from outside try/catch 
+				try{
+				    double updatedWeightDouble = Double.parseDouble(updatedWeight); //so we can see if it will convert to double
+				    updatedWeightCopy = updatedWeightDouble;
+				}catch(NumberFormatException e){
 				    clearScreen();
-				    user.getElement(indexOfSubject).getElement(indexOfSubcategory).setWeight(updatedWeightCopy);
-				    user.writeFile();
-				    clearScreen();
-				    System.out.println("Subcategory's weight changed from " + oldWeight + " to " + updatedWeight + ".\n");
+				    System.out.println(updatedWeight + " is not a viable value for weight!\n");
 				    console.readLine("Press enter to resume to the welcome screen.\n\n");
 				    user.main(emptyArray);
 				}
-				else{
-				    System.out.println("No changes occurred as " + subcategoryName + " was unable to be located.\n");
-				    console.readLine("Press enter to resume to the welcome screen.\n\n");
-				    user.main(emptyArray);
-				}
-			    }else{
-				System.out.println("No changes occurred as " + subjectName + " was unable to be located.\n");
+				clearScreen();
+				user.getElement(indexOfSubject).getElement(indexOfSubcategory).setWeight(updatedWeightCopy);
+				user.writeFile();
+				clearScreen();
+				System.out.println("Subcategory's weight changed from " + oldWeight + " to " + updatedWeight + ".\n");
 				console.readLine("Press enter to resume to the welcome screen.\n\n");
 				user.main(emptyArray);
 			    }
+			    else{
+				System.out.println("No changes occurred as " + subcategoryName + " was unable to be located.\n");
+				console.readLine("Press enter to resume to the welcome screen.\n\n");
+				user.main(emptyArray);
+			    }
+			}else{
+			    System.out.println("No changes occurred as " + subjectName + " was unable to be located.\n");
+			    console.readLine("Press enter to resume to the welcome screen.\n\n");
+			    user.main(emptyArray);
+			}
 		    }
 		}
 
@@ -647,13 +712,20 @@ public class SaturnGrades{
 				if(user.getElement(indexOfSubject).getElement(indexOfSubcategory).checkIfAssignmentPresent(assignmentName)){
 				    int indexOfAssignment = user.getElement(indexOfSubject).getElement(indexOfSubcategory).getAssignmentIndex(assignmentName);
 				    String oldName = assignmentName;
-				    String updatedName = console.readLine("Please enter the new name of this assignment: ");
-				    clearScreen();
-				    user.getElement(indexOfSubject).getElement(indexOfSubcategory).getElement(indexOfAssignment).setName(updatedName);
-				    user.writeFile();
-				    System.out.println("Assignment's name changed from " + oldName + " to " + updatedName + ".\n");
-				    console.readLine("Press enter to resume to the welcome screen.\n\n");
-				    user.main(emptyArray);
+				    String updatedName = console.readLine("Note: Only the first word will be saved as the name. For multi-worded assignments, use hyphens.\nPlease enter the new name of this assignment: ");
+
+				    if(updatedName.length() != 0){
+					clearScreen();
+					user.getElement(indexOfSubject).getElement(indexOfSubcategory).getElement(indexOfAssignment).setName(updatedName);
+					user.writeFile();
+					System.out.println("Assignment's name changed from " + oldName + " to " + updatedName + ".\n");
+					console.readLine("Press enter to resume to the welcome screen.\n\n");
+					user.main(emptyArray);
+				    }else{
+					clearScreen();
+					console.readLine("You must enter a name for the assignment!\nPress enter to resume to the welcome screen.\n\n");
+					user.main(emptyArray);
+				    }
       				}
 				else{
 				    System.out.println("No changes occurred as " + assignmentName + " was unable to be located.\n");
@@ -746,13 +818,20 @@ public class SaturnGrades{
 				if(user.getElement(indexOfSubject).getElement(indexOfSubcategory).checkIfAssignmentPresent(assignmentName)){
 				    int indexOfAssignment = user.getElement(indexOfSubject).getElement(indexOfSubcategory).getAssignmentIndex(assignmentName);
 				    String oldDate = user.getElement(indexOfSubject).getElement(indexOfSubcategory).getElement(indexOfAssignment).getDate();
-				    String updatedDate = console.readLine("Please enter the new date of this assignment: ");
-				    clearScreen();
-				    user.getElement(indexOfSubject).getElement(indexOfSubcategory).getElement(indexOfAssignment).setDate(updatedDate);
-				    user.writeFile();
-				    System.out.println("Assignment's date changed from " + oldDate + " to " + updatedDate + ".\n");
-				    console.readLine("Press enter to resume to the welcome screen.\n\n");
-				    user.main(emptyArray);
+				    String updatedDate = console.readLine("Note: Only the first word will be saved as the date. For multi-worded dates, use hyphens.\nPlease enter the new date of this assignment: ");
+
+				    if(updatedDate.length() != 0){
+					clearScreen();
+					user.getElement(indexOfSubject).getElement(indexOfSubcategory).getElement(indexOfAssignment).setDate(updatedDate);
+					user.writeFile();
+					System.out.println("Assignment's date changed from " + oldDate + " to " + updatedDate + ".\n");
+					console.readLine("Press enter to resume to the welcome screen.\n\n");
+					user.main(emptyArray);
+				    }else{
+					clearScreen();
+					console.readLine("You must enter a name for the subject!\nPress enter to resume to the welcome screen.\n\n");
+					user.main(emptyArray);
+				    }
       				}
 				else{
 				    System.out.println("No changes occurred as " + assignmentName + " was unable to be located.\n");
@@ -771,123 +850,9 @@ public class SaturnGrades{
 			    console.readLine("Press enter to resume to the welcome screen.\n\n");
 			    user.main(emptyArray);
 			}
-		    }
-
-
-		    
-		}
-
-
-
-		    
+		    }	    
+		}	    
 	    }
-
-
-
-
-
-		
-	
-
-
-	    /*
-		   
-		    
-		    if(args.length == 6){ //java SaturnGrades update name <subject> <subcategory> <assignment> <updated name> (6 args)
-			if(args[1].equals("name")){
-			    if(user.checkIfSubjectPresent(args[2])){
-				int indexOfSubject = user.getSubjectIndex(args[2]);
-				if(user.getElement(indexOfSubject).checkIfSubcategoryPresent(args[3])){
-				    int indexOfSubcategory = user.getElement(indexOfSubject).getSubcategoryIndex(args[3]);
-				    if(user.getElement(indexOfSubject).getElement(indexOfSubcategory).checkIfAssignmentPresent(args[4])){
-					int indexOfAssignment = user.getElement(indexOfSubject).getElement(indexOfSubcategory).getAssignmentIndex(args[4]);
-					String oldName = user.getElement(indexOfSubject).getElement(indexOfSubcategory).getElement(indexOfAssignment).getName();
-					user.getElement(indexOfSubject).getElement(indexOfSubcategory).getElement(indexOfAssignment).setName(args[5]);
-					System.out.println("Assignment's name changed from " + oldName + " to " + args[5] + ".\n");
-					user.writeFile();
-					System.exit(0);
-				    }
-				    else{
-					System.out.println("No changes occurred as " + args[4] + " was unable to be located.\n");
-					System.exit(0);
-				    }
-				}
-				else{
-				    System.out.println("No changes occurred as " + args[3] + " was unable to be located.\n");
-				    System.exit(0);
-				}
-			    }
-			    else{
-				System.out.println("No changes occurred as " + args[2] + " was unable to be located.\n");
-				System.exit(0);
-			    }
-			}else{ //java SaturnGrades update grade <subject> <subcategory> <assignment> <updated grade>
-			    if(args[1].equals("grade")){
-				if(user.checkIfSubjectPresent(args[2])){
-				    int indexOfSubject = user.getSubjectIndex(args[2]);
-				    if(user.getElement(indexOfSubject).checkIfSubcategoryPresent(args[3])){
-					int indexOfSubcategory = user.getElement(indexOfSubject).getSubcategoryIndex(args[3]);
-					if(user.getElement(indexOfSubject).getElement(indexOfSubcategory).checkIfAssignmentPresent(args[4])){
-					    int indexOfAssignment = user.getElement(indexOfSubject).getElement(indexOfSubcategory).getAssignmentIndex(args[4]);
-					    Double oldGrade = user.getElement(indexOfSubject).getElement(indexOfSubcategory).getElement(indexOfAssignment).getGrade();
-					    user.getElement(indexOfSubject).getElement(indexOfSubcategory).getElement(indexOfAssignment).setGrade(Double.parseDouble(args[5]));
-					    System.out.println("Assignment's grade changed from " + oldGrade + " to " + args[5] + ".\n");
-					    user.writeFile();
-					    System.exit(0);
-					}
-					else{
-					    System.out.println("No changes occurred as " + args[4] + " was unable to be located.\n");
-					    System.exit(0);
-					}
-				    }
-				    else{
-					System.out.println("No changes occurred as " + args[3] + " was unable to be located.\n");
-					System.exit(0);
-				    }
-				}
-				else{
-				    System.out.println("No changes occurred as " + args[2] + " was unable to be located.\n");
-				    System.exit(0);
-				}
-			    }else{
-				if(args[1].equals("date")){
-				    if(user.checkIfSubjectPresent(args[2])){
-					int indexOfSubject = user.getSubjectIndex(args[2]);
-					if(user.getElement(indexOfSubject).checkIfSubcategoryPresent(args[3])){
-					    int indexOfSubcategory = user.getElement(indexOfSubject).getSubcategoryIndex(args[3]);
-					    if(user.getElement(indexOfSubject).getElement(indexOfSubcategory).checkIfAssignmentPresent(args[4])){
-						int indexOfAssignment = user.getElement(indexOfSubject).getElement(indexOfSubcategory).getAssignmentIndex(args[4]);
-						String oldDate = user.getElement(indexOfSubject).getElement(indexOfSubcategory).getElement(indexOfAssignment).getDate();
-						user.getElement(indexOfSubject).getElement(indexOfSubcategory).getElement(indexOfAssignment).setDate(args[5]);
-						System.out.println("Assignment's date changed from " + oldDate + " to " + args[5] + ".\n");
-						user.writeFile();
-						System.exit(0);
-					    }
-					    else{
-						System.out.println("No changes occurred as " + args[4] + " was unable to be located.\n");
-						System.exit(0);
-					    }
-					}
-					else{
-					    System.out.println("No changes occurred as " + args[3] + " was unable to be located.\n");
-					    System.exit(0);
-					}
-				    }
-				    else{
-					System.out.println("No changes occurred as " + args[2] + " was unable to be located.\n");
-					System.exit(0);
-				    }
-				}
-				else{
-				    System.out.println("Please recheck the format of the input.\n\njava SaturnGrades update name <subject> <subcategory> <assignment> <updated name>\n\nor\n\njava SaturnGrades update grade <subject> <subcategory> <assignment> <updated grade>\n\nor\n\njava SaturnGrades update date <subject> <subcategory> <assignment> <updated date>\n");
-				    System.exit(0);
-				}
-			    }
-			}
-		    }  
-		}
-	    
-	     */
 
 	    if(keyword.equals("exit")){
 		user.writeFile(); //just in case
@@ -909,381 +874,5 @@ public class SaturnGrades{
 
 	}
     }
-
-
-	    
-	
-	
-	
-	
-	/*if(args.length == 0){
-	    if(user.getName().equals("Unnamed")){
-		System.out.println("Welcome to Saturn Grades!\nPlease enter a keyword followed by the necessary information required.\nEnter help as the keyword for more information.\n\njava SaturnGrades <keyword>\n\nIt is also recommended that you update your name to replace this welcome screen with a quickview screen the next time\n\njava SaturnGrades\n\nis executed.\n");
-		System.exit(0);
-	    }
-	    else{
-		user.quickView();
-	    }
-	}
-
-
-	else{
-      	    String keyword = args[0];
-	    if(keyword.equals("help")){
-		System.out.println("Saturn Grades --- Help!\n\nWelcome to the help page! This page contains all command information relating to this program!\n\nGeneral Information:\nEach command in Saturn Grades will begin with: \n\n     java SaturnGrades\n\nSyntax of each command is crucial as the same keyword uses different number of inputs to determine what exactly you wish to accomplish.\nTherefore, it is recommended you read carefully at the list of commands that this program currently has\nand pay particular attention to the structure of each command.\n\n" + "List of Saturn Grade commands:\n\n" + "java SaturnGrades\n(Takes you to the welcome page of the program / quickview page of the program.)\n\n"
-				             + "java SaturnGrades help\n(Takes you to the help page.)\n\n"
-				             + "java SaturnGrades display <type>\n(Displays information regarding your classes.)\n   <type> can be substituted for basic or informed\n   basic will give a general overview\n   informed will provide a detailed view\n\n"
-				             + "java SaturnGrades add <subject name>\n(Adds a subject with the name <subject name>.)\n\n"
-				             + "java SaturnGrades add <subject name> <subcategory name>\n(Adds a subcategory with the name <subcategory name> in existing subject <subject name>.)\n\n"
-				             + "java SaturnGrades add <subject name> <subcategory name> <assignment name>\n(Adds an assignment with the name <assignment name> in the existing subcategory <subcategory name> in <subject name>.)\n\n"
-				             + "java SaturnGrades remove <subject name>\n(Removes existing subject with the name <subject name> and all its contents.)\n\n"
-				             + "java SaturnGrades remove <subject name> <subcategory name>\n(Removes existing subcategory <subcategory name> from existing subject <subject name> and all its contents.)\n\n"
-				             + "java SaturnGrades remove <subject name> <subcategory name> <assignment name>\n(Removes existing assignment <assignment name> from existing subcategory <subcategory name> in <subject name>.)\n\n"
-				             + "java SaturnGrades update name <updated name>\n(Updates the user's name to <updated name>.)\n\n"
-				             + "java SaturnGrades update name <subject name> <updated name>\n(Updates the name of existing subject <subject name> to <updated name>.)\n\n"
-				             + "java SaturnGrades update name <subject name> <subcategory name> <updated name>\n(Updates the name of existing subcategory <subcategory name> in <subject name> to <updated name>.)\n\n"
-				             + "java SaturnGrades update weight <subject name> <subcategory name> <updated weight>\n(Updates the weight of existing subcategory <subcategory name> in <subject name> to <updated weight>.)\n\n"
-				             + "java SaturnGrades update name <subject name> <subcategory name> <assignment name> <updated name>\n(Updates the name of an existing assignment in <subcategory name> in <subject name>.)\n\n"
-				             + "java SaturnGrades update grade <subject name> <subcategory name> <assignment name> <updated grade>\n(Updates the grade of an existing assignment in <subcategory name> in <subject name>.)\n\n"
-				             + "java SaturnGrades update date <subject name> <subcategory name> <assignment name> <updated date>\n(Updates the date of an existing assignment in <subcategory name> in <subject name>.)\n\n");
-		System.exit(0);
-	    }
-	    if(keyword.equals("display")){
-		if(args.length != 2){
-		    System.out.println("Oops! Something went wrong!\nPlease utilize the following format:\n\njava SaturnGrades display <type>\n\nwhere <type> is either entered as 'basic' or 'informed'\ne.g.     java SaturnGrades display informed\n");
-		    System.exit(0);
-		}
-		if(args[1].equals("basic")){
-		    user.displayBasic();
-		    System.exit(0);
-		}
-		if(args[1].equals("informed")){
-		    user.displayInformed();
-		    System.exit(0);
-		}
-		System.out.println("Oops! Something went wrong!\nPlease utilize the following format:\n\njava SaturnGrades display <type>\n\nwhere <type> is either entered as basic* or informed**.\ne.g.     java SaturnGrades display basic\n         java SaturnGrades display informed\n\n* basic - an overall view of all subjects and subcategories, and assignments\n**informed - a more detailed view of all subjects, subcategories, and assignments\n");
-		System.exit(0);
-	    }
-	    if(keyword.equals("add")){ //java SaturnGrades add <subject name> (args.length = 2)
-		                       //java SaturnGrades add <subject name> <subcategory name> <weight> (args.length = 4)
-		                       //java SaturnGrades add <subject name> <subcategory> <assignment name> <grade> <date> (args.length = 6)
-		if(args.length != 2 && args.length != 4 && args.length != 6){
-		    System.out.println("Oops! Something went wrong!\nPlease utilize one of following formats:\n\njava SaturnGrades add <subject name>\n(This one adds a subject.)\n\njava SaturnGrades add <subject name> <subcategory name> <subcategory weight*>\n(This one adds a subcategory with its weight to specified subject.)\n\njava SaturnGrades add <subject name> <subcategory> <assignment name> <grade> <date>\n(This one adds an assignment with its grade and date to specified subcategory in specified subject.)\n\ne.g.     java SaturnGrades Calculus\n         java SaturnGrades Calculus Homeworks 25.0\n         java SaturnGrades Calculus Homeworks Homework#1 100 01/01/2018\n\n*weight - the percentage this subcategory will contribute to the subject's average\n");
-		    System.exit(0);
-		}else{
-		    if(args.length == 2){
-			user.addSubject(args[1]);
-			System.out.println(args[1] + " was added as a subject.\n");
-			user.writeFile();
-			System.exit(0);
-		    }
-		    if(args.length == 4){
-			if(user.checkIfSubjectPresent(args[1])){
-			    int indexOfSubject = user.getSubjectIndex(args[1]);
-			    user.getElement(indexOfSubject).addSubcategory(args[2], Double.parseDouble(args[3]));
-			    System.out.println(args[2] + " with weight " + args[3] + " was added as a subcategory in " + args[3] + "\n");
-			    user.writeFile();
-			    System.exit(0);
-			}
-			else{
-			    System.out.println("Please enter an existing subject to add the subcategory to.\n");
-			    System.exit(0);
-			}
-		    }
-		    if(args.length == 6){
-			if(user.checkIfSubjectPresent(args[1])){
-			    int indexOfSubject = user.getSubjectIndex(args[1]);
-			    if(user.getElement(indexOfSubject).checkIfSubcategoryPresent(args[2])){
-				int indexOfSubcategory = user.getElement(indexOfSubject).getSubcategoryIndex(args[2]);
-				user.getElement(indexOfSubject).getElement(indexOfSubcategory).addAssignment(args[3], Double.parseDouble(args[4]), args[5]);
-				System.out.println(args[3] + " with grade " + args[4] + " and date " + args[5] + " was added as an assignment in " + args[2] + " in " + args[1] + "\n");
-				user.writeFile();
-				System.exit(0);
-			    }
-			    else{
-				System.out.println("Please enter an existing subcategory to add the assignment to.\n");
-				System.exit(0);
-			    }
-			}
-			else{
-			    System.out.println("Please enter an existing subject to add the assignment to.\n");
-			    System.exit(0);
-			}
-		    }
-
-			
-		}
-	    }
-	    if(keyword.equals("remove")){ //java SaturnGrades remove <subject name> (args.length between 2 inclusive and 4 inclusive)
-		                          //java SaturnGrades remove <subject name> <subcategory name>
-		                          //java SaturnGrades remove <subject name> <subcategory name> <assignment name>
-		if(args.length < 2 || args.length > 4){
-		    System.out.println("Oops! Something went wrong!\nPlease utilize one of following formats:\n\njava SaturnGrades remove <subject name>\n(This one removes a subject.)\n\njava SaturnGrades remove <subject name> <subcategory name>\n(This one removes a subcategory from specified subject.)\n\njava SaturnGrades remove <subject name> <subcategory name> <assignment name>\n(This one removes a assignment from specified subcategory in specified subject.)\n\ne.g.     java SaturnGrades Chemistry\n         java SaturnGrades Chemistry Exams\n         java SaturnGrades Chemistry Exams Exam#3\n");
-		    System.exit(0);
-		}else{
-		    if(args.length == 2){
-			if(user.checkIfSubjectPresent(args[1])){
-				user.removeSubject(args[1]);
-				System.out.println(args[1] + " was removed as a subject.");
-				user.writeFile();
-				System.exit(0);
-			}
-			else{
-			    System.out.println(args[1] + " cannot be removed because it is not an existing subject.\n");
-			    System.exit(0);
-			}
-		    }
-		    if(args.length == 3){
-			if(user.checkIfSubjectPresent(args[1])){
-			    int indexOfSubject = user.getSubjectIndex(args[1]);
-			    if(user.getElement(indexOfSubject).checkIfSubcategoryPresent(args[2])){
-				int indexOfSubcategory = user.getElement(indexOfSubject).getSubcategoryIndex(args[2]);
-				user.getElement(indexOfSubject).removeSubcategory(args[2]);
-				System.out.println(args[2] + " was removed as a subcategory from " + args[1] + ".\n");
-				user.writeFile();
-				System.exit(0);
-			    }
-       			    else{
-				System.out.println(args[2] + " cannot be removed because it is not an existing subcategory in " + args[1] + ".\n");
-				System.exit(0);
-			    }
-			}
-			else{
-			    System.out.println(args[2] + " cannot be removed because " + args[1] + " does not exist."  + "\n");
-			    System.exit(0);
-			}
-		    }
-		    if(args.length == 4){
-			if(user.checkIfSubjectPresent(args[1])){
-			    int indexOfSubject = user.getSubjectIndex(args[1]);
-			    if(user.getElement(indexOfSubject).checkIfSubcategoryPresent(args[2])){
-				int indexOfSubcategory = user.getElement(indexOfSubject).getSubcategoryIndex(args[2]);
-				if(user.getElement(indexOfSubject).getElement(indexOfSubcategory).checkIfAssignmentPresent(args[3])){
-				    int indexOfAssignment = user.getElement(indexOfSubject).getElement(indexOfSubcategory).getAssignmentIndex(args[3]);
-				    user.getElement(indexOfSubject).getElement(indexOfSubcategory).removeAssignment(args[3]);
-				    System.out.println(args[3] + " was removed as an assignment from " + args[2] + " in " + args[1] + ".\n");
-				    user.writeFile();
-				    System.exit(0);
-      				}
-				else{
-				    System.out.println(args[3] + " cannot be removed because it is not an existing assignment in " + args[2] + " in " + args[1] + ".\n");
-				    System.exit(0);
-				}
-			    }
-			    else{
-				System.out.println(args[3] + " cannot be removed because " + args[2]  + " does not exist in " + args[1] + ".\n");
-				System.exit(0);
-			    }
-			}
-			else{
-			    System.out.println(args[3] + " cannot be removed because "  + args[1] + " does not exist.\n");
-			    System.exit(0);
-			}
-		    }
-		}
-	    }
-	    if(keyword.equals("update")){ //java SaturnGrades update name <updated name> (3 args)
-		                          //java SaturnGrades update name <subject> <updated name> (4 args)
-		                          //java SaturnGrades update name <subject> <subcategory> <updated name> (5 args)
-		                          //java SaturnGrades update weight <subject> <subcategory> <updated weight> (5 args)
-		                          //java SaturnGrades update name <subject> <subcategory> <assignment> <updated name> (6 args)
-		                          //java SaturnGrades update grade <subject> <subcategory> <assignment> <updated grade> (6 args)
-                                          //java SaturnGrades update date <subject> <subcategory> <assignment> <updated date> (6 args)
-		if(args.length < 3 || args.length > 6){
-		    System.out.println("Oops! Something went wrong!\nPlease utilize one of following formats:\n\njava SaturnGrades update name <updated name>\n(This one updates the name associated with the user.)\n\njava SaturnGrades update name <subject> <updated name>\n(This one updates the name of the subject.)\n\njava SaturnGrades update name <subject> <subcategory> <updated name>\n(This one updates the name of the subcategory in the specified subject.)\n\njava SaturnGrades update weight <subject> <subcategory> <updated weight>\n(This one updates the weight of the subcategory in the specified subject.)\n\njava SaturnGrades update name <subject> <subcategory> <assignment> <updated name>\n(This one updates the name of the assignment in the specified subcategory and subject.)\n\njava SaturnGrades update grade <subject> <subcategory> <assignment> <updated grade>\n(This one updates the grade of the assignment in the specified subcategory and subject.)\n\njava SaturnGrades update date <subject> <subcategory> <assignment> <updated date>\n(This one updates the date of the assignment in the specified subcategory and subject.)\n\ne.g.     java SaturnGrades update name John Doe\n         java SaturnGrades update Math Precalculus\n         java SaturnGrades update Math Quizzes Mini-Tests\n         java SaturnGrades Math Quizzes 10.0\n         java SaturnGrades Math Quizzes Quiz#1 Quiz#2\n         java SaturnGrades Math Quizzes Quiz#1 100.0\n         java SaturnGrades Math Quizzes 01/01/2018 12/12/2019\n");
-		    System.exit(0);
-		}else{
-		    if(args.length == 3 && args[1].equals("name")){ //java SaturnGrades update name <updated name> (3 args)
-			String oldName = user.getName();
-			user.setName(args[2]);
-			System.out.println("User's name changed from " + oldName + " to " + args[2] + ".\n");
-			user.writeFile();
-			System.exit(0);
-		    }
-		    if(args.length == 4){ //java SaturnGrades update name <subject> <updated name> (4 args)
-			if(args[1].equals("name")){
-			    if(user.checkIfSubjectPresent(args[2])){
-				int indexOfSubject = user.getSubjectIndex(args[2]);
-				String oldName = user.getElement(indexOfSubject).getName();
-				user.getElement(indexOfSubject).setName(args[3]);
-				System.out.println("Subject's name changed from " + oldName + " to " + args[3] + ".\n");
-				user.writeFile();
-				System.exit(0);
-			    }
-			    else{
-				System.out.println("No changes occurred as " + args[2] + " was unable to be located.\n");
-				System.exit(0);
-			    }
-			}
-			else{
-			    System.out.println("Please recheck the format of the input.\n\njava SaturnGrades update name <subject> <updated name>\n");
-			    System.exit(0);
-			}
-		    }
-		    if(args.length == 5){ //java SaturnGrades update name <subject> <subcategory> <updated name> (5 args)
-			if(args[1].equals("name")){
-			    if(user.checkIfSubjectPresent(args[2])){
-				int indexOfSubject = user.getSubjectIndex(args[2]);
-				if(user.getElement(indexOfSubject).checkIfSubcategoryPresent(args[3])){
-				    int indexOfSubcategory = user.getElement(indexOfSubject).getSubcategoryIndex(args[3]);
-				    String oldName = user.getElement(indexOfSubject).getElement(indexOfSubcategory).getName();
-				    user.getElement(indexOfSubject).getElement(indexOfSubcategory).setName(args[4]);
-				    System.out.println("Subcategory's name changed from " + oldName + " to " + args[4] + ".\n");
-				    user.writeFile();
-				    System.exit(0);
-				}
-				else{
-				    System.out.println("No changes occurred as " + args[3] + " was unable to be located.\n");
-				    System.exit(0);
-				}
-			    }
-			    else{
-				System.out.println("No changes occurred as " + args[2] + " was unable to be located.\n");
-				System.exit(0);
-			    }
-			}else{ //java SaturnGrades update weight <subject> <subcategory> <updated weight> (5 args)
-			    if(args[1].equals("weight")){
-				if(user.checkIfSubjectPresent(args[2])){
-				    int indexOfSubject = user.getSubjectIndex(args[2]);
-				    if(user.getElement(indexOfSubject).checkIfSubcategoryPresent(args[3])){
-					int indexOfSubcategory = user.getElement(indexOfSubject).getSubcategoryIndex(args[3]);
-					double oldWeight = user.getElement(indexOfSubject).getElement(indexOfSubcategory).getWeight();
-					user.getElement(indexOfSubject).getElement(indexOfSubcategory).setWeight(Double.parseDouble(args[4]));
-					System.out.println("Subcategory's weight changed from " + oldWeight + " to " + args[4] + ".\n");
-					user.writeFile();
-					System.exit(0);
-				    }
-				    else{
-					System.out.println("No changes occurred as " + args[3] + " was unable to be located.\n");
-					System.exit(0);
-				    }
-				}
-				else{
-				    System.out.println("No changes occurred as " + args[2] + " was unable to be located.\n");
-				    System.exit(0);
-				}
-			    }
-			    else{
-				System.out.println("Please recheck the format of the input.\n\njava SaturnGrades update name <subject> <subcategory> <updated name>\n\nor\n\njava SaturnGrades update weight <subject> <subcategory> <updated weight>\n");
-				System.exit(0);
-			    }
-			}
-		    }
-		    if(args.length == 6){ //java SaturnGrades update name <subject> <subcategory> <assignment> <updated name> (6 args)
-			if(args[1].equals("name")){
-			    if(user.checkIfSubjectPresent(args[2])){
-				int indexOfSubject = user.getSubjectIndex(args[2]);
-				if(user.getElement(indexOfSubject).checkIfSubcategoryPresent(args[3])){
-				    int indexOfSubcategory = user.getElement(indexOfSubject).getSubcategoryIndex(args[3]);
-				    if(user.getElement(indexOfSubject).getElement(indexOfSubcategory).checkIfAssignmentPresent(args[4])){
-					int indexOfAssignment = user.getElement(indexOfSubject).getElement(indexOfSubcategory).getAssignmentIndex(args[4]);
-					String oldName = user.getElement(indexOfSubject).getElement(indexOfSubcategory).getElement(indexOfAssignment).getName();
-					user.getElement(indexOfSubject).getElement(indexOfSubcategory).getElement(indexOfAssignment).setName(args[5]);
-					System.out.println("Assignment's name changed from " + oldName + " to " + args[5] + ".\n");
-					user.writeFile();
-					System.exit(0);
-				    }
-				    else{
-					System.out.println("No changes occurred as " + args[4] + " was unable to be located.\n");
-					System.exit(0);
-				    }
-				}
-				else{
-				    System.out.println("No changes occurred as " + args[3] + " was unable to be located.\n");
-				    System.exit(0);
-				}
-			    }
-			    else{
-				System.out.println("No changes occurred as " + args[2] + " was unable to be located.\n");
-				System.exit(0);
-			    }
-			}else{ //java SaturnGrades update grade <subject> <subcategory> <assignment> <updated grade>
-			    if(args[1].equals("grade")){
-				if(user.checkIfSubjectPresent(args[2])){
-				    int indexOfSubject = user.getSubjectIndex(args[2]);
-				    if(user.getElement(indexOfSubject).checkIfSubcategoryPresent(args[3])){
-					int indexOfSubcategory = user.getElement(indexOfSubject).getSubcategoryIndex(args[3]);
-					if(user.getElement(indexOfSubject).getElement(indexOfSubcategory).checkIfAssignmentPresent(args[4])){
-					    int indexOfAssignment = user.getElement(indexOfSubject).getElement(indexOfSubcategory).getAssignmentIndex(args[4]);
-					    Double oldGrade = user.getElement(indexOfSubject).getElement(indexOfSubcategory).getElement(indexOfAssignment).getGrade();
-					    user.getElement(indexOfSubject).getElement(indexOfSubcategory).getElement(indexOfAssignment).setGrade(Double.parseDouble(args[5]));
-					    System.out.println("Assignment's grade changed from " + oldGrade + " to " + args[5] + ".\n");
-					    user.writeFile();
-					    System.exit(0);
-					}
-					else{
-					    System.out.println("No changes occurred as " + args[4] + " was unable to be located.\n");
-					    System.exit(0);
-					}
-				    }
-				    else{
-					System.out.println("No changes occurred as " + args[3] + " was unable to be located.\n");
-					System.exit(0);
-				    }
-				}
-				else{
-				    System.out.println("No changes occurred as " + args[2] + " was unable to be located.\n");
-				    System.exit(0);
-				}
-			    }else{
-				if(args[1].equals("date")){
-				    if(user.checkIfSubjectPresent(args[2])){
-					int indexOfSubject = user.getSubjectIndex(args[2]);
-					if(user.getElement(indexOfSubject).checkIfSubcategoryPresent(args[3])){
-					    int indexOfSubcategory = user.getElement(indexOfSubject).getSubcategoryIndex(args[3]);
-					    if(user.getElement(indexOfSubject).getElement(indexOfSubcategory).checkIfAssignmentPresent(args[4])){
-						int indexOfAssignment = user.getElement(indexOfSubject).getElement(indexOfSubcategory).getAssignmentIndex(args[4]);
-						String oldDate = user.getElement(indexOfSubject).getElement(indexOfSubcategory).getElement(indexOfAssignment).getDate();
-						user.getElement(indexOfSubject).getElement(indexOfSubcategory).getElement(indexOfAssignment).setDate(args[5]);
-						System.out.println("Assignment's date changed from " + oldDate + " to " + args[5] + ".\n");
-						user.writeFile();
-						System.exit(0);
-					    }
-					    else{
-						System.out.println("No changes occurred as " + args[4] + " was unable to be located.\n");
-						System.exit(0);
-					    }
-					}
-					else{
-					    System.out.println("No changes occurred as " + args[3] + " was unable to be located.\n");
-					    System.exit(0);
-					}
-				    }
-				    else{
-					System.out.println("No changes occurred as " + args[2] + " was unable to be located.\n");
-					System.exit(0);
-				    }
-				}
-				else{
-				    System.out.println("Please recheck the format of the input.\n\njava SaturnGrades update name <subject> <subcategory> <assignment> <updated name>\n\nor\n\njava SaturnGrades update grade <subject> <subcategory> <assignment> <updated grade>\n\nor\n\njava SaturnGrades update date <subject> <subcategory> <assignment> <updated date>\n");
-				    System.exit(0);
-				}
-			    }
-			}
-		    }
-
-
-
-
-
-
-
-		    
-		}
-	    }
-
-	    else{
-		System.out.println("Invalid keyword or format. Please check your input again.");
-		System.exit(0);
-	    }
-
-
-
-
-	       
-	}*/
-
-	
-
 }
 
