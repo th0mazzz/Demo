@@ -517,23 +517,43 @@ public class SaturnGrades{
 		    user.main(emptyArray);
 		}
 		
+		if(whatYouWannaUpdate.toLowerCase().equals("subject")){
+
+		    String partYouWannaUpdate = console.readLine("You may only update a subject's name.\nPress enter to continue.\n\n");
+		    clearScreen();
+
+		    String subjectName = console.readLine("Please enter the name of the subject whose name you wish to update: ");
+			if(user.checkIfSubjectPresent(subjectName)){
+			    clearScreen();
+			    int indexOfSubject = user.getSubjectIndex(subjectName);
+			    String oldName = user.getElement(indexOfSubject).getName();
+			    clearScreen();
+			    String updatedName = console.readLine("Please enter the updated name for this subject: ");
+			    clearScreen();
+			    user.getElement(indexOfSubject).setName(updatedName);
+			    user.writeFile();
+			    System.out.println("Subject's name changed from " + oldName + " to " + updatedName + ".\n");
+			    console.readLine("Press enter to resume to the welcome screen.\n\n");
+			    user.main(emptyArray);
+			}
+			else{
+			    clearScreen();
+			    System.out.println("No changes occurred as " + subjectName + " was unable to be located.\n");
+			    console.readLine("Press enter to resume to the welcome screen.\n\n");
+			    user.main(emptyArray);
+			}
 
 
 
+
+		    
+		}
 
 		
 	    }
 
 
 	    /*
-
-		    if(args.length == 3 && args[1].equals("name")){ //java SaturnGrades update name <updated name> (3 args)
-			String oldName = user.getName();
-			user.setName(args[2]);
-			System.out.println("User's name changed from " + oldName + " to " + args[2] + ".\n");
-			user.writeFile();
-			System.exit(0);
-		    }
 		    if(args.length == 4){ //java SaturnGrades update name <subject> <updated name> (4 args)
 			if(args[1].equals("name")){
 			    if(user.checkIfSubjectPresent(args[2])){
