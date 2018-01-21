@@ -46,37 +46,42 @@ public class SaturnGradesGUI extends JFrame implements ActionListener{
 	setLocationRelativeTo(null);
 	//this.setDefaultLookAndFeelDecorated(true);
 	//this.setIconImage(new ImageIcon("https://d30y9cdsu7xlg0.cloudfront.net/png/129365-200.png").getImage());
-	setSize(500, 500);
+	setSize(1000, 700);
 	setVisible(true);
     }
 
     public void setUpHomePane(){
 	homePane = new JPanel(new BorderLayout());
 
+	//adding the saturn grades label at the top
 	JLabel SaturnGrades = new JLabel("Saturn Grades");
 	SaturnGrades.setOpaque(true);
 	SaturnGrades.setBackground(new Color(124, 132,142));
-	SaturnGrades.setPreferredSize(new Dimension(150,50));
+	SaturnGrades.setPreferredSize(new Dimension(200,150));
 	homePane.add(SaturnGrades, BorderLayout.NORTH);
 
-	JButton viewsubs = new JButton("View Subjects");
-	viewsubs.setActionCommand("see_subjects");
-	viewsubs.addActionListener(this);
-	homePane.add(viewsubs, BorderLayout.SOUTH);
-
-	//homePane.setBorder(BorderFactory.createEmptyBorder(100,100,100,100));
+	//adding the middle pane with GPA reports and navigation tools
 	homePane.add(setUpMidPane(), BorderLayout.CENTER);
+
+	//adding the bottom pane with logout, settings, and home navigation
+	JPanel bottom = new JPanel(new FlowLayout());
+	JLabel comingsoon = new JLabel("Stuff coming soon");
+	bottom.add(comingsoon);
+	homePane.add(bottom, BorderLayout.SOUTH);
     }
 
     public JPanel setUpMidPane(){
-	JPanel midPane = new JPanel(new FlowLayout());
-	JLabel GPA = new JLabel("GPA: "+program.getAverage());
-	GPA.setOpaque(true);
-	//GPA.setBackground(new Color(124,135,124));
-	//GPA.setPreferredSize(new Dimension(150, 50));
+	JPanel midPane = new JPanel(new BorderLayout());
 
-	//midPane.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
-	midPane.add(GPA);
+	//top of pane w/ GPA reports
+	JLabel sem = new JLabel("Semester GPA: " +program.getAverage());
+	midPane.add(sem, BorderLayout.NORTH);
+	
+	//middle of pane with navigational buttons
+	JButton viewsubs = new JButton("View Subjects");
+	viewsubs.setActionCommand("see_subjects");
+	viewsubs.addActionListener(this);
+	midPane.add(viewsubs, BorderLayout.WEST);
 
 	return midPane;
     }
