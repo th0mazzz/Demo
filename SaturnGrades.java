@@ -286,7 +286,7 @@ public class SaturnGrades{
 	
 	String keyword = console.readLine("Please enter a keyword: ");
 	
-	if(!keyword.equals("")){;
+	if(!keyword.equals("")){
 
 	    
 	    if(keyword.equals("help")){
@@ -623,66 +623,75 @@ public class SaturnGrades{
 				user.main(emptyArray);
 			    }
 		    }
-
-		    
-		    
 		}
 
-		
+		if(whatYouWannaUpdate.toLowerCase().equals("assignment")){
+		    clearScreen();
+		    String partYouWannaUpdate = console.readLine("Please enter whether you wish to update an assignment's name, grade, or date: ");
+		    clearScreen();
+
+		    if(partYouWannaUpdate.toLowerCase().equals("name")){
+			String subjectName = console.readLine("Please enter the name of subject that contains the assignment whose name you wish to update: ");
+			clearScreen();
+			
+			if(user.checkIfSubjectPresent(subjectName)){
+			    int indexOfSubject = user.getSubjectIndex(subjectName);
+			    String subcategoryName = console.readLine("Please enter the name of the subcategory that contains the assignment whose name you wish to update: ");
+			    clearScreen();
+			    			    
+			    if(user.getElement(indexOfSubject).checkIfSubcategoryPresent(subcategoryName)){
+				int indexOfSubcategory = user.getElement(indexOfSubject).getSubcategoryIndex(subcategoryName);
+				String assignmentName = console.readLine("Please enter the name of the assignment whose name you wish to update: ");
+				clearScreen();
+				
+				if(user.getElement(indexOfSubject).getElement(indexOfSubcategory).checkIfAssignmentPresent(assignmentName)){
+				    int indexOfAssignment = user.getElement(indexOfSubject).getElement(indexOfSubcategory).getAssignmentIndex(assignmentName);
+				    String oldName = assignmentName;
+				    String updatedName = console.readLine("Please enter the new name of this assignment: ");
+				    clearScreen();
+				    user.getElement(indexOfSubject).getElement(indexOfSubcategory).getElement(indexOfAssignment).setName(updatedName);
+				    user.writeFile();
+				    System.out.println("Assignment's name changed from " + oldName + " to " + updatedName + ".\n");
+				    console.readLine("Press enter to resume to the welcome screen.\n\n");
+				    user.main(emptyArray);
+      				}
+				else{
+				    System.out.println("No changes occurred as " + assignmentName + " was unable to be located.\n");
+				    console.readLine("Press enter to resume to the welcome screen.\n\n");
+				    user.main(emptyArray);
+				}
+			    }
+			    else{
+				System.out.println("No changes occurred as " + subcategoryName + " was unable to be located.\n");
+				console.readLine("Press enter to resume to the welcome screen.\n\n");
+				user.main(emptyArray);
+			    }
+			}
+			else{
+			    System.out.println("No changes occurred as " + subjectName + " was unable to be located.\n");
+			    console.readLine("Press enter to resume to the welcome screen.\n\n");
+			    user.main(emptyArray);
+			}
+
+		    }
+		}
+
+
+
+		    
 	    }
+
+
+
+
+
+		
+	
 
 
 	    /*
 		   
-		    if(args.length == 5){ //java SaturnGrades update name <subject> <subcategory> <updated name> (5 args)
-			if(args[1].equals("name")){
-			    if(user.checkIfSubjectPresent(args[2])){
-				int indexOfSubject = user.getSubjectIndex(args[2]);
-				if(user.getElement(indexOfSubject).checkIfSubcategoryPresent(args[3])){
-				    int indexOfSubcategory = user.getElement(indexOfSubject).getSubcategoryIndex(args[3]);
-				    String oldName = user.getElement(indexOfSubject).getElement(indexOfSubcategory).getName();
-				    user.getElement(indexOfSubject).getElement(indexOfSubcategory).setName(args[4]);
-				    System.out.println("Subcategory's name changed from " + oldName + " to " + args[4] + ".\n");
-				    user.writeFile();
-				    System.exit(0);
-				}
-				else{
-				    System.out.println("No changes occurred as " + args[3] + " was unable to be located.\n");
-				    System.exit(0);
-				}
-			    }
-			    else{
-				System.out.println("No changes occurred as " + args[2] + " was unable to be located.\n");
-				System.exit(0);
-			    }
-			}else{ //java SaturnGrades update weight <subject> <subcategory> <updated weight> (5 args)
-			    if(args[1].equals("weight")){
-				if(user.checkIfSubjectPresent(args[2])){
-				    int indexOfSubject = user.getSubjectIndex(args[2]);
-				    if(user.getElement(indexOfSubject).checkIfSubcategoryPresent(args[3])){
-					int indexOfSubcategory = user.getElement(indexOfSubject).getSubcategoryIndex(args[3]);
-					double oldWeight = user.getElement(indexOfSubject).getElement(indexOfSubcategory).getWeight();
-					user.getElement(indexOfSubject).getElement(indexOfSubcategory).setWeight(Double.parseDouble(args[4]));
-					System.out.println("Subcategory's weight changed from " + oldWeight + " to " + args[4] + ".\n");
-					user.writeFile();
-					System.exit(0);
-				    }
-				    else{
-					System.out.println("No changes occurred as " + args[3] + " was unable to be located.\n");
-					System.exit(0);
-				    }
-				}
-				else{
-				    System.out.println("No changes occurred as " + args[2] + " was unable to be located.\n");
-				    System.exit(0);
-				}
-			    }
-			    else{
-				System.out.println("Please recheck the format of the input.\n\njava SaturnGrades update name <subject> <subcategory> <updated name>\n\nor\n\njava SaturnGrades update weight <subject> <subcategory> <updated weight>\n");
-				System.exit(0);
-			    }
-			}
-		    }
+		    
 		    if(args.length == 6){ //java SaturnGrades update name <subject> <subcategory> <assignment> <updated name> (6 args)
 			if(args[1].equals("name")){
 			    if(user.checkIfSubjectPresent(args[2])){
@@ -798,6 +807,7 @@ public class SaturnGrades{
 	    user.main(emptyArray);
 
 	}
+    }
 
 
 	    
@@ -1174,5 +1184,5 @@ public class SaturnGrades{
 
 	
 
-    }
 }
+
