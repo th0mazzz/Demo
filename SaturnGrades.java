@@ -422,6 +422,7 @@ public class SaturnGrades{
 				    double assignmentGrade = Double.parseDouble(assignmentGradeString);
 				    assignmentGradeCopy = assignmentGrade;
 				}catch(NumberFormatException e){
+				    clearScreen();
 				    System.out.println(assignmentGradeString + " is not a viable value for grade!");
 				    console.readLine("Press enter to resume to the welcome screen.\n\n");
 				    user.main(emptyArray);
